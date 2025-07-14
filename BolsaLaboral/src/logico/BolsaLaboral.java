@@ -8,6 +8,7 @@ public class BolsaLaboral {
 	public static int genCodigoSolicitud = 1;
 	public static int genCodigoOferta = 1;
 	public static int genCodigoCentro = 1;
+	public static int genCodigoRepresentante = 1;
 	private ArrayList<Candidato> candidatos;
 	private ArrayList<Solicitud> solicitudes;
 	private ArrayList<OfertaLaboral> ofertas;
@@ -52,7 +53,6 @@ public class BolsaLaboral {
 	public void setCentros(ArrayList<CentroEmpleador> centros) {
 		this.centros = centros;
 	}
-	
 
 	public static BolsaLaboral getInstancia() {
 		if(instancia == null) {

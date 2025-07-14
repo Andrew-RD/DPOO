@@ -1,118 +1,52 @@
 package logico;
 
-import java.time.LocalDate;
+import java.util.ArrayList;
 
-public abstract class Candidato{
-	private String codigo;
-	private String nombres;
-	private String apellidos;
-	private String identificacion;
-	private LocalDate fechaNacimiento;
-	private String provincia;
-	private String municio;
-	private String telefono;
-	private String correo;
-	private boolean estaTrabajando;
-	private boolean licenciaConducir;
-	private boolean disposicionMudarse;
-	private CondicionLaboral preferencia;
+public class Candidato extends Persona{
+	private String profesion;
+	private int aniosExperiencia;
+	private String estadoLaboral;
+	private ArrayList<Formacion> formacion;
 	
-	public Candidato(String codigo, String nombres, String apellidos, String identificacion, LocalDate fechaNacimiento,
-			String provincia, String municio, String telefono, String correo, boolean estaTrabajando,
-			boolean licenciaConducir, boolean disposicionMudarse, CondicionLaboral preferencia) {
-		super();
-		this.codigo = codigo;
-		this.nombres = nombres;
-		this.apellidos = apellidos;
-		this.identificacion = identificacion;
-		this.fechaNacimiento = fechaNacimiento;
-		this.provincia = provincia;
-		this.municio = municio;
-		this.telefono = telefono;
-		this.correo = correo;
-		this.estaTrabajando = estaTrabajando;
-		this.licenciaConducir = licenciaConducir;
-		this.disposicionMudarse = disposicionMudarse;
-		this.preferencia = preferencia;
+	public Candidato(String codigo, String nombres, String apellidos, String identificacion, String direccion,
+			String telefono, String correo, String profesion, int aniosExperiencia, String estadoLaboral) {
+		super(codigo, nombres, apellidos, identificacion, direccion, telefono, correo);
+		this.profesion = profesion;
+		this.aniosExperiencia = aniosExperiencia;
+		this.estadoLaboral = estadoLaboral;
+		this.formacion = new ArrayList<>();
 	}
-	
-	public String getCodigo() {
-		return codigo;
+
+	public String getProfesion() {
+		return profesion;
 	}
-	public void setCodigo(String codigo) {
-		this.codigo = codigo;
+
+	public void setProfesion(String profesion) {
+		this.profesion = profesion;
 	}
-	public String getNombres() {
-		return nombres;
+
+	public int getAniosExperiencia() {
+		return aniosExperiencia;
 	}
-	public void setNombres(String nombres) {
-		this.nombres = nombres;
+
+	public void setAniosExperiencia(int aniosExperiencia) {
+		this.aniosExperiencia = aniosExperiencia;
 	}
-	public String getApellidos() {
-		return apellidos;
+
+	public String getEstadoLaboral() {
+		return estadoLaboral;
 	}
-	public void setApellidos(String apellidos) {
-		this.apellidos = apellidos;
+
+	public void setEstadoLaboral(String estadoLaboral) {
+		this.estadoLaboral = estadoLaboral;
 	}
-	public String getIdentificacion() {
-		return identificacion;
+
+	public ArrayList<Formacion> getFormacion() {
+		return formacion;
 	}
-	public void setIdentificacion(String identificacion) {
-		this.identificacion = identificacion;
+
+	public void setFormacion(ArrayList<Formacion> formacion) {
+		this.formacion = formacion;
 	}
-	public LocalDate getFechaNacimiento() {
-		return fechaNacimiento;
-	}
-	public void setFechaNacimiento(LocalDate fechaNacimiento) {
-		this.fechaNacimiento = fechaNacimiento;
-	}
-	public String getProvincia() {
-		return provincia;
-	}
-	public void setProvincia(String provincia) {
-		this.provincia = provincia;
-	}
-	public String getMunicio() {
-		return municio;
-	}
-	public void setMunicio(String municio) {
-		this.municio = municio;
-	}
-	public String getTelefono() {
-		return telefono;
-	}
-	public void setTelefono(String telefono) {
-		this.telefono = telefono;
-	}
-	public String getCorreo() {
-		return correo;
-	}
-	public void setCorreo(String correo) {
-		this.correo = correo;
-	}
-	public boolean isEstaTrabajando() {
-		return estaTrabajando;
-	}
-	public void setEstaTrabajando(boolean estaTrabajando) {
-		this.estaTrabajando = estaTrabajando;
-	}
-	public boolean isLicenciaConducir() {
-		return licenciaConducir;
-	}
-	public void setLicenciaConducir(boolean licenciaConducir) {
-		this.licenciaConducir = licenciaConducir;
-	}
-	public boolean isDisposicionMudarse() {
-		return disposicionMudarse;
-	}
-	public void setDisposicionMudarse(boolean disposicionMudarse) {
-		this.disposicionMudarse = disposicionMudarse;
-	}
-	public CondicionLaboral getPreferencia() {
-		return preferencia;
-	}
-	public void setPreferencia(CondicionLaboral preferencia) {
-		this.preferencia = preferencia;
-	}
-	
+
 }
