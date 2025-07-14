@@ -6,19 +6,21 @@ public class CentroEmpleador {
 	private String codigo;
 	private String nombre;
 	private String sector;
-	private String ciudad;
-	private String direccion;
-	private Representante representante;
+	private String provincia;
+	private String municipio;
+	private String telefono;
+	private String correo;
 	private ArrayList<OfertaLaboral> ofertasLaborales;
 
-	public CentroEmpleador(String codigo, String nombre, String sector, String ciudad, String direccion, Representante representante) {
+	public CentroEmpleador(String codigo, String nombre, String sector, String ciudad, String direccion, String telefono, String correo) {
 		super();
 		this.codigo = codigo;
 		this.nombre = nombre;
 		this.sector = sector;
-		this.ciudad = ciudad;
-		this.direccion = direccion;
-		this.representante = representante;
+		this.provincia = ciudad;
+		this.municipio = direccion;
+		this.telefono = telefono;
+		this.correo = correo;
 		this.ofertasLaborales = new ArrayList<>();
 	}
 
@@ -47,27 +49,19 @@ public class CentroEmpleador {
 	}
 
 	public String getCiudad() {
-		return ciudad;
+		return provincia;
 	}
 
 	public void setCiudad(String ciudad) {
-		this.ciudad = ciudad;
+		this.provincia = ciudad;
 	}
 
 	public String getDireccion() {
-		return direccion;
+		return municipio;
 	}
 
 	public void setDireccion(String direccion) {
-		this.direccion = direccion;
-	}
-
-	public Representante getRepresentante() {
-		return representante;
-	}
-
-	public void setRepresentante(Representante representante) {
-		this.representante = representante;
+		this.municipio = direccion;
 	}
 
 	public ArrayList<OfertaLaboral> getOfertasLaborales() {
@@ -76,6 +70,22 @@ public class CentroEmpleador {
 
 	public void setOfertasLaborales(ArrayList<OfertaLaboral> ofertasLaborales) {
 		this.ofertasLaborales = ofertasLaborales;
+	}
+
+	public String getTelefono() {
+		return telefono;
+	}
+
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
+	}
+
+	public String getCorreo() {
+		return correo;
+	}
+
+	public void setCorreo(String correo) {
+		this.correo = correo;
 	}
 
 }
