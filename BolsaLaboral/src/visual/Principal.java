@@ -7,6 +7,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import logico.CentroEmpleador;
+
 import javax.swing.JMenuBar;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -73,7 +76,7 @@ public class Principal extends JFrame {
 		JMenuItem mntmCentRegistrar = new JMenuItem("  Registrar");
 		mntmCentRegistrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				RegistrarRepresentante registro = new RegistrarRepresentante(null);
+				RegistroCentro registro = new RegistroCentro(null);
 				registro.setModal(true);
 				registro.setVisible(true);
 			}
