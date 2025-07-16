@@ -20,23 +20,26 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Toolkit;
 
 public class RegistroCentro extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private CentroEmpleador centroAct = null;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_5;
+	private JTextField txtCodigo;
+	private JTextField txtNombre;
+	private JTextField txtTelefono;
+	private JTextField txtCorreo;
+	private JTextField txtProvincia;
+	private JTextField txtMunicipio;
 	private JComboBox cmbSector;
 	private JLabel lblIcono;
+	private JTextField txtRNC;
 	/**
 	 * Create the dialog.
 	 */
 	public RegistroCentro(CentroEmpleador centro) {
+		setIconImage(Toolkit.getDefaultToolkit().getImage("recursos/icono.png"));
 		setResizable(false);
 		if(centro == null) {
 			setTitle("Registrar Centro de Trabajo");
@@ -45,7 +48,7 @@ public class RegistroCentro extends JDialog {
 			setTitle("Modificar Centro de Trabajo");
 			centroAct = centro;
 		}
-		setBounds(100, 100, 560, 527);
+		setBounds(100, 100, 560, 567);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(new Color(228, 228, 228));
@@ -54,6 +57,7 @@ public class RegistroCentro extends JDialog {
 		contentPanel.setLayout(new BorderLayout(0, 0));
 		{
 			JPanel contenedor = new JPanel();
+			contenedor.setBackground(new Color(228, 228, 228));
 			contenedor.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0), 1, true), "Datos del Centro Empleador", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 			contentPanel.add(contenedor, BorderLayout.CENTER);
 			contenedor.setLayout(null);
@@ -63,11 +67,12 @@ public class RegistroCentro extends JDialog {
 			lblNewLabel.setBounds(22, 29, 84, 29);
 			contenedor.add(lblNewLabel);
 			
-			textField = new JTextField();
-			textField.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-			textField.setBounds(116, 29, 305, 22);
-			contenedor.add(textField);
-			textField.setColumns(10);
+			txtCodigo = new JTextField();
+			txtCodigo.setEditable(false);
+			txtCodigo.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+			txtCodigo.setBounds(116, 29, 305, 22);
+			contenedor.add(txtCodigo);
+			txtCodigo.setColumns(10);
 			
 			JSeparator separator = new JSeparator();
 			separator.setForeground(Color.BLACK);
@@ -79,12 +84,12 @@ public class RegistroCentro extends JDialog {
 			lblNombre.setBounds(22, 86, 84, 29);
 			contenedor.add(lblNombre);
 			
-			textField_1 = new JTextField();
-			textField_1.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-			textField_1.setColumns(10);
-			textField_1.setBounds(116, 88, 305, 22);
-			contenedor.add(textField_1);
-			
+			txtNombre = new JTextField();
+			txtNombre.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+			txtNombre.setColumns(10);
+			txtNombre.setBounds(116, 88, 305, 22);
+			contenedor.add(txtNombre);
+
 			JLabel lblSector = new JLabel("Sector:");
 			lblSector.setFont(new Font("Segoe UI", Font.BOLD, 16));
 			lblSector.setBounds(22, 138, 84, 29);
@@ -109,8 +114,9 @@ public class RegistroCentro extends JDialog {
 			contenedor.add(lblIcono);
 			
 			JPanel pnlContactos = new JPanel();
+			pnlContactos.setBackground(new Color(228, 228, 228));
 			pnlContactos.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "Contactos y Ubicaci\u00F3n", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-			pnlContactos.setBounds(12, 180, 513, 229);
+			pnlContactos.setBounds(12, 226, 513, 229);
 			contenedor.add(pnlContactos);
 			pnlContactos.setLayout(null);
 			
@@ -119,28 +125,28 @@ public class RegistroCentro extends JDialog {
 			lblTelfono.setBounds(12, 28, 84, 29);
 			pnlContactos.add(lblTelfono);
 			
-			textField_2 = new JTextField();
-			textField_2.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-			textField_2.setColumns(10);
-			textField_2.setBounds(108, 35, 305, 22);
-			pnlContactos.add(textField_2);
+			txtTelefono = new JTextField();
+			txtTelefono.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+			txtTelefono.setColumns(10);
+			txtTelefono.setBounds(108, 35, 305, 22);
+			pnlContactos.add(txtTelefono);
 			
 			JLabel lblCorreo = new JLabel("Correo:");
 			lblCorreo.setFont(new Font("Segoe UI", Font.BOLD, 16));
 			lblCorreo.setBounds(12, 78, 84, 29);
 			pnlContactos.add(lblCorreo);
 			
-			textField_3 = new JTextField();
-			textField_3.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-			textField_3.setColumns(10);
-			textField_3.setBounds(108, 81, 305, 22);
-			pnlContactos.add(textField_3);
+			txtCorreo = new JTextField();
+			txtCorreo.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+			txtCorreo.setColumns(10);
+			txtCorreo.setBounds(108, 81, 305, 22);
+			pnlContactos.add(txtCorreo);
 			
-			textField_4 = new JTextField();
-			textField_4.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-			textField_4.setColumns(10);
-			textField_4.setBounds(108, 133, 305, 22);
-			pnlContactos.add(textField_4);
+			txtProvincia = new JTextField();
+			txtProvincia.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+			txtProvincia.setColumns(10);
+			txtProvincia.setBounds(108, 133, 305, 22);
+			pnlContactos.add(txtProvincia);
 			
 			JLabel lblProvincia = new JLabel("Provincia:");
 			lblProvincia.setFont(new Font("Segoe UI", Font.BOLD, 16));
@@ -152,11 +158,22 @@ public class RegistroCentro extends JDialog {
 			lblMunicipio.setBounds(12, 179, 84, 29);
 			pnlContactos.add(lblMunicipio);
 			
-			textField_5 = new JTextField();
-			textField_5.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-			textField_5.setColumns(10);
-			textField_5.setBounds(108, 182, 305, 22);
-			pnlContactos.add(textField_5);
+			txtMunicipio = new JTextField();
+			txtMunicipio.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+			txtMunicipio.setColumns(10);
+			txtMunicipio.setBounds(108, 182, 305, 22);
+			pnlContactos.add(txtMunicipio);
+			
+			JLabel lblRnc = new JLabel("RNC:");
+			lblRnc.setFont(new Font("Segoe UI", Font.BOLD, 16));
+			lblRnc.setBounds(22, 191, 84, 29);
+			contenedor.add(lblRnc);
+			
+			txtRNC = new JTextField();
+			txtRNC.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+			txtRNC.setColumns(10);
+			txtRNC.setBounds(116, 193, 305, 22);
+			contenedor.add(txtRNC);
 		}
 		{
 			JPanel pnlInferior = new JPanel();
@@ -175,6 +192,16 @@ public class RegistroCentro extends JDialog {
 					okButton.setText("Modificar");
 					okButton.setIcon(new ImageIcon("recursos/editar.png"));
 				}
+				
+				JButton btnLimpiar = new JButton("Limpiar");
+				btnLimpiar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						limpiar();
+					}
+				});
+				btnLimpiar.setFont(new Font("Segoe UI", Font.PLAIN, 16));
+				btnLimpiar.setActionCommand("OK");
+				pnlInferior.add(btnLimpiar);
 				okButton.setActionCommand("OK");
 				pnlInferior.add(okButton);
 				getRootPane().setDefaultButton(okButton);
@@ -188,6 +215,17 @@ public class RegistroCentro extends JDialog {
 			}
 		}
 		cargarDatos();
+		
+	}
+	
+	private void limpiar() {
+		txtCorreo.setText("");
+		txtMunicipio.setText("");
+		txtNombre.setText("");
+		txtProvincia.setText("");
+		txtRNC.setText("");
+		txtTelefono.setText("");
+		cmbSector.setSelectedIndex(0);
 	}
 	
 	private void cargarDatos() {

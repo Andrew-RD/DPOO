@@ -10,9 +10,10 @@ public class CentroEmpleador {
 	private String municipio;
 	private String telefono;
 	private String correo;
+	private String rnc;
 	private ArrayList<OfertaLaboral> ofertasLaborales;
 
-	public CentroEmpleador(String codigo, String nombre, String sector, String ciudad, String direccion, String telefono, String correo) {
+	public CentroEmpleador(String codigo, String nombre, String sector, String ciudad, String direccion, String telefono, String correo, String rnc) {
 		super();
 		this.codigo = codigo;
 		this.nombre = nombre;
@@ -21,6 +22,7 @@ public class CentroEmpleador {
 		this.municipio = direccion;
 		this.telefono = telefono;
 		this.correo = correo;
+		this.rnc = rnc;
 		this.ofertasLaborales = new ArrayList<>();
 	}
 
@@ -86,6 +88,14 @@ public class CentroEmpleador {
 
 	public void setCorreo(String correo) {
 		this.correo = correo;
+	}
+
+	public String getRnc() {
+		return rnc;
+	}
+
+	public void setRnc(String rnc) {
+		this.rnc = rnc;
 	}
 
 }

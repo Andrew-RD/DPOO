@@ -14,6 +14,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.Color;
 
 import javax.imageio.spi.RegisterableService;
@@ -50,6 +51,7 @@ public class Principal extends JFrame {
 	 */
 	public Principal() {
 		setTitle("Bolsa Laboral");
+		setIconImage(Toolkit.getDefaultToolkit().getImage("recursos/icono.png"));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -106,6 +108,23 @@ public class Principal extends JFrame {
 		mnCatlogoDeOfertas.setForeground(Color.BLACK);
 		mnCatlogoDeOfertas.setFont(new Font("Segoe UI", Font.BOLD, 20));
 		menuBar.add(mnCatlogoDeOfertas);
+		
+		JMenuItem mntmCatConsultar = new JMenuItem("  Consultar");
+		mntmCatConsultar.setFont(new Font("Segoe UI", Font.PLAIN, 18));
+		mntmCatConsultar.setIcon(new ImageIcon("recursos/consulta.png"));
+		mnCatlogoDeOfertas.add(mntmCatConsultar);
+		
+		JMenuItem mntmCatRegistrar = new JMenuItem("  Registrar");
+		mntmCatRegistrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				RegistroOfertaLaboral reg = new RegistroOfertaLaboral(null);
+				reg.setModal(true);
+				reg.setVisible(true);
+			}
+		});
+		mntmCatRegistrar.setFont(new Font("Segoe UI", Font.PLAIN, 18));
+		mntmCatRegistrar.setIcon(new ImageIcon("recursos/registro.png"));
+		mnCatlogoDeOfertas.add(mntmCatRegistrar);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(4, 13, 18));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
