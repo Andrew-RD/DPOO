@@ -1,118 +1,178 @@
 package logico;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public abstract class Candidato{
 	private String codigo;
+	private String identificacion;
 	private String nombres;
 	private String apellidos;
-	private String identificacion;
 	private LocalDate fechaNacimiento;
 	private String provincia;
-	private String municio;
+	private String municipio;
 	private String telefono;
 	private String correo;
-	private boolean estaTrabajando;
+	private String jornada;
+	private String modalidad;
+	private float aspiracionSalarial;
 	private boolean licenciaConducir;
 	private boolean disposicionMudarse;
-	private CondicionLaboral preferencia;
+	private ArrayList<String> idiomas;
+	private ArrayList<Solicitud> misSolicitudes;
 	
-	public Candidato(String codigo, String nombres, String apellidos, String identificacion, LocalDate fechaNacimiento,
-			String provincia, String municio, String telefono, String correo, boolean estaTrabajando,
-			boolean licenciaConducir, boolean disposicionMudarse, CondicionLaboral preferencia) {
+	public Candidato(String codigo, String identificacion, String nombres, String apellidos, LocalDate fechaNacimiento,
+			String provincia, String municipio, String telefono, String correo, String jornada, String modalidad,
+			float aspiracionSalarial, boolean licenciaConducir, boolean disposicionMudarse, ArrayList<String> idiomas,
+			ArrayList<Solicitud> misSolicitudes) {
 		super();
 		this.codigo = codigo;
+		this.identificacion = identificacion;
 		this.nombres = nombres;
 		this.apellidos = apellidos;
-		this.identificacion = identificacion;
 		this.fechaNacimiento = fechaNacimiento;
 		this.provincia = provincia;
-		this.municio = municio;
+		this.municipio = municipio;
 		this.telefono = telefono;
 		this.correo = correo;
-		this.estaTrabajando = estaTrabajando;
+		this.jornada = jornada;
+		this.modalidad = modalidad;
+		this.aspiracionSalarial = aspiracionSalarial;
 		this.licenciaConducir = licenciaConducir;
 		this.disposicionMudarse = disposicionMudarse;
-		this.preferencia = preferencia;
+		this.idiomas = idiomas;
+		this.misSolicitudes = misSolicitudes;
 	}
-	
+
 	public String getCodigo() {
 		return codigo;
 	}
+
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
 	}
-	public String getNombres() {
-		return nombres;
-	}
-	public void setNombres(String nombres) {
-		this.nombres = nombres;
-	}
-	public String getApellidos() {
-		return apellidos;
-	}
-	public void setApellidos(String apellidos) {
-		this.apellidos = apellidos;
-	}
+
 	public String getIdentificacion() {
 		return identificacion;
 	}
+
 	public void setIdentificacion(String identificacion) {
 		this.identificacion = identificacion;
 	}
+
+	public String getNombres() {
+		return nombres;
+	}
+
+	public void setNombres(String nombres) {
+		this.nombres = nombres;
+	}
+
+	public String getApellidos() {
+		return apellidos;
+	}
+
+	public void setApellidos(String apellidos) {
+		this.apellidos = apellidos;
+	}
+
 	public LocalDate getFechaNacimiento() {
 		return fechaNacimiento;
 	}
+
 	public void setFechaNacimiento(LocalDate fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
 	}
+
 	public String getProvincia() {
 		return provincia;
 	}
+
 	public void setProvincia(String provincia) {
 		this.provincia = provincia;
 	}
-	public String getMunicio() {
-		return municio;
+
+	public String getMunicipio() {
+		return municipio;
 	}
-	public void setMunicio(String municio) {
-		this.municio = municio;
+
+	public void setMunicipio(String municipio) {
+		this.municipio = municipio;
 	}
+
 	public String getTelefono() {
 		return telefono;
 	}
+
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
 	}
+
 	public String getCorreo() {
 		return correo;
 	}
+
 	public void setCorreo(String correo) {
 		this.correo = correo;
 	}
-	public boolean isEstaTrabajando() {
-		return estaTrabajando;
+
+	public String getJornada() {
+		return jornada;
 	}
-	public void setEstaTrabajando(boolean estaTrabajando) {
-		this.estaTrabajando = estaTrabajando;
+
+	public void setJornada(String jornada) {
+		this.jornada = jornada;
 	}
+
+	public String getModalidad() {
+		return modalidad;
+	}
+
+	public void setModalidad(String modalidad) {
+		this.modalidad = modalidad;
+	}
+
+	public float getAspiracionSalarial() {
+		return aspiracionSalarial;
+	}
+
+	public void setAspiracionSalarial(float aspiracionSalarial) {
+		this.aspiracionSalarial = aspiracionSalarial;
+	}
+
 	public boolean isLicenciaConducir() {
 		return licenciaConducir;
 	}
+
 	public void setLicenciaConducir(boolean licenciaConducir) {
 		this.licenciaConducir = licenciaConducir;
 	}
+
 	public boolean isDisposicionMudarse() {
 		return disposicionMudarse;
 	}
+
 	public void setDisposicionMudarse(boolean disposicionMudarse) {
 		this.disposicionMudarse = disposicionMudarse;
 	}
-	public CondicionLaboral getPreferencia() {
-		return preferencia;
+
+	public ArrayList<String> getIdiomas() {
+		return idiomas;
 	}
-	public void setPreferencia(CondicionLaboral preferencia) {
-		this.preferencia = preferencia;
+
+	public void setIdiomas(ArrayList<String> idiomas) {
+		this.idiomas = idiomas;
 	}
+
+	public ArrayList<Solicitud> getMisSolicitudes() {
+		return misSolicitudes;
+	}
+
+	public void setMisSolicitudes(ArrayList<Solicitud> misSolicitudes) {
+		this.misSolicitudes = misSolicitudes;
+	}
+	
+
+	
 	
 }

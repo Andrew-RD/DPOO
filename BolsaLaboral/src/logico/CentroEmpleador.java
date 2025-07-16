@@ -4,13 +4,13 @@ import java.util.ArrayList;
 
 public class CentroEmpleador {
 	private String codigo;
+	private String rnc;
 	private String nombre;
 	private String sector;
 	private String provincia;
 	private String municipio;
 	private String telefono;
 	private String correo;
-	private String rnc;
 	private ArrayList<OfertaLaboral> ofertasLaborales;
 
 	public CentroEmpleador(String codigo, String nombre, String sector, String ciudad, String direccion, String telefono, String correo, String rnc) {
