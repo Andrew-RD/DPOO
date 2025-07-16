@@ -6,6 +6,7 @@ import java.util.ArrayList;
 public class TecnicoSuperior extends Candidato {
 	private String areaTecnica;
 	private int aniosExperiencia;
+	
 	public TecnicoSuperior(String codigo, String identificacion, String nombres, String apellidos,
 			LocalDate fechaNacimiento, String provincia, String municipio, String telefono, String correo,
 			String jornada, String modalidad, float aspiracionSalarial, boolean licenciaConducir,
