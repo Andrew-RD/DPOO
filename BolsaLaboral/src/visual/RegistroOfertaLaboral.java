@@ -23,6 +23,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Toolkit;
 import javax.swing.JTextArea;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerNumberModel;
 
 public class RegistroOfertaLaboral extends JDialog {
 
@@ -124,6 +126,17 @@ public class RegistroOfertaLaboral extends JDialog {
 			lblIcono.setFont(new Font("Segoe UI", Font.BOLD, 16));
 			lblIcono.setBounds(430, 165, 32, 32);
 			panel.add(lblIcono);
+			
+			JLabel lblSalario = new JLabel("Salario:");
+			lblSalario.setFont(new Font("Segoe UI", Font.BOLD, 16));
+			lblSalario.setBounds(12, 209, 100, 29);
+			panel.add(lblSalario);
+			
+			JSpinner spinner = new JSpinner();
+			spinner.setModel(new SpinnerNumberModel(new Float(12000), new Float(12000), null, new Float(1000)));
+			spinner.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+			spinner.setBounds(117, 214, 305, 22);
+			panel.add(spinner);
 			
 			JLabel lblCentroOfertador = new JLabel("Centro Ofertador:");
 			lblCentroOfertador.setBounds(22, 90, 148, 29);

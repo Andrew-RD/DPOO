@@ -1,6 +1,7 @@
 package visual;
 
 import java.awt.BorderLayout;
+import exception.*;
 import logico.*;
 import java.awt.FlowLayout;
 
@@ -14,6 +15,7 @@ import java.awt.Color;
 import javax.swing.ImageIcon;
 import java.awt.Font;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JSeparator;
 import javax.swing.JComboBox;
@@ -69,6 +71,7 @@ public class RegistroCentro extends JDialog {
 			
 			txtCodigo = new JTextField();
 			txtCodigo.setEditable(false);
+			txtCodigo.setText("CEN-" + BolsaLaboral.genCodigoCentro);
 			txtCodigo.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 			txtCodigo.setBounds(116, 29, 305, 22);
 			contenedor.add(txtCodigo);
@@ -102,8 +105,8 @@ public class RegistroCentro extends JDialog {
 				}
 			});
 			
-			cmbSector.setMaximumRowCount(10);
-			cmbSector.setModel(new DefaultComboBoxModel(new String[] {"Turismo", "Tecnolog\u00EDa", "Salud", "Comercio", "Educaci\u00F3n", "Agricultura", "Construcci\u00F3n", "Jur\u00EDdico", "Arte", "Transporte"}));
+			cmbSector.setMaximumRowCount(11);
+			cmbSector.setModel(new DefaultComboBoxModel(new String[] {"No definido", "Turismo", "Tecnolog\u00EDa", "Salud", "Comercio", "Educaci\u00F3n", "Agricultura", "Construcci\u00F3n", "Jur\u00EDdico", "Arte", "Transporte"}));
 			cmbSector.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 			cmbSector.setBounds(116, 139, 305, 29);
 			contenedor.add(cmbSector);
@@ -182,6 +185,17 @@ public class RegistroCentro extends JDialog {
 			getContentPane().add(pnlInferior, BorderLayout.SOUTH);
 			{
 				JButton okButton = new JButton("Confimar");
+				okButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						try {
+							if(verificar()) {
+								
+							}
+						} catch (FormatException ex) {
+							JOptionPane.showMessageDialog(null,ex.getMessage(),"Advertencia",JOptionPane.WARNING_MESSAGE);
+						}
+					}
+				});
 				okButton.setFont(new Font("Segoe UI", Font.PLAIN, 16));
 				if(centroAct == null) {
 					okButton.setText("Registrar");
@@ -218,6 +232,32 @@ public class RegistroCentro extends JDialog {
 		
 	}
 	
+	private boolean verificar() throws FormatException{
+		if(txtNombre.getText().isEmpty()) {
+			throw new FormatException("El nombre no puede estar vacio.");
+		}
+		else if(txtRNC.getText().isEmpty()) {
+			throw new FormatException("El RNC no puede estar vacio.");
+		}
+		else if(txtCorreo.getText().isEmpty()) {
+			throw new FormatException("El correo no puede estar vacio");
+		}
+		else if(!txtCorreo.getText().contains("@")) {
+			throw new FormatException("El correo tiene que incluir un @.");
+		}
+		else if(txtTelefono.getText().isEmpty()) {
+			throw new FormatException("El teléfono no puede estar vacio.");
+		}
+		else if(txtMunicipio.getText().isEmpty()) {
+			throw new FormatException("El municipio no puede estar vacio.");
+		}
+		else if(txtProvincia.getText().isEmpty()) {
+			throw new FormatException("La provincia no puede estar vacia.");
+		}
+
+		return true;
+	}
+	
 	private void limpiar() {
 		txtCorreo.setText("");
 		txtMunicipio.setText("");
@@ -236,6 +276,7 @@ public class RegistroCentro extends JDialog {
 		String nombreSector = cmbSector.getSelectedItem().toString().toLowerCase();
 		nombreSector = nombreSector.replace("í","i");
 		nombreSector = nombreSector.replace("ó","o");
+		nombreSector = nombreSector.replace(" ","");
 		lblIcono.setIcon(new ImageIcon("recursos/" + nombreSector + ".png"));
 	}
 }
