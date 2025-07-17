@@ -189,7 +189,31 @@ public class RegistroCentro extends JDialog {
 					public void actionPerformed(ActionEvent e) {
 						try {
 							if(verificar()) {
-								
+								if(centroAct != null) {
+									centroAct.setCorreo(txtCorreo.getText());
+									centroAct.setMunicipio(txtMunicipio.getText());
+									centroAct.setNombre(txtNombre.getText());
+									centroAct.setProvincia(txtProvincia.getText());
+									centroAct.setRnc(txtRNC.getText());
+									centroAct.setSector(cmbSector.getSelectedItem().toString());
+									centroAct.setTelefono(txtTelefono.getText());
+									if(BolsaLaboral.getInstancia().modificarCentroTrabajo(centroAct)) {
+										JOptionPane.showMessageDialog(null,"El centro " + txtNombre.getText() + " ha sido modificado exitosamente.","Información",JOptionPane.INFORMATION_MESSAGE);
+									}
+									else {
+										JOptionPane.showMessageDialog(null,"El centro " + txtNombre.getText() + " no logró ser modificado.");
+									}
+								}
+								else {
+									CentroEmpleador nuevoCentro = new CentroEmpleador(txtCodigo.getText(),txtNombre.getText(),cmbSector.getSelectedItem().toString(),txtProvincia.getText(),txtMunicipio.getText(),txtTelefono.getText(),txtCorreo.getText(),txtRNC.getText());
+									BolsaLaboral.getInstancia().registrarCentroTrabajo(nuevoCentro);
+									JOptionPane.showMessageDialog(null,"El centro de trabajo ha sido agregado correctamente.","Inforamción",JOptionPane.INFORMATION_MESSAGE);
+									txtCodigo.setText("CEN-" + BolsaLaboral.genCodigoCentro);
+									limpiar();
+								}
+							}
+							else {
+								JOptionPane.showMessageDialog(null,"Todos los registros son obligatorios.","Advertencia",JOptionPane.WARNING_MESSAGE);
 							}
 						} catch (FormatException ex) {
 							JOptionPane.showMessageDialog(null,ex.getMessage(),"Advertencia",JOptionPane.WARNING_MESSAGE);
@@ -270,6 +294,16 @@ public class RegistroCentro extends JDialog {
 	
 	private void cargarDatos() {
 		cmbSector.setSelectedIndex(0);
+		if(centroAct != null) {
+			cmbSector.setSelectedItem(centroAct.getSector());
+			txtCodigo.setText(centroAct.getCodigo());
+			txtCorreo.setText(centroAct.getCorreo());
+			txtMunicipio.setText(centroAct.getMunicipio());
+			txtNombre.setText(centroAct.getNombre());
+			txtProvincia.setText(centroAct.getProvincia());
+			txtRNC.setText(centroAct.getRnc());
+			txtTelefono.setText(centroAct.getTelefono());
+		}
 	}
 	
 	private void cargarSector() {

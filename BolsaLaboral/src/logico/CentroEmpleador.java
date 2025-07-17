@@ -13,13 +13,13 @@ public class CentroEmpleador {
 	private String correo;
 	private ArrayList<OfertaLaboral> ofertasLaborales;
 
-	public CentroEmpleador(String codigo, String nombre, String sector, String ciudad, String direccion, String telefono, String correo, String rnc) {
+	public CentroEmpleador(String codigo, String nombre, String sector, String provincia, String municipio, String telefono, String correo, String rnc) {
 		super();
 		this.codigo = codigo;
 		this.nombre = nombre;
 		this.sector = sector;
-		this.provincia = ciudad;
-		this.municipio = direccion;
+		this.provincia = provincia;
+		this.municipio = municipio;
 		this.telefono = telefono;
 		this.correo = correo;
 		this.rnc = rnc;
@@ -50,19 +50,19 @@ public class CentroEmpleador {
 		this.sector = sector;
 	}
 
-	public String getCiudad() {
+	public String getProvincia() {
 		return provincia;
 	}
 
-	public void setCiudad(String ciudad) {
+	public void setProvincia(String ciudad) {
 		this.provincia = ciudad;
 	}
 
-	public String getDireccion() {
+	public String getMunicipio() {
 		return municipio;
 	}
 
-	public void setDireccion(String direccion) {
+	public void setMunicipio(String direccion) {
 		this.municipio = direccion;
 	}
 

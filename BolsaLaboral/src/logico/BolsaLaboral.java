@@ -71,6 +71,41 @@ public class BolsaLaboral {
 		}
 		return instancia;
 	}
+	
+	public void registrarCentroTrabajo(CentroEmpleador nuevoCentro) {
+		centros.add(nuevoCentro);
+		genCodigoCentro++;
+	}
+	
+	public int buscarIndiceCentroByCodigo(String codigo) {
+		int indice = 0;
+		boolean encontrado = false;
+		
+		while(encontrado == false && indice < centros.size()) {
+			if(centros.get(indice).getCodigo().equalsIgnoreCase(codigo)) {
+				encontrado = true;
+			}
+			else {
+				indice++;
+			}
+		}
+		
+		return encontrado ? indice : -1;
+	}
+	
+	public boolean modificarCentroTrabajo(CentroEmpleador centroModificar) {
+		int indice = buscarIndiceCentroByCodigo(centroModificar.getCodigo());
+		if(indice != -1) {
+			centros.set(indice,centroModificar);
+			return true;
+		}
+		return false;
+	}
+	
+	public void eliminarCentroTrabajo(CentroEmpleador centroEliminar) {
+		centros.remove(centroEliminar);
+	}
+	
 	public void matcheoPosiblesContrataciones (){
 		for(OfertaLaboral oferta : ofertas) {
 			int cantMatch = 0;

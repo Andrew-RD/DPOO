@@ -47,7 +47,7 @@ public class RegistroOfertaLaboral extends JDialog {
 			setTitle("Modificar Oferta Laboral");
 			ofertaAct = oferta;
 		}
-		setBounds(100, 100, 560, 720);
+		setBounds(100, 100, 560, 509);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(new Color(228, 228, 228));
