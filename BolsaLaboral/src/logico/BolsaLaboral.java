@@ -71,5 +71,13 @@ public class BolsaLaboral {
 		}
 		return instancia;
 	}
+	public void matcheoPosiblesContrataciones (){
+		for(OfertaLaboral oferta : ofertas) {
+			int cantMatch = 0;
+			for(Solicitud sld : solicitudes) {
+				
+			}
+		}
+	}
 
 }

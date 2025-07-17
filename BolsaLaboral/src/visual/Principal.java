@@ -49,6 +49,8 @@ public class Principal extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+	
+	
 	public Principal() {
 		setTitle("Bolsa Laboral");
 		setIconImage(Toolkit.getDefaultToolkit().getImage("recursos/icono.png"));
@@ -56,8 +58,8 @@ public class Principal extends JFrame {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 571, 417);
-		dim = super.getToolkit().getScreenSize(); 
-		super.setSize(dim.width, dim.height-100);
+		dim = getToolkit().getScreenSize();
+		setSize(dim.width,dim.height-45);
 		setLocationRelativeTo(null);
 		
 		JMenuBar menuBar = new JMenuBar();
