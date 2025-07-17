@@ -5,27 +5,44 @@ import java.util.ArrayList;
 public class OfertaLaboral {
 	private String codigo;
 	private String puesto;
-	private ArrayList<String> requisitos;
 	private String descripcion;
-	private String nivelAcademico;
-	private float salario;
-	private CondicionLaboral condiciones;
+	private String provincia;
+	private String municipio;
+	private String modalidad;
+	private String jornada;
 	private String estado;
+	private float salario;
+	private int experienciaMinima;
+	private int vacantes;
 	private CentroEmpleador ofertador;
-
-	public OfertaLaboral(String codigo, String puesto, ArrayList<String> requisitos, String descripcion,
-			String nivelAcademico, float salario, CondicionLaboral condiciones, String estado,
-			CentroEmpleador ofertador) {
+	private boolean licenciaConducir;
+	private boolean ofreceReubicacion;
+	private String nivelAcademico;
+	private ArrayList<String> requisitos;
+	private ArrayList<String> idiomasRequeridas;
+	
+	public OfertaLaboral(String codigo, String puesto, String descripcion, String provincia, String municipio,
+			String modalidad, String jornada, String estado, float salario, int experienciaMinima, int vacantes,
+			CentroEmpleador ofertador, boolean licenciaConducir, boolean ofreceReubicacion,
+			String nivelAcademico, ArrayList<String> requisitos, ArrayList<String> idiomasRequeridas) {
 		super();
 		this.codigo = codigo;
 		this.puesto = puesto;
-		this.requisitos = new ArrayList<String>();
 		this.descripcion = descripcion;
-		this.nivelAcademico = nivelAcademico;
-		this.salario = salario;
-		this.condiciones = condiciones;
+		this.provincia = provincia;
+		this.municipio = municipio;
+		this.modalidad = modalidad;
+		this.jornada = jornada;
 		this.estado = estado;
+		this.salario = salario;
+		this.experienciaMinima = experienciaMinima;
+		this.vacantes = vacantes;
 		this.ofertador = ofertador;
+		this.licenciaConducir = licenciaConducir;
+		this.ofreceReubicacion = ofreceReubicacion;
+		this.nivelAcademico = nivelAcademico;
+		this.requisitos = requisitos;
+		this.idiomasRequeridas = idiomasRequeridas;
 	}
 
 	public String getCodigo() {
@@ -44,14 +61,6 @@ public class OfertaLaboral {
 		this.puesto = puesto;
 	}
 
-	public ArrayList<String> getRequisitos() {
-		return requisitos;
-	}
-
-	public void setRequisitos(ArrayList<String> requisitos) {
-		this.requisitos = requisitos;
-	}
-
 	public String getDescripcion() {
 		return descripcion;
 	}
@@ -60,28 +69,36 @@ public class OfertaLaboral {
 		this.descripcion = descripcion;
 	}
 
-	public String getNivelAcademico() {
-		return nivelAcademico;
+	public String getProvincia() {
+		return provincia;
 	}
 
-	public void setNivelAcademico(String nivelAcademico) {
-		this.nivelAcademico = nivelAcademico;
+	public void setProvincia(String provincia) {
+		this.provincia = provincia;
 	}
 
-	public float getSalario() {
-		return salario;
+	public String getMunicipio() {
+		return municipio;
 	}
 
-	public void setSalario(float salario) {
-		this.salario = salario;
+	public void setMunicipio(String municipio) {
+		this.municipio = municipio;
 	}
 
-	public CondicionLaboral getCondiciones() {
-		return condiciones;
+	public String getModalidad() {
+		return modalidad;
 	}
 
-	public void setCondiciones(CondicionLaboral condiciones) {
-		this.condiciones = condiciones;
+	public void setModalidad(String modalidad) {
+		this.modalidad = modalidad;
+	}
+
+	public String getJornada() {
+		return jornada;
+	}
+
+	public void setJornada(String jornada) {
+		this.jornada = jornada;
 	}
 
 	public String getEstado() {
@@ -92,6 +109,30 @@ public class OfertaLaboral {
 		this.estado = estado;
 	}
 
+	public float getSalario() {
+		return salario;
+	}
+
+	public void setSalario(float salario) {
+		this.salario = salario;
+	}
+
+	public int getExperienciaMinima() {
+		return experienciaMinima;
+	}
+
+	public void setExperienciaMinima(int experienciaMinima) {
+		this.experienciaMinima = experienciaMinima;
+	}
+
+	public int getVacantes() {
+		return vacantes;
+	}
+
+	public void setVacantes(int vacantes) {
+		this.vacantes = vacantes;
+	}
+
 	public CentroEmpleador getOfertador() {
 		return ofertador;
 	}
@@ -100,4 +141,45 @@ public class OfertaLaboral {
 		this.ofertador = ofertador;
 	}
 
+	public boolean isLicenciaConducir() {
+		return licenciaConducir;
+	}
+
+	public void setLicenciaConducir(boolean licenciaConducir) {
+		this.licenciaConducir = licenciaConducir;
+	}
+
+	public boolean isOfreceReubicacion() {
+		return ofreceReubicacion;
+	}
+
+	public void setOfreceReubicacion(boolean ofreceReubicacion) {
+		this.ofreceReubicacion = ofreceReubicacion;
+	}
+
+	public String getNivelAcademico() {
+		return nivelAcademico;
+	}
+
+	public void setNivelAcademico(String nivelAcademico) {
+		this.nivelAcademico = nivelAcademico;
+	}
+
+	public ArrayList<String> getRequisitos() {
+		return requisitos;
+	}
+
+	public void setRequisitos(ArrayList<String> requisitos) {
+		this.requisitos = requisitos;
+	}
+
+	public ArrayList<String> getIdiomasRequeridas() {
+		return idiomasRequeridas;
+	}
+
+	public void setIdiomasRequeridas(ArrayList<String> idiomasRequeridas) {
+		this.idiomasRequeridas = idiomasRequeridas;
+	}
+
+	
 }

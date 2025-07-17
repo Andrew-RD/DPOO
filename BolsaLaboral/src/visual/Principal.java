@@ -1,6 +1,5 @@
 package visual;
 
-import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 
@@ -17,20 +16,13 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.Color;
 
-import javax.imageio.spi.RegisterableService;
 import javax.swing.ImageIcon;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 
-import java.awt.FlowLayout;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.border.LineBorder;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
-import com.jgoodies.forms.layout.FormSpecs;
 
 public class Principal extends JFrame {
 
@@ -56,6 +48,8 @@ public class Principal extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+	
+	
 	public Principal() {
 		setTitle("Bolsa Laboral");
 		setIconImage(Toolkit.getDefaultToolkit().getImage("recursos/icono.png"));
@@ -63,8 +57,8 @@ public class Principal extends JFrame {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 571, 417);
-		dim = super.getToolkit().getScreenSize(); 
-		super.setSize(dim.width, dim.height-100);
+		dim = getToolkit().getScreenSize();
+		setSize(dim.width,dim.height-45);
 		setLocationRelativeTo(null);
 		
 		JMenuBar menuBar = new JMenuBar();
