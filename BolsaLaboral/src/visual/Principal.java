@@ -7,8 +7,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import logico.CentroEmpleador;
-
 import javax.swing.JMenuBar;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -24,11 +22,12 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.border.LineBorder;
 
+import logico.BolsaLaboral;
+
 public class Principal extends JFrame {
 
 	private JPanel contentPane;
 	private Dimension dim;
-
 	/**
 	 * Launch the application.
 	 */
@@ -48,8 +47,6 @@ public class Principal extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	
-	
 	public Principal() {
 		setTitle("Bolsa Laboral");
 		setIconImage(Toolkit.getDefaultToolkit().getImage("recursos/icono.png"));
@@ -57,8 +54,8 @@ public class Principal extends JFrame {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 571, 417);
-		dim = getToolkit().getScreenSize();
-		setSize(dim.width,dim.height-45);
+		dim = super.getToolkit().getScreenSize(); 
+		super.setSize(dim.width, dim.height-45);
 		setLocationRelativeTo(null);
 		
 		JMenuBar menuBar = new JMenuBar();
@@ -132,19 +129,11 @@ public class Principal extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JPanel panel = new JPanel();
-		panel.setBackground(new Color(0, 0, 0));
-		panel.setBorder(new LineBorder(Color.WHITE));
-		panel.setBounds(26, 33, 307, 245);
-		contentPane.add(panel);
-		panel.setLayout(null);
-		
-		JLabel lblNewLabel = new JLabel("Candidatos Actuales");
-		lblNewLabel.setBounds(12, 8, 283, 26);
-		panel.add(lblNewLabel);
-		lblNewLabel.setForeground(Color.WHITE);
-		lblNewLabel.setFont(new Font("Verdana", Font.BOLD, 20));
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		JLabel lblFondo = new JLabel("");
+		lblFondo.setBounds(0,0, getWidth(),getHeight());
+		lblFondo.setIcon(new ImageIcon("recursos/fondo.png"));
+		contentPane.add(lblFondo);
 		
 	}
+	
 }
