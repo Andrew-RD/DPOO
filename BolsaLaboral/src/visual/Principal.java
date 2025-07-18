@@ -97,6 +97,13 @@ public class Principal extends JFrame {
 		mnCandidatos.add(mntmCandConsultar);
 		
 		JMenuItem mntmCandRegistrar = new JMenuItem("  Registrar");
+		mntmCandRegistrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				RegistroCandidato reg = new RegistroCandidato(null);
+				reg.setModal(true);
+				reg.setVisible(true);
+			}
+		});
 		mntmCandRegistrar.setFont(new Font("Segoe UI", Font.PLAIN, 18));
 		mntmCandRegistrar.setIcon(new ImageIcon("recursos/registro.png"));
 		mnCandidatos.add(mntmCandRegistrar);

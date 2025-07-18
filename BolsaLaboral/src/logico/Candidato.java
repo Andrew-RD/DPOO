@@ -15,6 +15,7 @@ public abstract class Candidato{
 	private String correo;
 	private String jornada;
 	private String modalidad;
+	private String areaDeInteres;
 	private float aspiracionSalarial;
 	private boolean licenciaConducir;
 	private boolean disposicionMudarse;
@@ -22,7 +23,7 @@ public abstract class Candidato{
 	private ArrayList<Solicitud> misSolicitudes;
 	
 	public Candidato(String codigo, String identificacion, String nombres, String apellidos, LocalDate fechaNacimiento,
-			String provincia, String municipio, String telefono, String correo, String jornada, String modalidad,
+			String provincia, String municipio, String telefono, String correo, String jornada, String modalidad, String areaDeInteres,
 			float aspiracionSalarial, boolean licenciaConducir, boolean disposicionMudarse, ArrayList<String> idiomas,
 			ArrayList<Solicitud> misSolicitudes) {
 		super();
@@ -37,6 +38,7 @@ public abstract class Candidato{
 		this.correo = correo;
 		this.jornada = jornada;
 		this.modalidad = modalidad;
+		this.areaDeInteres = areaDeInteres;
 		this.aspiracionSalarial = aspiracionSalarial;
 		this.licenciaConducir = licenciaConducir;
 		this.disposicionMudarse = disposicionMudarse;
@@ -170,6 +172,14 @@ public abstract class Candidato{
 
 	public void setMisSolicitudes(ArrayList<Solicitud> misSolicitudes) {
 		this.misSolicitudes = misSolicitudes;
+	}
+
+	public String getAreaDeInteres() {
+		return areaDeInteres;
+	}
+
+	public void setAreaDeInteres(String areaDeInteres) {
+		this.areaDeInteres = areaDeInteres;
 	}
 	
 
