@@ -102,8 +102,30 @@ public class BolsaLaboral {
 		return false;
 	}
 	
+	public boolean centroEliminable() {
+		return true;
+	}
+	
+	public boolean candidatoEliminable() {
+		return true;
+	}
+	
 	public void eliminarCentroTrabajo(CentroEmpleador centroEliminar) {
-		centros.remove(centroEliminar);
+		if(centroEliminable()) {
+			centros.remove(centroEliminar);
+		}
+		
+	}
+	
+	public void registrarCandidato(Candidato nuevoCandidato) {
+		candidatos.add(nuevoCandidato);
+		genCodigoCandidato++;
+	}
+	
+	public void eliminarCandidato(Candidato candidatoEliminar) {
+		if(candidatoEliminable()) {
+			candidatos.remove(candidatoEliminar);
+		}
 	}
 	
 	public void matcheoPosiblesContrataciones (){
