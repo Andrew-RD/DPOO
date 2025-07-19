@@ -6,8 +6,7 @@ public class OfertaLaboral {
 	private String codigo;
 	private String puesto;
 	private String descripcion;
-	private String provincia;
-	private String municipio;
+	private String area;
 	private String modalidad;
 	private String jornada;
 	private String estado;
@@ -15,22 +14,20 @@ public class OfertaLaboral {
 	private int experienciaMinima;
 	private int vacantes;
 	private CentroEmpleador ofertador;
-	private boolean licenciaConducir;
 	private boolean ofreceReubicacion;
+	private boolean obligatorioMayorDeEdad;
 	private String nivelAcademico;
 	private ArrayList<String> requisitos;
 	private ArrayList<String> idiomasRequeridas;
 	
-	public OfertaLaboral(String codigo, String puesto, String descripcion, String provincia, String municipio,
+	public OfertaLaboral(String codigo, String puesto, String descripcion, String area,
 			String modalidad, String jornada, String estado, float salario, int experienciaMinima, int vacantes,
-			CentroEmpleador ofertador, boolean licenciaConducir, boolean ofreceReubicacion,
+			CentroEmpleador ofertador, boolean ofreceReubicacion, boolean mayorDeEdadObligatorio,
 			String nivelAcademico, ArrayList<String> requisitos, ArrayList<String> idiomasRequeridas) {
 		super();
 		this.codigo = codigo;
 		this.puesto = puesto;
 		this.descripcion = descripcion;
-		this.provincia = provincia;
-		this.municipio = municipio;
 		this.modalidad = modalidad;
 		this.jornada = jornada;
 		this.estado = estado;
@@ -38,8 +35,8 @@ public class OfertaLaboral {
 		this.experienciaMinima = experienciaMinima;
 		this.vacantes = vacantes;
 		this.ofertador = ofertador;
-		this.licenciaConducir = licenciaConducir;
 		this.ofreceReubicacion = ofreceReubicacion;
+		this.obligatorioMayorDeEdad = mayorDeEdadObligatorio;
 		this.nivelAcademico = nivelAcademico;
 		this.requisitos = requisitos;
 		this.idiomasRequeridas = idiomasRequeridas;
@@ -69,21 +66,6 @@ public class OfertaLaboral {
 		this.descripcion = descripcion;
 	}
 
-	public String getProvincia() {
-		return provincia;
-	}
-
-	public void setProvincia(String provincia) {
-		this.provincia = provincia;
-	}
-
-	public String getMunicipio() {
-		return municipio;
-	}
-
-	public void setMunicipio(String municipio) {
-		this.municipio = municipio;
-	}
 
 	public String getModalidad() {
 		return modalidad;
@@ -141,14 +123,6 @@ public class OfertaLaboral {
 		this.ofertador = ofertador;
 	}
 
-	public boolean isLicenciaConducir() {
-		return licenciaConducir;
-	}
-
-	public void setLicenciaConducir(boolean licenciaConducir) {
-		this.licenciaConducir = licenciaConducir;
-	}
-
 	public boolean isOfreceReubicacion() {
 		return ofreceReubicacion;
 	}
@@ -179,6 +153,22 @@ public class OfertaLaboral {
 
 	public void setIdiomasRequeridas(ArrayList<String> idiomasRequeridas) {
 		this.idiomasRequeridas = idiomasRequeridas;
+	}
+
+	public String getArea() {
+		return area;
+	}
+
+	public void setArea(String area) {
+		this.area = area;
+	}
+
+	public boolean isObligatorioMayorDeEdad() {
+		return obligatorioMayorDeEdad;
+	}
+
+	public void setObligatorioMayorDeEdad(boolean obligatorioMayorDeEdad) {
+		this.obligatorioMayorDeEdad = obligatorioMayorDeEdad;
 	}
 
 	
