@@ -69,6 +69,13 @@ public class Principal extends JFrame {
 		menuBar.add(mnCentros);
 		
 		JMenuItem mntmCentConsultar = new JMenuItem("  Consultar");
+		mntmCentConsultar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ConsultarCentros cons = new ConsultarCentros();
+				cons.setModal(true);
+				cons.setVisible(true);
+			}
+		});
 		mntmCentConsultar.setIcon(new ImageIcon("recursos/consulta.png"));
 		mntmCentConsultar.setFont(new Font("Segoe UI", Font.PLAIN, 18));
 		mnCentros.add(mntmCentConsultar);
@@ -92,6 +99,13 @@ public class Principal extends JFrame {
 		menuBar.add(mnCandidatos);
 		
 		JMenuItem mntmCandConsultar = new JMenuItem("  Consultar");
+		mntmCandConsultar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ConsultarCandidatos cons = new ConsultarCandidatos();
+				cons.setModal(true);
+				cons.setVisible(true);
+			}
+		});
 		mntmCandConsultar.setFont(new Font("Segoe UI", Font.PLAIN, 18));
 		mntmCandConsultar.setIcon(new ImageIcon("recursos/consulta.png"));
 		mnCandidatos.add(mntmCandConsultar);
@@ -115,6 +129,13 @@ public class Principal extends JFrame {
 		menuBar.add(mnCatlogoDeOfertas);
 		
 		JMenuItem mntmCatConsultar = new JMenuItem("  Consultar");
+		mntmCatConsultar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ConsultarOfertas cons = new ConsultarOfertas();
+				cons.setModal(true);
+				cons.setVisible(true);
+			}
+		});
 		mntmCatConsultar.setFont(new Font("Segoe UI", Font.PLAIN, 18));
 		mntmCatConsultar.setIcon(new ImageIcon("recursos/consulta.png"));
 		mnCatlogoDeOfertas.add(mntmCatConsultar);
