@@ -10,10 +10,14 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.Color;
+import java.awt.Component;
+
 import javax.swing.ImageIcon;
 import java.awt.Font;
 import javax.swing.JOptionPane;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.awt.event.ActionEvent;
@@ -38,6 +42,7 @@ import javax.swing.SpinnerNumberModel;
 public class RegistroCandidato extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
+	private JTabbedPane contenedor;
 	private Candidato candidatoAct = null;
 	private JTextField txtCodigo;
 	private JTextField txtNombre;
@@ -63,6 +68,42 @@ public class RegistroCandidato extends JDialog {
 	private JComboBox cmbModalidad;
 	private JLabel lblIcoArea;
 	private JComboBox cmbArea;
+	
+	
+	private JPanel pnlIdiomas;
+    private JSpinner spnSalarioEsperado;
+    private JSpinner spnAniosExp;
+    private JComboBox cmbCarrera; 
+    private JComboBox cmbNivel; 
+    private JCheckBox chkLicenciaConducir;
+    private JCheckBox chkMudarse;
+    private JCheckBox chkTrabajo;
+    
+    private JCheckBox chckbxIngles;
+    private JCheckBox chckbxItaliano;
+    private JCheckBox chckbxEspanol;
+    private JCheckBox chckbxFrances;
+    private JCheckBox chckbxPortugues;
+    private JCheckBox chckbxAleman;
+    private JCheckBox chckbxCoreano;
+    private JCheckBox chckbxJapones;
+    private JCheckBox chckbxMandarin;
+    
+    private JCheckBox chkPlomeria;
+    private JCheckBox chkCarpintero;
+    private JCheckBox chkCajero;
+    private JCheckBox chkSoldadura;
+    private JCheckBox chkElectrica;
+    private JCheckBox chkMecanica;
+    private JCheckBox chkAlbanileria;
+    private JCheckBox chkRedes;
+    private JCheckBox chkConduccion;
+    private JCheckBox chkReparacion;
+    private JCheckBox chkVentas;
+    private JCheckBox chkFotografia;
+    private JCheckBox chkCocina;
+    private JCheckBox chkLimpieza;
+    private JCheckBox chkPintura;
 	/**
 	 * Create the dialog.
 	 */
@@ -84,7 +125,7 @@ public class RegistroCandidato extends JDialog {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(new BorderLayout(0, 0));
 		
-		JTabbedPane contenedor = new JTabbedPane(JTabbedPane.TOP);
+		contenedor = new JTabbedPane(JTabbedPane.TOP);
 		contenedor.setBackground(new Color(153, 204, 204));
 		contenedor.setForeground(Color.BLACK);
 		contenedor.setFont(new Font("Segoe UI", Font.BOLD, 18));
@@ -154,9 +195,19 @@ public class RegistroCandidato extends JDialog {
 		spnFechaNac = new JSpinner();
 		spnFechaNac.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		spnFechaNac.setBounds(191, 234, 221, 22);
-		spnFechaNac.setModel(new SpinnerDateModel(new Date(1751169600000L), new Date(1751169600000L), null, Calendar.DAY_OF_YEAR));
-		JSpinner.DateEditor de_spnFechaNac = new JSpinner.DateEditor(spnFechaNac,"dd/MM/yyyy");
-		spnFechaNac.setEditor(de_spnFechaNac);
+
+		Calendar cal = Calendar.getInstance();
+		Date fechaActual = cal.getTime();
+		Date fechaMaxima = fechaActual;
+		cal.add(Calendar.YEAR, -100);
+		Date fechaMinima = cal.getTime();
+		cal = Calendar.getInstance();
+		cal.add(Calendar.YEAR, -16);
+		Date fechaPorDefecto = cal.getTime();
+		SpinnerDateModel modeloFecha = new SpinnerDateModel(fechaPorDefecto, fechaMinima, fechaMaxima, Calendar.DAY_OF_MONTH);
+		spnFechaNac.setModel(modeloFecha);
+		JSpinner.DateEditor editor = new JSpinner.DateEditor(spnFechaNac, "dd/MM/yyyy");
+		spnFechaNac.setEditor(editor);
 		pnlPersonal.add(spnFechaNac);
 		
 		JPanel pnlContactos = new JPanel();
@@ -222,91 +273,91 @@ public class RegistroCandidato extends JDialog {
 		pnlObrero.setBounds(12, 97, 510, 210);
 		pnlEspecializacion.add(pnlObrero);
 		
-		JCheckBox chkPlomeria = new JCheckBox("Plomer\u00EDa");
+		chkPlomeria = new JCheckBox("Plomer\u00EDa");
 		chkPlomeria.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		chkPlomeria.setBackground(new Color(228, 228, 228));
 		chkPlomeria.setBounds(8, 24, 113, 25);
 		pnlObrero.add(chkPlomeria);
 		
-		JCheckBox chkCarpintero = new JCheckBox("Carpinter\u00EDa");
+		chkCarpintero = new JCheckBox("Carpinter\u00EDa");
 		chkCarpintero.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		chkCarpintero.setBackground(new Color(228, 228, 228));
 		chkCarpintero.setBounds(8, 61, 113, 25);
 		pnlObrero.add(chkCarpintero);
 		
-		JCheckBox chkCajero = new JCheckBox("Gesti\u00F3n Financiera");
+		chkCajero = new JCheckBox("Gesti\u00F3n Financiera");
 		chkCajero.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		chkCajero.setBackground(new Color(228, 228, 228));
 		chkCajero.setBounds(8, 101, 147, 25);
 		pnlObrero.add(chkCajero);
 		
-		JCheckBox chkSoldadura = new JCheckBox("Soldadura");
+		chkSoldadura = new JCheckBox("Soldadura");
 		chkSoldadura.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		chkSoldadura.setBackground(new Color(228, 228, 228));
 		chkSoldadura.setBounds(8, 143, 113, 25);
 		pnlObrero.add(chkSoldadura);
 		
-		JCheckBox chkElctrica = new JCheckBox("Instalaci\u00F3n El\u00E9ctrica");
-		chkElctrica.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-		chkElctrica.setBackground(new Color(228, 228, 228));
-		chkElctrica.setBounds(8, 181, 147, 25);
-		pnlObrero.add(chkElctrica);
+		chkElectrica = new JCheckBox("Instalaci\u00F3n El\u00E9ctrica");
+		chkElectrica.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		chkElectrica.setBackground(new Color(228, 228, 228));
+		chkElectrica.setBounds(8, 181, 147, 25);
+		pnlObrero.add(chkElectrica);
 		
-		JCheckBox chkMecnica = new JCheckBox("Mec\u00E1nica");
-		chkMecnica.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-		chkMecnica.setBackground(new Color(228, 228, 228));
-		chkMecnica.setBounds(181, 25, 113, 25);
-		pnlObrero.add(chkMecnica);
+		chkMecanica = new JCheckBox("Mec\u00E1nica");
+		chkMecanica.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		chkMecanica.setBackground(new Color(228, 228, 228));
+		chkMecanica.setBounds(181, 25, 113, 25);
+		pnlObrero.add(chkMecanica);
 		
-		JCheckBox chkAlbailera = new JCheckBox("Alba\u00F1iler\u00EDa");
-		chkAlbailera.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-		chkAlbailera.setBackground(new Color(228, 228, 228));
-		chkAlbailera.setBounds(181, 62, 113, 25);
-		pnlObrero.add(chkAlbailera);
+		chkAlbanileria = new JCheckBox("Alba\u00F1iler\u00EDa");
+		chkAlbanileria.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		chkAlbanileria.setBackground(new Color(228, 228, 228));
+		chkAlbanileria.setBounds(181, 62, 113, 25);
+		pnlObrero.add(chkAlbanileria);
 		
-		JCheckBox chkRedes = new JCheckBox("Redes Sociales");
+		chkRedes = new JCheckBox("Redes Sociales");
 		chkRedes.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		chkRedes.setBackground(new Color(228, 228, 228));
 		chkRedes.setBounds(181, 101, 135, 25);
 		pnlObrero.add(chkRedes);
 		
-		JCheckBox chkConduccin = new JCheckBox("Conducci\u00F3n");
-		chkConduccin.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-		chkConduccin.setBackground(new Color(228, 228, 228));
-		chkConduccin.setBounds(181, 143, 113, 25);
-		pnlObrero.add(chkConduccin);
+		chkConduccion = new JCheckBox("Conducci\u00F3n");
+		chkConduccion.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		chkConduccion.setBackground(new Color(228, 228, 228));
+		chkConduccion.setBounds(181, 143, 113, 25);
+		pnlObrero.add(chkConduccion);
 		
-		JCheckBox chkReparacin = new JCheckBox("Reparaci\u00F3n de Electr\u00F3nicos");
-		chkReparacin.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-		chkReparacin.setBackground(new Color(228, 228, 228));
-		chkReparacin.setBounds(181, 182, 199, 25);
-		pnlObrero.add(chkReparacin);
+		chkReparacion = new JCheckBox("Reparaci\u00F3n de Electr\u00F3nicos");
+		chkReparacion.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		chkReparacion.setBackground(new Color(228, 228, 228));
+		chkReparacion.setBounds(181, 182, 199, 25);
+		pnlObrero.add(chkReparacion);
 		
-		JCheckBox chkVentas = new JCheckBox("Ventas");
+		chkVentas = new JCheckBox("Ventas");
 		chkVentas.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		chkVentas.setBackground(new Color(228, 228, 228));
 		chkVentas.setBounds(389, 25, 113, 25);
 		pnlObrero.add(chkVentas);
 		
-		JCheckBox chkFotografa = new JCheckBox("Fotograf\u00EDa");
-		chkFotografa.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-		chkFotografa.setBackground(new Color(228, 228, 228));
-		chkFotografa.setBounds(389, 62, 113, 25);
-		pnlObrero.add(chkFotografa);
+		chkFotografia = new JCheckBox("Fotograf\u00EDa");
+		chkFotografia.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		chkFotografia.setBackground(new Color(228, 228, 228));
+		chkFotografia.setBounds(389, 62, 113, 25);
+		pnlObrero.add(chkFotografia);
 		
-		JCheckBox chkCocina = new JCheckBox("Cocina");
+		chkCocina = new JCheckBox("Cocina");
 		chkCocina.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		chkCocina.setBackground(new Color(228, 228, 228));
 		chkCocina.setBounds(389, 102, 113, 25);
 		pnlObrero.add(chkCocina);
 		
-		JCheckBox chkLimpieza = new JCheckBox("Limpieza");
+		chkLimpieza = new JCheckBox("Limpieza");
 		chkLimpieza.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		chkLimpieza.setBackground(new Color(228, 228, 228));
 		chkLimpieza.setBounds(389, 144, 113, 25);
 		pnlObrero.add(chkLimpieza);
 		
-		JCheckBox chkPintura = new JCheckBox("Pintura");
+		chkPintura = new JCheckBox("Pintura");
 		chkPintura.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		chkPintura.setBackground(new Color(228, 228, 228));
 		chkPintura.setBounds(389, 182, 113, 25);
@@ -386,7 +437,7 @@ public class RegistroCandidato extends JDialog {
 		lblNivelAcadmico.setBounds(12, 144, 146, 29);
 		pnlEstudiante.add(lblNivelAcadmico);
 		
-		JComboBox cmbNivel = new JComboBox();
+		cmbNivel = new JComboBox();
 		cmbNivel.setModel(new DefaultComboBoxModel(new String[] {"Grado", "Postgrado", "Doctorado"}));
 		cmbNivel.setSelectedIndex(0);
 		cmbNivel.setMaximumRowCount(11);
@@ -394,13 +445,13 @@ public class RegistroCandidato extends JDialog {
 		cmbNivel.setBounds(158, 145, 263, 29);
 		pnlEstudiante.add(cmbNivel);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Arquitectura", "Ingenier\u00EDa Civil", "Ingenier\u00EDa El\u00E9ctrica", "Ingenier\u00EDa Telem\u00E1tica", "Ingenier\u00EDa Industrial", "Ingenier\u00EDa Agron\u00F3mica", "Ingenier\u00EDa de Sistemas", "Educaci\u00F3n", "Psicolog\u00EDa", "Comunicaci\u00F3n", "Derecho", "Contabilidad", "Hoteler\u00EDa", "Medicina", "Econom\u00EDa", "Direcci\u00F3n Empresarial"}));
-		comboBox.setSelectedIndex(0);
-		comboBox.setMaximumRowCount(11);
-		comboBox.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-		comboBox.setBounds(116, 30, 305, 29);
-		pnlEstudiante.add(comboBox);
+		cmbCarrera = new JComboBox();
+		cmbCarrera.setModel(new DefaultComboBoxModel(new String[] {"Arquitectura", "Ingenier\u00EDa Civil", "Ingenier\u00EDa El\u00E9ctrica", "Ingenier\u00EDa Telem\u00E1tica", "Ingenier\u00EDa Industrial", "Ingenier\u00EDa Agron\u00F3mica", "Ingenier\u00EDa de Sistemas", "Educaci\u00F3n", "Psicolog\u00EDa", "Comunicaci\u00F3n", "Derecho", "Contabilidad", "Hoteler\u00EDa", "Medicina", "Econom\u00EDa", "Direcci\u00F3n Empresarial"}));
+		cmbCarrera.setSelectedIndex(0);
+		cmbCarrera.setMaximumRowCount(11);
+		cmbCarrera.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		cmbCarrera.setBounds(116, 30, 305, 29);
+		pnlEstudiante.add(cmbCarrera);
 		
 		pnlTecnico = new JPanel();
 		pnlTecnico.setBounds(12, 97, 510, 210);
@@ -425,82 +476,82 @@ public class RegistroCandidato extends JDialog {
 		lblAosDeExperiencia.setBounds(12, 82, 168, 29);
 		pnlTecnico.add(lblAosDeExperiencia);
 		
-		JSpinner spnAniosExp = new JSpinner();
+		spnAniosExp = new JSpinner();
 		spnAniosExp.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		spnAniosExp.setBounds(177, 86, 258, 22);
 		pnlTecnico.add(spnAniosExp);
 		
-		JPanel pnlIdiomas = new JPanel();
+		pnlIdiomas = new JPanel();
 		pnlIdiomas.setLayout(null);
 		pnlIdiomas.setBorder(new TitledBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)), "Idiomas", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		pnlIdiomas.setBackground(new Color(228, 228, 228));
 		pnlIdiomas.setBounds(12, 317, 510, 145);
 		pnlEspecializacion.add(pnlIdiomas);
 		
-		JCheckBox chckbxIngls = new JCheckBox("Ingl\u00E9s");
-		chckbxIngls.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-		chckbxIngls.setBackground(new Color(228, 228, 228));
-		chckbxIngls.setBounds(8, 24, 113, 25);
-		pnlIdiomas.add(chckbxIngls);
+		chckbxIngles = new JCheckBox("Ingl\u00E9s");
+		chckbxIngles.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		chckbxIngles.setBackground(new Color(228, 228, 228));
+		chckbxIngles.setBounds(8, 24, 113, 25);
+		pnlIdiomas.add(chckbxIngles);
 		
-		JCheckBox chckbxItaliano = new JCheckBox("Italiano");
+		chckbxItaliano = new JCheckBox("Italiano");
 		chckbxItaliano.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		chckbxItaliano.setBackground(new Color(228, 228, 228));
 		chckbxItaliano.setBounds(8, 61, 113, 25);
 		pnlIdiomas.add(chckbxItaliano);
 		
-		JCheckBox chckbxEspaol = new JCheckBox("Espa\u00F1ol");
-		chckbxEspaol.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-		chckbxEspaol.setBackground(new Color(228, 228, 228));
-		chckbxEspaol.setBounds(8, 101, 113, 25);
-		pnlIdiomas.add(chckbxEspaol);
+		chckbxEspanol = new JCheckBox("Espa\u00F1ol");
+		chckbxEspanol.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		chckbxEspanol.setBackground(new Color(228, 228, 228));
+		chckbxEspanol.setBounds(8, 101, 113, 25);
+		pnlIdiomas.add(chckbxEspanol);
 		
-		JCheckBox chckbxFrancs = new JCheckBox("Franc\u00E9s");
-		chckbxFrancs.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-		chckbxFrancs.setBackground(new Color(228, 228, 228));
-		chckbxFrancs.setBounds(181, 101, 113, 25);
-		pnlIdiomas.add(chckbxFrancs);
+		chckbxFrances = new JCheckBox("Franc\u00E9s");
+		chckbxFrances.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		chckbxFrances.setBackground(new Color(228, 228, 228));
+		chckbxFrances.setBounds(181, 101, 113, 25);
+		pnlIdiomas.add(chckbxFrances);
 		
-		JCheckBox chckbxPortugus = new JCheckBox("Portugu\u00E9s");
-		chckbxPortugus.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-		chckbxPortugus.setBackground(new Color(228, 228, 228));
-		chckbxPortugus.setBounds(181, 25, 113, 25);
-		pnlIdiomas.add(chckbxPortugus);
+		chckbxPortugues = new JCheckBox("Portugu\u00E9s");
+		chckbxPortugues.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		chckbxPortugues.setBackground(new Color(228, 228, 228));
+		chckbxPortugues.setBounds(181, 25, 113, 25);
+		pnlIdiomas.add(chckbxPortugues);
 		
-		JCheckBox chckbxAlemn = new JCheckBox("Alem\u00E1n");
-		chckbxAlemn.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-		chckbxAlemn.setBackground(new Color(228, 228, 228));
-		chckbxAlemn.setBounds(181, 62, 113, 25);
-		pnlIdiomas.add(chckbxAlemn);
+		chckbxAleman = new JCheckBox("Alem\u00E1n");
+		chckbxAleman.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		chckbxAleman.setBackground(new Color(228, 228, 228));
+		chckbxAleman.setBounds(181, 62, 113, 25);
+		pnlIdiomas.add(chckbxAleman);
 		
-		JCheckBox chckbxMandarn = new JCheckBox("Chino");
-		chckbxMandarn.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-		chckbxMandarn.setBackground(new Color(228, 228, 228));
-		chckbxMandarn.setBounds(389, 25, 113, 25);
-		pnlIdiomas.add(chckbxMandarn);
+		chckbxMandarin = new JCheckBox("Chino");
+		chckbxMandarin.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		chckbxMandarin.setBackground(new Color(228, 228, 228));
+		chckbxMandarin.setBounds(389, 25, 113, 25);
+		pnlIdiomas.add(chckbxMandarin);
 		
-		JCheckBox chckbxCoreano = new JCheckBox("Coreano");
+		chckbxCoreano = new JCheckBox("Coreano");
 		chckbxCoreano.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		chckbxCoreano.setBackground(new Color(228, 228, 228));
 		chckbxCoreano.setBounds(389, 62, 113, 25);
 		pnlIdiomas.add(chckbxCoreano);
 		
-		JCheckBox chckbxJapons = new JCheckBox("Japon\u00E9s");
-		chckbxJapons.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-		chckbxJapons.setBackground(new Color(228, 228, 228));
-		chckbxJapons.setBounds(389, 101, 113, 25);
-		pnlIdiomas.add(chckbxJapons);
+		chckbxJapones = new JCheckBox("Japon\u00E9s");
+		chckbxJapones.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		chckbxJapones.setBackground(new Color(228, 228, 228));
+		chckbxJapones.setBounds(389, 101, 113, 25);
+		pnlIdiomas.add(chckbxJapones);
 		
 		JLabel lbltieneLicenciaDe = new JLabel("\u00BFTiene licencia de conducir?");
 		lbltieneLicenciaDe.setFont(new Font("Segoe UI", Font.BOLD, 16));
 		lbltieneLicenciaDe.setBounds(12, 475, 219, 29);
 		pnlEspecializacion.add(lbltieneLicenciaDe);
 		
-		JCheckBox checkBox = new JCheckBox("");
-		checkBox.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-		checkBox.setBackground(new Color(228, 228, 228));
-		checkBox.setBounds(239, 478, 39, 25);
-		pnlEspecializacion.add(checkBox);
+		chkLicenciaConducir = new JCheckBox("");
+		chkLicenciaConducir.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		chkLicenciaConducir.setBackground(new Color(228, 228, 228));
+		chkLicenciaConducir.setBounds(239, 478, 39, 25);
+		pnlEspecializacion.add(chkLicenciaConducir);
 		
 		JPanel pnlPreferencias = new JPanel();
 		pnlPreferencias.setBackground(new Color(228, 228, 228));
@@ -518,7 +569,7 @@ public class RegistroCandidato extends JDialog {
 				cargarModalidad();
 			}
 		});
-		cmbModalidad.setModel(new DefaultComboBoxModel(new String[] {"Presencial", "Remoto", "H\u00EDbrido"}));
+		cmbModalidad.setModel(new DefaultComboBoxModel(new String[] {"", "Presencial", "Remoto", "H\u00EDbrido"}));
 		cmbModalidad.setMaximumRowCount(11);
 		cmbModalidad.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		cmbModalidad.setBounds(111, 18, 305, 29);
@@ -540,7 +591,7 @@ public class RegistroCandidato extends JDialog {
 				cargarJornada();
 			}
 		});
-		cmbJornada.setModel(new DefaultComboBoxModel(new String[] {"Tiempo Completo", "Medio Tiempo", "Jornada Nocturna", "Jornada Rotativa"}));
+		cmbJornada.setModel(new DefaultComboBoxModel(new String[] {"", "Tiempo Completo", "Medio Tiempo", "Jornada Nocturna", "Jornada Rotativa"}));
 		
 		cmbJornada.setMaximumRowCount(11);
 		cmbJornada.setFont(new Font("Segoe UI", Font.PLAIN, 14));
@@ -597,17 +648,14 @@ public class RegistroCandidato extends JDialog {
 				JButton okButton = new JButton("Confimar");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						try {
-							if(verificar()) {
-								
-							}
-							else {
-								JOptionPane.showMessageDialog(null,"Todos los registros son obligatorios.","Advertencia",JOptionPane.WARNING_MESSAGE);
-							}
-						} catch (FormatException ex) {
-							JOptionPane.showMessageDialog(null,ex.getMessage(),"Advertencia",JOptionPane.WARNING_MESSAGE);
-						}
-					}
+				        try {
+				            if(verificar()) {
+				                registrarCandidato();
+				            }
+				        } catch (FormatException ex) {
+				            JOptionPane.showMessageDialog(null, ex.getMessage(), "Advertencia", JOptionPane.WARNING_MESSAGE);
+				        }
+				    }
 				});
 				okButton.setFont(new Font("Segoe UI", Font.PLAIN, 16));
 				if(candidatoAct == null) {
@@ -635,6 +683,11 @@ public class RegistroCandidato extends JDialog {
 			}
 			{
 				JButton cancelButton = new JButton("Cancelar");
+				cancelButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						dispose();
+					}
+				});
 				cancelButton.setFont(new Font("Segoe UI", Font.PLAIN, 16));
 				cancelButton.setIcon(new ImageIcon("recursos/cerrar.png"));
 				cancelButton.setActionCommand("Cancel");
@@ -645,29 +698,28 @@ public class RegistroCandidato extends JDialog {
 		cmbArea.setSelectedIndex(0);
 		cmbModalidad.setSelectedIndex(0);
 		
-		JSpinner spnSalarioEsperado = new JSpinner();
+		spnSalarioEsperado = new JSpinner();
 		spnSalarioEsperado.setModel(new SpinnerNumberModel(new Float(12000), new Float(12000), null, new Float(1)));
 		spnSalarioEsperado.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		spnSalarioEsperado.setBounds(154, 200, 262, 22);
 		pnlPreferencias.add(spnSalarioEsperado);
 		
-		JCheckBox checkBox_1 = new JCheckBox("");
-		checkBox_1.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-		checkBox_1.setBackground(new Color(228, 228, 228));
-		checkBox_1.setBounds(359, 252, 39, 25);
-		pnlPreferencias.add(checkBox_1);
+		chkMudarse = new JCheckBox("");
+		chkMudarse.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		chkMudarse.setBackground(new Color(228, 228, 228));
+		chkMudarse.setBounds(359, 252, 39, 25);
+		pnlPreferencias.add(chkMudarse);
 		
 		JLabel lblposeeTrabajoActualmente = new JLabel("\u00BFPosee trabajo actualmente?");
 		lblposeeTrabajoActualmente.setFont(new Font("Segoe UI", Font.BOLD, 16));
 		lblposeeTrabajoActualmente.setBounds(12, 296, 232, 29);
 		pnlPreferencias.add(lblposeeTrabajoActualmente);
 		
-		JCheckBox chkTrabajo = new JCheckBox("");
+		chkTrabajo = new JCheckBox("");
 		chkTrabajo.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		chkTrabajo.setBackground(new Color(228, 228, 228));
 		chkTrabajo.setBounds(240, 300, 39, 25);
 		pnlPreferencias.add(chkTrabajo);
-		cargarDatos();
 		cambiarEspecializacion("Estudiante Universitario");
 	}
 	
@@ -709,15 +761,278 @@ public class RegistroCandidato extends JDialog {
 		lblIcoModalidad.setIcon(new ImageIcon("recursos/" + nombreModalidad + ".png"));
 	}
 	
-	private void cargarDatos() {
-		
-	}
-	
+
 	private void limpiar() {
 		
+	    txtCodigo.setText("CAN-" + BolsaLaboral.genCodigoCandidato);
+	    txtNombre.setText("");
+	    txtApellido.setText("");
+	    txtCedula.setText("");
+	    txtCorreo.setText("");
+	    txtTelefono.setText("");
+	    txtProvincia.setText("");
+	    txtMunicipio.setText("");
+	    
+	    Calendar cal = Calendar.getInstance();
+	    cal.add(Calendar.YEAR, -25);
+	    spnFechaNac.setValue(cal.getTime());
+	    
+	    txtUniversidad.setText("");
+	    if(cmbCarrera != null) cmbCarrera.setSelectedIndex(0);
+	    if(cmbNivel != null) cmbNivel.setSelectedIndex(0);
+	    
+	    txtAreaTecnica.setText("");
+	    if(spnAniosExp != null) spnAniosExp.setValue(0);
+	    
+	    rdUniversitario.setSelected(true);
+	    cambiarEspecializacion("Estudiante Universitario");
+	    
+	    if(chkPlomeria != null) chkPlomeria.setSelected(false);
+	    if(chkCarpintero != null) chkCarpintero.setSelected(false);
+	    if(chkCajero != null) chkCajero.setSelected(false);
+	    if(chkSoldadura != null) chkSoldadura.setSelected(false);
+	    if(chkElectrica != null) chkElectrica.setSelected(false);
+	    if(chkMecanica != null) chkMecanica.setSelected(false);
+	    if(chkAlbanileria != null) chkAlbanileria.setSelected(false);
+	    if(chkRedes != null) chkRedes.setSelected(false);
+	    if(chkConduccion != null) chkConduccion.setSelected(false);
+	    if(chkReparacion != null) chkReparacion.setSelected(false);
+	    if(chkVentas != null) chkVentas.setSelected(false);
+	    if(chkFotografia != null) chkFotografia.setSelected(false);
+	    if(chkCocina != null) chkCocina.setSelected(false);
+	    if(chkLimpieza != null) chkLimpieza.setSelected(false);
+	    if(chkPintura != null) chkPintura.setSelected(false);
+	    
+	    if(chckbxIngles != null) chckbxIngles.setSelected(false);
+	    if(chckbxItaliano != null) chckbxItaliano.setSelected(false);
+	    if(chckbxEspanol != null) chckbxEspanol.setSelected(false);
+	    if(chckbxFrances != null) chckbxFrances.setSelected(false);
+	    if(chckbxPortugues != null) chckbxPortugues.setSelected(false);
+	    if(chckbxAleman != null) chckbxAleman.setSelected(false);
+	    if(chckbxMandarin != null) chckbxMandarin.setSelected(false);
+	    if(chckbxCoreano != null) chckbxCoreano.setSelected(false);
+	    if(chckbxJapones != null) chckbxJapones.setSelected(false);
+	    
+	    cmbModalidad.setSelectedIndex(0);
+	    cmbJornada.setSelectedIndex(0);
+	    cmbArea.setSelectedIndex(0);
+	    
+	    if(chkLicenciaConducir != null) chkLicenciaConducir.setSelected(false);
+	    if(chkMudarse != null) chkMudarse.setSelected(false);
+	    if(chkTrabajo != null) chkTrabajo.setSelected(false);
+	    
+	    if(spnSalarioEsperado != null) spnSalarioEsperado.setValue(12000.0f);
+	}
+
+	private void registrarCandidato() {
+	    try {
+	        String codigo = txtCodigo.getText();
+	        String nombres = txtNombre.getText().trim();
+	        String apellidos = txtApellido.getText().trim();
+	        String cedula = txtCedula.getText().trim();
+	        String correo = txtCorreo.getText().trim();
+	        String telefono = txtTelefono.getText().trim();
+	        String provincia = txtProvincia.getText().trim();
+	        String municipio = txtMunicipio.getText().trim();
+	        
+	        Date fechaNacSpinner = (Date) spnFechaNac.getValue();
+	        LocalDate fechaNacimiento = fechaNacSpinner.toInstant()
+	            .atZone(java.time.ZoneId.systemDefault()).toLocalDate();
+	        
+	        String modalidad = cmbModalidad.getSelectedItem().toString();
+	        String jornada = cmbJornada.getSelectedItem().toString();
+	        String areaInteres = cmbArea.getSelectedItem().toString();
+	        
+	        float salarioEsperado = ((Number) spnSalarioEsperado.getValue()).floatValue();
+	        
+	        boolean licenciaConducir = chkLicenciaConducir.isSelected();
+	        boolean mudarse = chkMudarse.isSelected();
+	        ArrayList<String> idiomas = new ArrayList<>();
+	        if(chckbxIngles.isSelected()) idiomas.add("Inglés");
+	        if(chckbxItaliano.isSelected()) idiomas.add("Italiano");
+	        if(chckbxEspanol.isSelected()) idiomas.add("Español");
+	        if(chckbxFrances.isSelected()) idiomas.add("Francés");
+	        if(chckbxPortugues.isSelected()) idiomas.add("Portugués");
+	        if(chckbxAleman.isSelected()) idiomas.add("Alemán");
+	        if(chckbxMandarin.isSelected()) idiomas.add("Chino");
+	        if(chckbxCoreano.isSelected()) idiomas.add("Coreano");
+	        if(chckbxJapones.isSelected()) idiomas.add("Japonés");
+	        
+	        Candidato nuevoCandidato = null;
+	        
+	        if(rdUniversitario.isSelected()) {
+	            String universidad = txtUniversidad.getText().trim();
+	            String carrera = cmbCarrera.getSelectedItem().toString();
+	            String nivelAcademico = cmbNivel.getSelectedItem().toString();
+	            
+	            nuevoCandidato = new Universitario(codigo, cedula, nombres, apellidos, 
+	                fechaNacimiento, provincia, municipio, telefono, correo, jornada, 
+	                modalidad, areaInteres, salarioEsperado, licenciaConducir, mudarse, 
+	                idiomas, new ArrayList<>(), universidad, carrera, nivelAcademico);
+	                
+	        } else if(rdTecnico.isSelected()) {
+	            String areaTecnica = txtAreaTecnica.getText().trim();
+	            int aniosExperiencia = ((Number) spnAniosExp.getValue()).intValue();
+	            
+	            nuevoCandidato = new TecnicoSuperior(codigo, cedula, nombres, apellidos, 
+	                fechaNacimiento, provincia, municipio, telefono, correo, jornada, 
+	                modalidad, areaInteres, salarioEsperado, licenciaConducir, mudarse, 
+	                idiomas, new ArrayList<>(), areaTecnica, aniosExperiencia);
+	                
+	        } else if(rdObrero.isSelected()) {
+	            ArrayList<String> habilidades = new ArrayList<>();
+	            if(chkPlomeria.isSelected()) habilidades.add("Plomería");
+	            if(chkCarpintero.isSelected()) habilidades.add("Carpintería");
+	            if(chkCajero.isSelected()) habilidades.add("Gestión Financiera");
+	            if(chkSoldadura.isSelected()) habilidades.add("Soldadura");
+	            if(chkElectrica.isSelected()) habilidades.add("Instalación Eléctrica");
+	            if(chkMecanica.isSelected()) habilidades.add("Mecánica");
+	            if(chkAlbanileria.isSelected()) habilidades.add("Albañilería");
+	            if(chkRedes.isSelected()) habilidades.add("Redes Sociales");
+	            if(chkConduccion.isSelected()) habilidades.add("Conducción");
+	            if(chkReparacion.isSelected()) habilidades.add("Reparación de Electrónicos");
+	            if(chkVentas.isSelected()) habilidades.add("Ventas");
+	            if(chkFotografia.isSelected()) habilidades.add("Fotografía");
+	            if(chkCocina.isSelected()) habilidades.add("Cocina");
+	            if(chkLimpieza.isSelected()) habilidades.add("Limpieza");
+	            if(chkPintura.isSelected()) habilidades.add("Pintura");
+	            
+	            nuevoCandidato = new Obrero(codigo, cedula, nombres, apellidos, 
+	                fechaNacimiento, provincia, municipio, telefono, correo, jornada, 
+	                modalidad, areaInteres, salarioEsperado, licenciaConducir, mudarse, 
+	                idiomas, new ArrayList<>(), habilidades);
+	        }
+	        
+	        if(nuevoCandidato != null) {
+	            if(candidatoAct == null) {
+	                BolsaLaboral.getInstancia().registrarCandidato(nuevoCandidato);
+	                JOptionPane.showMessageDialog(this, "Candidato registrado exitosamente", 
+	                    "Registro Exitoso", JOptionPane.INFORMATION_MESSAGE);
+	                
+	                limpiar();
+	                contenedor.setSelectedIndex(0);
+	                
+	            } else {
+	                JOptionPane.showMessageDialog(this, "Candidato modificado exitosamente", 
+	                    "Modificación Exitosa", JOptionPane.INFORMATION_MESSAGE);
+	            }
+	        }
+	        
+	    } catch (Exception e) {
+	        JOptionPane.showMessageDialog(this, "Error al procesar los datos: " + e.getMessage(), 
+	            "Error", JOptionPane.ERROR_MESSAGE);
+	    }
 	}
 	
-	private boolean verificar() throws FormatException{
-		return true;
+	private boolean verificar() throws FormatException {
+	    if(txtNombre.getText().trim().isEmpty()) {
+	        throw new FormatException("El nombre es obligatorio");
+	    }
+	    if(txtApellido.getText().trim().isEmpty()) {
+	        throw new FormatException("El apellido es obligatoria");
+	    }
+	    if(txtCedula.getText().trim().isEmpty()) {
+	        throw new FormatException("La cédula es obligatoria");
+	    }
+	    
+	    Date fechaNacimiento = (Date) spnFechaNac.getValue();
+	    Calendar cal = Calendar.getInstance();
+	    Date fechaActual = cal.getTime();
+	    
+	    if(fechaNacimiento.after(fechaActual)) {
+	        throw new FormatException("La fecha de nacimiento no puede ser futura");
+	    }
+	    
+	    cal.add(Calendar.YEAR, -16);
+	    if(fechaNacimiento.after(cal.getTime())) {
+	        throw new FormatException("El candidato debe tener al menos 16 años");
+	    }
+	    
+	    cal = Calendar.getInstance();
+	    cal.add(Calendar.YEAR, -100);
+	    if(fechaNacimiento.before(cal.getTime())) {
+	        throw new FormatException("La fecha de nacimiento no puede ser anterior a " + (Calendar.getInstance().get(Calendar.YEAR) - 100));
+	    }
+	    
+	    if(txtTelefono.getText().trim().isEmpty()) {
+	        throw new FormatException("El teléfono es obligatorio");
+	    }
+	    
+	    if(txtCorreo.getText().trim().isEmpty()) {
+	        throw new FormatException("El correo es obligatorio");
+	    }
+	   
+	    if(txtProvincia.getText().trim().isEmpty()) {
+	        throw new FormatException("La provincia es obligatoria");
+	    }
+	    if(txtMunicipio.getText().trim().isEmpty()) {
+	        throw new FormatException("El municipio es obligatorio");
+	    }
+	    
+	    if(!txtCorreo.getText().contains("@") || !txtCorreo.getText().contains(".")) {
+	        throw new FormatException("El formato del correo inválido. Ejemplo: usuario@dominio.com\"");
+	    }
+	    
+	    String cedula = txtCedula.getText().trim().replaceAll("[^0-9]", "");
+	    if(cedula.length() != 11) {
+	        throw new FormatException("La cédula debe tener 11 dígitos");
+	    }
+	    
+	    String telefono = txtTelefono.getText().trim().replaceAll("[^0-9]", ""); 
+	    if(telefono.length() != 10) {
+	        throw new FormatException("El teléfono debe tener 10 dígitos");
+	    }
+	    
+	    if(rdUniversitario.isSelected()) {
+	        if(txtUniversidad.getText().trim().isEmpty()) {
+	            throw new FormatException("La universidad es obligatoria para estudiantes universitarios");
+	        }
+	        
+	    } else if(rdTecnico.isSelected()) {
+	        if(txtAreaTecnica.getText().trim().isEmpty()) {
+	            throw new FormatException("El área técnica es obligatoria para técnicos superiores");
+	        }
+	        
+	    } else     if(rdObrero.isSelected()) {
+	        boolean tieneHabilidad = false;
+	        
+	        if(chkPlomeria != null && chkPlomeria.isSelected()) tieneHabilidad = true;
+	        if(chkCarpintero != null && chkCarpintero.isSelected()) tieneHabilidad = true;
+	        if(chkCajero != null && chkCajero.isSelected()) tieneHabilidad = true;
+	        if(chkSoldadura != null && chkSoldadura.isSelected()) tieneHabilidad = true;
+	        if(chkElectrica != null && chkElectrica.isSelected()) tieneHabilidad = true;
+	        if(chkMecanica != null && chkMecanica.isSelected()) tieneHabilidad = true;
+	        if(chkAlbanileria != null && chkAlbanileria.isSelected()) tieneHabilidad = true;
+	        if(chkRedes != null && chkRedes.isSelected()) tieneHabilidad = true;
+	        if(chkConduccion != null && chkConduccion.isSelected()) tieneHabilidad = true;
+	        if(chkReparacion != null && chkReparacion.isSelected()) tieneHabilidad = true;
+	        if(chkVentas != null && chkVentas.isSelected()) tieneHabilidad = true;
+	        if(chkFotografia != null && chkFotografia.isSelected()) tieneHabilidad = true;
+	        if(chkCocina != null && chkCocina.isSelected()) tieneHabilidad = true;
+	        if(chkLimpieza != null && chkLimpieza.isSelected()) tieneHabilidad = true;
+	        if(chkPintura != null && chkPintura.isSelected()) tieneHabilidad = true;
+	        
+	        if(!tieneHabilidad) {
+	            throw new FormatException("Debe seleccionar al menos una habilidad para obreros");
+	        }
+	    }
+	    if(cmbModalidad == null || cmbModalidad.getSelectedItem() == null || 
+	       cmbModalidad.getSelectedItem().toString().trim().isEmpty()) {
+	        throw new FormatException("La modalidad es obligatoria");
+	    }
+	    
+	    if(cmbJornada == null || cmbJornada.getSelectedItem() == null || 
+	       cmbJornada.getSelectedItem().toString().trim().isEmpty()) {
+	        throw new FormatException("La jornada es obligatoria");
+	    }
+	    
+	    
+	    float salarioEsperado = ((Number) spnSalarioEsperado.getValue()).floatValue();
+	    if(salarioEsperado < 12000) {
+	        throw new FormatException("El salario esperado debe ser al menos 12,000");
+	    }
+	    
+	    return true;
 	}
+
 }

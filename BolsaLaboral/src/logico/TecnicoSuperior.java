@@ -13,7 +13,7 @@ public class TecnicoSuperior extends Candidato {
 			boolean disposicionMudarse, ArrayList<String> idiomas, ArrayList<Solicitud> misSolicitudes,
 			String areaTecnica, int aniosExperiencia) {
 		super(codigo, identificacion, nombres, apellidos, fechaNacimiento, provincia, municipio, telefono, correo,
-				jornada, modalidad,areaDeInteres ,aspiracionSalarial, licenciaConducir, disposicionMudarse, idiomas, misSolicitudes);
+				jornada, modalidad,areaDeInteres ,aspiracionSalarial, licenciaConducir, disposicionMudarse, idiomas);
 		this.areaTecnica = areaTecnica;
 		this.aniosExperiencia = aniosExperiencia;
 	}

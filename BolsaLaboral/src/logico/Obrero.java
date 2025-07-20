@@ -11,7 +11,7 @@ public class Obrero extends Candidato {
 			float aspiracionSalarial, boolean licenciaConducir, boolean disposicionMudarse, ArrayList<String> idiomas,
 			ArrayList<Solicitud> misSolicitudes, ArrayList<String> habilidades) {
 		super(codigo, identificacion, nombres, apellidos, fechaNacimiento, provincia, municipio, telefono, correo,
-				jornada, modalidad,AreaDeInteres, aspiracionSalarial, licenciaConducir, disposicionMudarse, idiomas, misSolicitudes);
+				jornada, modalidad,AreaDeInteres, aspiracionSalarial, licenciaConducir, disposicionMudarse, idiomas);
 		this.habilidades = habilidades;
 	}
 

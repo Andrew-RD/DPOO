@@ -24,8 +24,7 @@ public abstract class Candidato{
 	
 	public Candidato(String codigo, String identificacion, String nombres, String apellidos, LocalDate fechaNacimiento,
 			String provincia, String municipio, String telefono, String correo, String jornada, String modalidad, String areaDeInteres,
-			float aspiracionSalarial, boolean licenciaConducir, boolean disposicionMudarse, ArrayList<String> idiomas,
-			ArrayList<Solicitud> misSolicitudes) {
+			float aspiracionSalarial, boolean licenciaConducir, boolean disposicionMudarse, ArrayList<String> idiomas) {
 		super();
 		this.codigo = codigo;
 		this.identificacion = identificacion;
@@ -43,7 +42,7 @@ public abstract class Candidato{
 		this.licenciaConducir = licenciaConducir;
 		this.disposicionMudarse = disposicionMudarse;
 		this.idiomas = idiomas;
-		this.misSolicitudes = misSolicitudes;
+		this.misSolicitudes = new ArrayList<Solicitud> ();
 	}
 
 	public String getCodigo() {

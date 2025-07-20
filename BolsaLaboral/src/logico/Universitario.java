@@ -14,7 +14,7 @@ public class Universitario extends Candidato {
 			boolean disposicionMudarse, ArrayList<String> idiomas, ArrayList<Solicitud> misSolicitudes,
 			String universidad, String carrera, String nivelAcademico) {
 		super(codigo, identificacion, nombres, apellidos, fechaNacimiento, provincia, municipio, telefono, correo,
-				jornada, modalidad,areaDeInteres ,aspiracionSalarial, licenciaConducir, disposicionMudarse, idiomas, misSolicitudes);
+				jornada, modalidad,areaDeInteres ,aspiracionSalarial, licenciaConducir, disposicionMudarse, idiomas);
 		this.universidad = universidad;
 		this.carrera = carrera;
 		this.nivelAcademico = nivelAcademico;
