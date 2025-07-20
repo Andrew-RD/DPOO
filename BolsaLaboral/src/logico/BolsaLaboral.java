@@ -164,13 +164,74 @@ public class BolsaLaboral {
 		return false;
 	}
 	
-	public void matcheoPosiblesContrataciones (){
-		for(OfertaLaboral oferta : ofertas) {
-			int cantMatch = 0;
-			for(Solicitud sld : solicitudes) {
-				
-			}
-		}
+	public ArrayList<Candidato> obtenerCandidatosOrdenadosParaOferta(OfertaLaboral oferta) {
+	    ArrayList<Candidato> ordenados = new ArrayList<>();
+	    for (Candidato candidato : candidatos) {
+	        int puntaje = calcularPuntaje(candidato, oferta);
+	        if (puntaje >= 50) {
+	            int i = 0;
+	            while (i < ordenados.size() && calcularPuntaje(ordenados.get(i), oferta) >= puntaje) {
+	                i++;
+	            }
+	            ordenados.add(i, candidato);
+	        }
+	    }
+	    return ordenados;
+	}
+	
+	private int calcularPuntaje(Candidato candidato, OfertaLaboral oferta) {
+	    int puntaje = 0;
+	    
+	    if (candidato.getModalidad().equalsIgnoreCase(oferta.getModalidad())) {
+	        puntaje += 15;
+	    }
+	    
+	    if (candidato.getJornada().equalsIgnoreCase(oferta.getJornada())) {
+	        puntaje += 15;
+	    }
+	    
+	    if (candidato.getAreaDeInteres().equalsIgnoreCase(oferta.getPuesto())) {
+	        puntaje += 20;
+	    }
+	    
+	    if (candidato.getProvincia().equalsIgnoreCase(oferta.getOfertador().getProvincia())) {
+	        puntaje += 15;
+	    } else if (candidato.isDisposicionMudarse()) {
+	        puntaje += 8;
+	    }
+	    
+	    if (candidato.getAspiracionSalarial() <= oferta.getSalario()) {
+	        puntaje += 10;
+	    }
+	    
+	    int idiomasPuntos = 0;
+	    for (String idioma : oferta.getIdiomasRequeridas()) {
+	        if (candidato.getIdiomas().contains(idioma)) {
+	            idiomasPuntos += 2;
+	        }
+	    }
+	    puntaje += Math.min(10, idiomasPuntos);
+	    
+	    if (candidato instanceof Universitario) {
+	        Universitario u = (Universitario) candidato;
+	        if (u.getNivelAcademico().equalsIgnoreCase(oferta.getNivelAcademico())) {
+	            puntaje += 20;
+	        }
+	    } else if (candidato instanceof TecnicoSuperior) {
+	        TecnicoSuperior t = (TecnicoSuperior) candidato;
+	        if (t.getAniosExperiencia() >= oferta.getExperienciaMinima()) {
+	            puntaje += 20;
+	        }
+	    } else if (candidato instanceof Obrero) {
+	        Obrero o = (Obrero) candidato;
+	        for (String habilidad : oferta.getRequisitos()) {
+	            if (o.getHabilidades().contains(habilidad)) {
+	                puntaje += 5;
+	            }
+	        }
+	    }
+	    
+	    return puntaje;
 	}
 
 	public OfertaLaboral buscarOfertaByCodigo(String codigo) {
