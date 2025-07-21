@@ -82,6 +82,7 @@ public class ConsultarCandidatos extends JDialog {
 								seleccionado = BolsaLaboral.getInstancia().buscarCandidatoByCodigo(table.getValueAt(index, 0).toString());
 								btnDelete.setEnabled(true);
 								btnUpdate.setEnabled(true);
+								btnVisualizar.setEnabled(true);
 							}
 						}
 					});
@@ -132,18 +133,26 @@ public class ConsultarCandidatos extends JDialog {
 				btnUpdate.setIcon(new ImageIcon("recursos/modificar.png"));
 				btnUpdate.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						btnDelete.setEnabled(true);
-						btnUpdate.setEnabled(true);
-						btnVisualizar.setEnabled(true);
 						RegistroCandidato registro = new RegistroCandidato(seleccionado);
+						registro.setModal(true); 
+						registro.setLocationRelativeTo(ConsultarCandidatos.this); 
 						registro.setVisible(true);
+						
+						cargarCandidatos();
+						
+						seleccionado = null;
+						btnDelete.setEnabled(false);
+						btnUpdate.setEnabled(false);
+						btnVisualizar.setEnabled(false);
 					}
 				});
 				{
 					btnVisualizar = new JButton("Visualizar");
 					btnVisualizar.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
-							
+							if(seleccionado != null) {
+								visualizarCandidato(seleccionado);
+							}
 						}
 					});
 					btnVisualizar.setIcon(new ImageIcon("recursos/cv.png"));
@@ -167,13 +176,13 @@ public class ConsultarCandidatos extends JDialog {
 						if(seleccionado != null) {
 							int option = JOptionPane.showConfirmDialog(null, "¿Esta seguro que desea eliminar al candidato " + seleccionado.getNombres() + " " + seleccionado.getApellidos() + " que posee el ID: "+seleccionado.getCodigo()+"?", "Eliminar", JOptionPane.WARNING_MESSAGE);
 							if(option == JOptionPane.OK_OPTION){
-								btnDelete.setEnabled(true);
-								btnUpdate.setEnabled(true);
 								try {
-									btnDelete.setEnabled(true);
-									btnUpdate.setEnabled(true);
 									BolsaLaboral.getInstancia().eliminarCandidato(seleccionado);
 									cargarCandidatos();
+									seleccionado = null;
+									btnDelete.setEnabled(false);
+									btnUpdate.setEnabled(false);
+									btnVisualizar.setEnabled(false);
 								}
 								catch (NotRemovableException ex) {
 									JOptionPane.showMessageDialog(null,ex.getMessage(),"Advertencia",JOptionPane.ERROR_MESSAGE);
@@ -201,6 +210,20 @@ public class ConsultarCandidatos extends JDialog {
 		cargarCandidatos();
 		table.getTableHeader().setReorderingAllowed(false);
 		table.setBackground(new Color(228, 228, 228));
+	}
+	
+	private void visualizarCandidato(Candidato candidato) {
+		String mensaje = "INFORMACIÓN DEL CANDIDATO\n\n" +
+			"Código: " + candidato.getCodigo() + "\n" +
+			"Nombre: " + candidato.getNombres() + " " + candidato.getApellidos() + "\n" +
+			"Cédula: " + candidato.getIdentificacion() + "\n" +
+			"Teléfono: " + candidato.getTelefono() + "\n" +
+			"Correo: " + candidato.getCorreo() + "\n" +
+			"Nivel Académico: " + getNivelAcademico(candidato) + "\n" +
+			"Área de Interés: " + candidato.getAreaDeInteres() + "\n" +
+			"Aspiración Salarial: RD$" + candidato.getAspiracionSalarial();
+		
+		JOptionPane.showMessageDialog(this, mensaje, "Información del Candidato", JOptionPane.INFORMATION_MESSAGE);
 	}
 	
 	public void filtrar() {

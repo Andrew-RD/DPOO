@@ -721,6 +721,8 @@ public class RegistroCandidato extends JDialog {
 		chkTrabajo.setBounds(240, 300, 39, 25);
 		pnlPreferencias.add(chkTrabajo);
 		cambiarEspecializacion("Estudiante Universitario");
+		cargarDatos();
+	
 	}
 	
 	private void cambiarEspecializacion(String especializacion) {
@@ -913,8 +915,36 @@ public class RegistroCandidato extends JDialog {
 	                contenedor.setSelectedIndex(0);
 	                
 	            } else {
-	                JOptionPane.showMessageDialog(this, "Candidato modificado exitosamente", 
-	                    "Modificación Exitosa", JOptionPane.INFORMATION_MESSAGE);
+	            	 candidatoAct.setNombres(nuevoCandidato.getNombres());
+	            	    candidatoAct.setApellidos(nuevoCandidato.getApellidos());
+	            	    candidatoAct.setIdentificacion(nuevoCandidato.getIdentificacion());
+	            	    candidatoAct.setCorreo(nuevoCandidato.getCorreo());
+	            	    candidatoAct.setTelefono(nuevoCandidato.getTelefono());
+	            	    candidatoAct.setProvincia(nuevoCandidato.getProvincia());
+	            	    candidatoAct.setMunicipio(nuevoCandidato.getMunicipio());
+	            	    candidatoAct.setFechaNacimiento(nuevoCandidato.getFechaNacimiento());
+	            	    candidatoAct.setJornada(nuevoCandidato.getJornada());
+	            	    candidatoAct.setModalidad(nuevoCandidato.getModalidad());
+	            	    candidatoAct.setAreaDeInteres(nuevoCandidato.getAreaDeInteres());
+	            	    candidatoAct.setAspiracionSalarial(nuevoCandidato.getAspiracionSalarial());
+	            	    candidatoAct.setLicenciaConducir(nuevoCandidato.isLicenciaConducir());
+	            	    candidatoAct.setDisposicionMudarse(nuevoCandidato.isDisposicionMudarse());
+	            	    candidatoAct.setIdiomas(nuevoCandidato.getIdiomas());
+	            	    
+	            	    if (candidatoAct instanceof Universitario && nuevoCandidato instanceof Universitario) {
+	            	        ((Universitario)candidatoAct).setUniversidad(((Universitario)nuevoCandidato).getUniversidad());
+	            	        ((Universitario)candidatoAct).setCarrera(((Universitario)nuevoCandidato).getCarrera());
+	            	        ((Universitario)candidatoAct).setNivelAcademico(((Universitario)nuevoCandidato).getNivelAcademico());
+	            	    } else if (candidatoAct instanceof TecnicoSuperior && nuevoCandidato instanceof TecnicoSuperior) {
+	            	        ((TecnicoSuperior)candidatoAct).setAreaTecnica(((TecnicoSuperior)nuevoCandidato).getAreaTecnica());
+	            	        ((TecnicoSuperior)candidatoAct).setAniosExperiencia(((TecnicoSuperior)nuevoCandidato).getAniosExperiencia());
+	            	    } else if (candidatoAct instanceof Obrero && nuevoCandidato instanceof Obrero) {
+	            	        ((Obrero)candidatoAct).setHabilidades(((Obrero)nuevoCandidato).getHabilidades());
+	            	    }
+	            	    
+	            	    JOptionPane.showMessageDialog(this, "Candidato modificado exitosamente", 
+	            	        "Modificación Exitosa", JOptionPane.INFORMATION_MESSAGE);
+	            	    dispose();
 	            }
 	        }
 	        
@@ -923,6 +953,101 @@ public class RegistroCandidato extends JDialog {
 	            "Error", JOptionPane.ERROR_MESSAGE);
 	    }
 	}
+	private void cargarDatos() {
+	    if (candidatoAct != null) {
+	        txtCodigo.setText(candidatoAct.getCodigo());
+	        txtNombre.setText(candidatoAct.getNombres());
+	        txtApellido.setText(candidatoAct.getApellidos());
+	        txtCedula.setText(candidatoAct.getIdentificacion());
+	        txtCorreo.setText(candidatoAct.getCorreo());
+	        txtTelefono.setText(candidatoAct.getTelefono());
+	        txtProvincia.setText(candidatoAct.getProvincia());
+	        txtMunicipio.setText(candidatoAct.getMunicipio());
+	        
+	        Date fechaNac = Date.from(candidatoAct.getFechaNacimiento()
+	            .atStartOfDay(java.time.ZoneId.systemDefault()).toInstant());
+	        spnFechaNac.setValue(fechaNac);
+	        
+	        cmbModalidad.setSelectedItem(candidatoAct.getModalidad());
+	        cmbJornada.setSelectedItem(candidatoAct.getJornada());
+	        cmbArea.setSelectedItem(candidatoAct.getAreaDeInteres());
+	        spnSalarioEsperado.setValue(candidatoAct.getAspiracionSalarial());
+	        chkLicenciaConducir.setSelected(candidatoAct.isLicenciaConducir());
+	        chkMudarse.setSelected(candidatoAct.isDisposicionMudarse());
+	        
+	        for (String idioma : candidatoAct.getIdiomas()) {
+	            switch (idioma) {
+	                case "Inglés": chckbxIngles.setSelected(true); break;
+	                case "Italiano": chckbxItaliano.setSelected(true); break;
+	                case "Español": chckbxEspanol.setSelected(true); break;
+	                case "Francés": chckbxFrances.setSelected(true); break;
+	                case "Portugués": chckbxPortugues.setSelected(true); break;
+	                case "Alemán": chckbxAleman.setSelected(true); break;
+	                case "Chino": chckbxMandarin.setSelected(true); break;
+	                case "Coreano": chckbxCoreano.setSelected(true); break;
+	                case "Japonés": chckbxJapones.setSelected(true); break;
+	            }
+	        }
+	        
+	        if (candidatoAct instanceof Universitario) {
+	            rdUniversitario.setSelected(true);
+	            rdTecnico.setEnabled(false);
+	            rdObrero.setEnabled(false);
+	            
+	            cambiarEspecializacion("Estudiante Universitario");
+	            
+	            Universitario uni = (Universitario) candidatoAct;
+	            txtUniversidad.setText(uni.getUniversidad());
+	            cmbCarrera.setSelectedItem(uni.getCarrera());
+	            cmbNivel.setSelectedItem(uni.getNivelAcademico());
+	            
+	        } else if (candidatoAct instanceof TecnicoSuperior) {
+	            rdTecnico.setSelected(true);
+	            // Deshabilitar los otros radio buttons
+	            rdUniversitario.setEnabled(false);
+	            rdObrero.setEnabled(false);
+	            
+	            cambiarEspecializacion("Estudiante Tecnico");
+	            
+	            TecnicoSuperior tecnico = (TecnicoSuperior) candidatoAct;
+	            txtAreaTecnica.setText(tecnico.getAreaTecnica());
+	            spnAniosExp.setValue(tecnico.getAniosExperiencia());
+	            
+	        } else if (candidatoAct instanceof Obrero) {
+	            rdObrero.setSelected(true);
+	            rdUniversitario.setEnabled(false);
+	            rdTecnico.setEnabled(false);
+	            
+	            cambiarEspecializacion("Obrero");
+	            
+	            Obrero obrero = (Obrero) candidatoAct;
+	            for (String habilidad : obrero.getHabilidades()) {
+	                switch (habilidad) {
+	                    case "Plomería": chkPlomeria.setSelected(true); break;
+	                    case "Carpintería": chkCarpintero.setSelected(true); break;
+	                    case "Gestión Financiera": chkCajero.setSelected(true); break;
+	                    case "Soldadura": chkSoldadura.setSelected(true); break;
+	                    case "Instalación Eléctrica": chkElectrica.setSelected(true); break;
+	                    case "Mecánica": chkMecanica.setSelected(true); break;
+	                    case "Albañilería": chkAlbanileria.setSelected(true); break;
+	                    case "Redes Sociales": chkRedes.setSelected(true); break;
+	                    case "Conducción": chkConduccion.setSelected(true); break;
+	                    case "Reparación de Electrónicos": chkReparacion.setSelected(true); break;
+	                    case "Ventas": chkVentas.setSelected(true); break;
+	                    case "Fotografía": chkFotografia.setSelected(true); break;
+	                    case "Cocina": chkCocina.setSelected(true); break;
+	                    case "Limpieza": chkLimpieza.setSelected(true); break;
+	                    case "Pintura": chkPintura.setSelected(true); break;
+	                }
+	            }
+	        }
+	    } else {
+	        rdUniversitario.setEnabled(true);
+	        rdTecnico.setEnabled(true);
+	        rdObrero.setEnabled(true);
+	    }
+	}
+	
 	
 	private boolean verificar() throws FormatException {
 	    if(txtNombre.getText().trim().isEmpty()) {
