@@ -1055,8 +1055,9 @@ public class RegistroCandidato extends JDialog {
 	    if(txtApellido.getText().trim().isEmpty()) {
 	        throw new FormatException("El apellido es obligatoria");
 	    }
-	    if(txtCedula.getText().trim().isEmpty()) {
-	        throw new FormatException("La cédula es obligatoria");
+	    String cedula = txtCedula.getText().trim().replaceAll("[^0-9]", "");
+	    if(cedula.length() != 11) {
+	        throw new FormatException("La cédula debe tener 11 dígitos");
 	    }
 	    
 	    Date fechaNacimiento = (Date) spnFechaNac.getValue();
@@ -1095,11 +1096,6 @@ public class RegistroCandidato extends JDialog {
 	    
 	    if(!txtCorreo.getText().contains("@") || !txtCorreo.getText().contains(".")) {
 	        throw new FormatException("Formato del correo inválido. Ejemplo: usuario@dominio.com\"");
-	    }
-	    
-	    String cedula = txtCedula.getText().trim().replaceAll("[^0-9]", "");
-	    if(cedula.length() != 11) {
-	        throw new FormatException("La cédula debe tener 11 dígitos");
 	    }
 	    
 	    String telefono = txtTelefono.getText().trim().replaceAll("[^0-9]", ""); 
