@@ -213,17 +213,9 @@ public class ConsultarCandidatos extends JDialog {
 	}
 	
 	private void visualizarCandidato(Candidato candidato) {
-		String mensaje = "INFORMACIÓN DEL CANDIDATO\n\n" +
-			"Código: " + candidato.getCodigo() + "\n" +
-			"Nombre: " + candidato.getNombres() + " " + candidato.getApellidos() + "\n" +
-			"Cédula: " + candidato.getIdentificacion() + "\n" +
-			"Teléfono: " + candidato.getTelefono() + "\n" +
-			"Correo: " + candidato.getCorreo() + "\n" +
-			"Nivel Académico: " + getNivelAcademico(candidato) + "\n" +
-			"Área de Interés: " + candidato.getAreaDeInteres() + "\n" +
-			"Aspiración Salarial: RD$" + candidato.getAspiracionSalarial();
-		
-		JOptionPane.showMessageDialog(this, mensaje, "Información del Candidato", JOptionPane.INFORMATION_MESSAGE);
+		CV visualizar = new CV(candidato);
+		visualizar.setModal(true);
+		visualizar.setVisible(true);
 	}
 	
 	public void filtrar() {
