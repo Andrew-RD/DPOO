@@ -57,7 +57,6 @@ public class RegistroCandidato extends JDialog {
 	private JSpinner spnFechaNac;
 	private JTextField txtTelefono;
 	private JTextField txtUniversidad;
-	private JTextField txtAreaTecnica;
 	private JPanel pnlTipoCand;
 	private JPanel pnlEstudiante;
 	private JPanel pnlTecnico;
@@ -104,6 +103,7 @@ public class RegistroCandidato extends JDialog {
     private JCheckBox chkCocina;
     private JCheckBox chkLimpieza;
     private JCheckBox chkPintura;
+    private JComboBox cmbAreaTecnica;
 	/**
 	 * Create the dialog.
 	 */
@@ -265,6 +265,36 @@ public class RegistroCandidato extends JDialog {
 		contenedor.addTab("Especializaciones", null, pnlEspecializacion, null);
 		pnlEspecializacion.setLayout(null);
 		pnlEspecializacion.setBackground(new Color(228, 228, 228));
+		
+		pnlTecnico = new JPanel();
+		pnlTecnico.setBounds(12, 97, 510, 210);
+		pnlEspecializacion.add(pnlTecnico);
+		pnlTecnico.setLayout(null);
+		pnlTecnico.setBorder(new TitledBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)), "Estudiante T\u00E9cnico", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		pnlTecnico.setBackground(new Color(228, 228, 228));
+		
+		JLabel lblreaTcnica = new JLabel("\u00C1rea T\u00E9cnica:");
+		lblreaTcnica.setFont(new Font("Segoe UI", Font.BOLD, 16));
+		lblreaTcnica.setBounds(12, 25, 106, 29);
+		pnlTecnico.add(lblreaTcnica);
+		
+		JLabel lblAosDeExperiencia = new JLabel("A\u00F1os de Experiencia:");
+		lblAosDeExperiencia.setFont(new Font("Segoe UI", Font.BOLD, 16));
+		lblAosDeExperiencia.setBounds(12, 82, 168, 29);
+		pnlTecnico.add(lblAosDeExperiencia);
+		
+		spnAniosExp = new JSpinner();
+		spnAniosExp.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		spnAniosExp.setBounds(177, 86, 258, 22);
+		pnlTecnico.add(spnAniosExp);
+		
+		cmbAreaTecnica = new JComboBox();
+		cmbAreaTecnica.setModel(new DefaultComboBoxModel(new String[] {"Gesti\u00F3n de Talento Humano", "Impuestos y Contabilidad", "Publicidad", "Gesti\u00F3n Comercial", "Higiene y Seguridad Industrial", "Mantenimiento de Instalaciones", "Protecci\u00F3n Civil", "Protecci\u00F3n Industrial", "Redes de Datos", "Desarrollo de Software", "Log\u00EDstica Industrial", "Gesti\u00F3n Empresarial", "Atenci\u00F3n Comercial", "Automatizaci\u00F3n", "Dise\u00F1o Gr\u00E1fico", "Ciberseguridad", "Rob\u00F3tica", "Medios Digitales"}));
+		cmbAreaTecnica.setSelectedIndex(0);
+		cmbAreaTecnica.setMaximumRowCount(11);
+		cmbAreaTecnica.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		cmbAreaTecnica.setBounds(130, 25, 305, 29);
+		pnlTecnico.add(cmbAreaTecnica);
 		
 		pnlObrero = new JPanel();
 		pnlObrero.setLayout(null);
@@ -452,34 +482,6 @@ public class RegistroCandidato extends JDialog {
 		cmbCarrera.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		cmbCarrera.setBounds(116, 30, 305, 29);
 		pnlEstudiante.add(cmbCarrera);
-		
-		pnlTecnico = new JPanel();
-		pnlTecnico.setBounds(12, 97, 510, 210);
-		pnlEspecializacion.add(pnlTecnico);
-		pnlTecnico.setLayout(null);
-		pnlTecnico.setBorder(new TitledBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)), "Estudiante T\u00E9cnico", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		pnlTecnico.setBackground(new Color(228, 228, 228));
-		
-		JLabel lblreaTcnica = new JLabel("\u00C1rea T\u00E9cnica:");
-		lblreaTcnica.setFont(new Font("Segoe UI", Font.BOLD, 16));
-		lblreaTcnica.setBounds(12, 25, 106, 29);
-		pnlTecnico.add(lblreaTcnica);
-		
-		txtAreaTecnica = new JTextField();
-		txtAreaTecnica.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-		txtAreaTecnica.setColumns(10);
-		txtAreaTecnica.setBounds(130, 29, 305, 22);
-		pnlTecnico.add(txtAreaTecnica);
-		
-		JLabel lblAosDeExperiencia = new JLabel("A\u00F1os de Experiencia:");
-		lblAosDeExperiencia.setFont(new Font("Segoe UI", Font.BOLD, 16));
-		lblAosDeExperiencia.setBounds(12, 82, 168, 29);
-		pnlTecnico.add(lblAosDeExperiencia);
-		
-		spnAniosExp = new JSpinner();
-		spnAniosExp.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-		spnAniosExp.setBounds(177, 86, 258, 22);
-		pnlTecnico.add(spnAniosExp);
 		
 		pnlIdiomas = new JPanel();
 		pnlIdiomas.setLayout(null);
@@ -783,7 +785,7 @@ public class RegistroCandidato extends JDialog {
 	    if(cmbCarrera != null) cmbCarrera.setSelectedIndex(0);
 	    if(cmbNivel != null) cmbNivel.setSelectedIndex(0);
 	    
-	    txtAreaTecnica.setText("");
+	    cmbAreaTecnica.setSelectedIndex(0);
 	    if(spnAniosExp != null) spnAniosExp.setValue(0);
 	    
 	    rdUniversitario.setSelected(true);
@@ -873,7 +875,7 @@ public class RegistroCandidato extends JDialog {
 	                idiomas, new ArrayList<>(), universidad, carrera, nivelAcademico);
 	                
 	        } else if(rdTecnico.isSelected()) {
-	            String areaTecnica = txtAreaTecnica.getText().trim();
+	            String areaTecnica = cmbAreaTecnica.getSelectedItem().toString();
 	            int aniosExperiencia = ((Number) spnAniosExp.getValue()).intValue();
 	            
 	            nuevoCandidato = new TecnicoSuperior(codigo, cedula, nombres, apellidos, 
@@ -1009,7 +1011,7 @@ public class RegistroCandidato extends JDialog {
 	            cambiarEspecializacion("Estudiante Tecnico");
 	            
 	            TecnicoSuperior tecnico = (TecnicoSuperior) candidatoAct;
-	            txtAreaTecnica.setText(tecnico.getAreaTecnica());
+	            cmbAreaTecnica.setSelectedItem(tecnico.getAreaTecnica());
 	            spnAniosExp.setValue(tecnico.getAniosExperiencia());
 	            
 	        } else if (candidatoAct instanceof Obrero) {
@@ -1109,7 +1111,7 @@ public class RegistroCandidato extends JDialog {
 	        }
 	        
 	    } else if(rdTecnico.isSelected()) {
-	        if(txtAreaTecnica.getText().trim().isEmpty()) {
+	        if(cmbAreaTecnica.getSelectedIndex() < 0) {
 	            throw new FormatException("El área técnica es obligatoria para técnicos superiores");
 	        }
 	        
@@ -1154,5 +1156,4 @@ public class RegistroCandidato extends JDialog {
 	    
 	    return true;
 	}
-
 }
