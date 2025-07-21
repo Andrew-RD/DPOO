@@ -150,19 +150,6 @@ public class BolsaLaboral {
 		}
 		return encontrado;
 	}
-
-	
-	public boolean centroEliminable(CentroEmpleador centro) {
-		return true;
-	}
-	
-	public boolean candidatoEliminable(Candidato candidato) {
-		return true;
-	}
-	
-	private boolean ofertaEliminable(OfertaLaboral seleccionado) {
-		return false;
-	}
 	
 	public ArrayList<Candidato> obtenerCandidatosOrdenadosParaOferta(OfertaLaboral oferta) {
 	    ArrayList<Candidato> ordenados = new ArrayList<>();
@@ -234,6 +221,15 @@ public class BolsaLaboral {
 	    return puntaje;
 	}
 
+	public void eliminarOfertaTrabajo(OfertaLaboral seleccionado) throws NotRemovableException{
+		if(ofertaEliminable(seleccionado)) {
+			ofertas.remove(seleccionado);
+		}
+		else {
+			throw new NotRemovableException("La oferta no es eliminable ya que esta vinculada con una solicitud.");
+		}
+	}
+	
 	public OfertaLaboral buscarOfertaByCodigo(String codigo) {
 		OfertaLaboral encontrado = null;
 		int indice = 0;
@@ -245,16 +241,63 @@ public class BolsaLaboral {
 		}
 		return encontrado;
 	}
-
-	public void eliminarOfertaTrabajo(OfertaLaboral seleccionado) throws NotRemovableException{
-		if(ofertaEliminable(seleccionado)) {
-			ofertas.remove(seleccionado);
+	
+	public int buscarIndiceOfertaByCodigo(String codigo) {
+		int indice = 0;
+		boolean encontrado = false;
+		
+		while(encontrado == false && indice < ofertas.size()) {
+			if(ofertas.get(indice).getCodigo().equalsIgnoreCase(codigo)) {
+				encontrado = true;
+			}
+			else {
+				indice++;
+			}
 		}
-		else {
-			throw new NotRemovableException("La oferta no es eliminable ya que esta vinculada con una solicitud.");
+		
+		return encontrado ? indice : -1;
+	}
+	
+	public void registrarOfertaLaboral(OfertaLaboral nuevaOferta) {
+		ofertas.add(nuevaOferta);
+		genCodigoOferta++;
+	}
+	
+	public boolean modificarOfertaLaboral(OfertaLaboral ofertaModificar) {
+		int indice = buscarIndiceOfertaByCodigo(ofertaModificar.getCodigo());
+		if(indice != -1) {
+			ofertas.set(indice,ofertaModificar);
+			return true;
 		}
+		return false;
 	}
 
+	public boolean ofertaVinculada(OfertaLaboral oferta) {
+		boolean aux = false;
+		for(Solicitud solicitud : solicitudes) {
+			if(solicitud.getOfertaSolicitada().getCodigo().equals(oferta.getCodigo())) {
+				aux = true;
+			}
+		}
+		return aux;
+	}
 
+	
+	public boolean centroEliminable(CentroEmpleador centro) {
+		return true;
+	}
+	
+	public boolean candidatoEliminable(Candidato candidato) {
+		return true;
+	}
+	
+	private boolean ofertaEliminable(OfertaLaboral seleccionado) {
+		return false;
+	}
+
+	public ArrayList<String> getCentrosName() {
+	
+		return null;
+	}
 
 }

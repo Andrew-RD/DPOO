@@ -27,6 +27,7 @@ public class OfertaLaboral {
 		super();
 		this.codigo = codigo;
 		this.puesto = puesto;
+		this.area = area;
 		this.descripcion = descripcion;
 		this.modalidad = modalidad;
 		this.jornada = jornada;
@@ -171,5 +172,12 @@ public class OfertaLaboral {
 		this.obligatorioMayorDeEdad = obligatorioMayorDeEdad;
 	}
 
+	public void agregarIdioma(String idioma) {
+		idiomasRequeridas.add(idioma);
+	}
+	
+	public void agregarRequisito(String requisito) {
+		requisitos.add(requisito);
+	}
 	
 }
