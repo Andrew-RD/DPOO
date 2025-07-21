@@ -1003,7 +1003,6 @@ public class RegistroCandidato extends JDialog {
 	            
 	        } else if (candidatoAct instanceof TecnicoSuperior) {
 	            rdTecnico.setSelected(true);
-	            // Deshabilitar los otros radio buttons
 	            rdUniversitario.setEnabled(false);
 	            rdObrero.setEnabled(false);
 	            
@@ -1095,7 +1094,7 @@ public class RegistroCandidato extends JDialog {
 	    }
 	    
 	    if(!txtCorreo.getText().contains("@") || !txtCorreo.getText().contains(".")) {
-	        throw new FormatException("El formato del correo inválido. Ejemplo: usuario@dominio.com\"");
+	        throw new FormatException("Formato del correo inválido. Ejemplo: usuario@dominio.com\"");
 	    }
 	    
 	    String cedula = txtCedula.getText().trim().replaceAll("[^0-9]", "");
