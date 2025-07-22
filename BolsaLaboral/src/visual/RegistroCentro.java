@@ -246,6 +246,11 @@ public class RegistroCentro extends JDialog {
 			}
 			{
 				JButton cancelButton = new JButton("Cancelar");
+				cancelButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						dispose();
+					}
+				});
 				cancelButton.setFont(new Font("Segoe UI", Font.PLAIN, 16));
 				cancelButton.setIcon(new ImageIcon("recursos/cerrar.png"));
 				cancelButton.setActionCommand("Cancel");

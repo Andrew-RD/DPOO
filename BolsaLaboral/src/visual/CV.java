@@ -14,6 +14,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import java.awt.Toolkit;
 import java.awt.Font;
@@ -29,9 +30,6 @@ public class CV extends JDialog {
 
 	private final JPanel contenedor = new JPanel();
 	public static Object[] row;
-	private JTextPane txpGrado;
-	private JTextPane txpUbicacion;
-	private JTextPane txpContactos;
 	private JTextPane txpIdiomas;
 	private JTextPane txpDatosFormacion;
 	private JPanel pnlResumen;
@@ -42,15 +40,18 @@ public class CV extends JDialog {
 	private JLabel lblModalidad;
 	private JLabel lblJornada;
 	private JLabel lblArea;
+	private JLabel lblform;
+	private JLabel lblUbic;
+	private JLabel lblTelefono;
 
 	/**
 	 * Create the dialog.
 	 */
 	public CV(Candidato solicitante) {
+		setResizable(false);
 		setTitle(solicitante.getNombres() + " " + solicitante.getApellidos());
 		setIconImage(Toolkit.getDefaultToolkit().getImage("recursos/icono.png"));
-		setBounds(100, 100, 712, 685);
-		setResizable(false);
+		setBounds(100, 100, 734, 695);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
 		contenedor.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -72,7 +73,7 @@ public class CV extends JDialog {
 		
 		pnlResumen = new JPanel();
 		pnlResumen.setBackground(new Color(34, 34, 34));
-		pnlResumen.setBounds(0, 0, 220, 650);
+		pnlResumen.setBounds(0, 0, 220, 660);
 		contenedor.add(pnlResumen);
 		pnlResumen.setLayout(null);
 		
@@ -80,21 +81,21 @@ public class CV extends JDialog {
 		lblNewLabel_1.setForeground(Color.WHITE);
 		lblNewLabel_1.setFont(new Font("Consolas", Font.BOLD, 18));
 		lblNewLabel_1.setIcon(new ImageIcon("recursos/ubicacion.png"));
-		lblNewLabel_1.setBounds(35, 113, 151, 34);
+		lblNewLabel_1.setBounds(35, 94, 151, 34);
 		pnlResumen.add(lblNewLabel_1);
 		
 		JLabel lblContactos = new JLabel(" Contactos");
 		lblContactos.setIcon(new ImageIcon("recursos/contactos.png"));
 		lblContactos.setForeground(Color.WHITE);
 		lblContactos.setFont(new Font("Consolas", Font.BOLD, 18));
-		lblContactos.setBounds(35, 239, 151, 34);
+		lblContactos.setBounds(35, 176, 151, 34);
 		pnlResumen.add(lblContactos);
 		
 		JLabel lblIdiomas = new JLabel(" Idiomas");
 		lblIdiomas.setIcon(new ImageIcon("recursos/idiomas.png"));
 		lblIdiomas.setForeground(Color.WHITE);
 		lblIdiomas.setFont(new Font("Consolas", Font.BOLD, 18));
-		lblIdiomas.setBounds(35, 403, 151, 34);
+		lblIdiomas.setBounds(35, 262, 151, 34);
 		pnlResumen.add(lblIdiomas);
 		
 		JLabel lblNivelAcadmico = new JLabel(" Formaci\u00F3n");
@@ -104,29 +105,34 @@ public class CV extends JDialog {
 		lblNivelAcadmico.setBounds(35, 13, 151, 34);
 		pnlResumen.add(lblNivelAcadmico);
 		
-		txpGrado = new JTextPane();
-		txpGrado.setFont(new Font("Consolas", Font.PLAIN, 14));
-		txpGrado.setBackground(Color.BLACK);
-		txpGrado.setBounds(12, 53, 196, 56);
-		pnlResumen.add(txpGrado);
-		
-		txpUbicacion = new JTextPane();
-		txpUbicacion.setFont(new Font("Consolas", Font.PLAIN, 14));
-		txpUbicacion.setBackground(Color.BLACK);
-		txpUbicacion.setBounds(12, 152, 196, 72);
-		pnlResumen.add(txpUbicacion);
-		
-		txpContactos = new JTextPane();
-		txpContactos.setFont(new Font("Consolas", Font.PLAIN, 14));
-		txpContactos.setBackground(Color.BLACK);
-		txpContactos.setBounds(12, 284, 196, 106);
-		pnlResumen.add(txpContactos);
-		
 		txpIdiomas = new JTextPane();
-		txpIdiomas.setFont(new Font("Consolas", Font.PLAIN, 14));
+		txpIdiomas.setEditable(false);
+		txpIdiomas.setForeground(Color.WHITE);
+		txpIdiomas.setFont(new Font("Consolas", Font.PLAIN, 16));
 		txpIdiomas.setBackground(Color.BLACK);
-		txpIdiomas.setBounds(12, 447, 196, 190);
+		txpIdiomas.setBounds(12, 298, 196, 236);
 		pnlResumen.add(txpIdiomas);
+		
+		lblform = new JLabel(" Formaci\u00F3n");
+		lblform.setHorizontalAlignment(SwingConstants.CENTER);
+		lblform.setForeground(Color.WHITE);
+		lblform.setFont(new Font("Consolas", Font.PLAIN, 18));
+		lblform.setBounds(12, 52, 196, 34);
+		pnlResumen.add(lblform);
+		
+		lblUbic = new JLabel(" Formaci\u00F3n");
+		lblUbic.setHorizontalAlignment(SwingConstants.CENTER);
+		lblUbic.setForeground(Color.WHITE);
+		lblUbic.setFont(new Font("Consolas", Font.PLAIN, 18));
+		lblUbic.setBounds(12, 129, 196, 34);
+		pnlResumen.add(lblUbic);
+		
+		lblTelefono = new JLabel("<dynamic>,<dynamic>");
+		lblTelefono.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTelefono.setForeground(Color.WHITE);
+		lblTelefono.setFont(new Font("Consolas", Font.PLAIN, 18));
+		lblTelefono.setBounds(12, 215, 196, 34);
+		pnlResumen.add(lblTelefono);
 		
 		lblNombre = new JLabel("NOMBRE");
 		lblNombre.setHorizontalAlignment(SwingConstants.LEFT);
@@ -146,6 +152,7 @@ public class CV extends JDialog {
 		lblNewLabel.setHorizontalAlignment(SwingConstants.LEFT);
 		
 		txpDescripcion = new JTextPane();
+		txpDescripcion.setEditable(false);
 		txpDescripcion.setForeground(new Color(0, 0, 0));
 		txpDescripcion.setFont(new Font("Consolas", Font.PLAIN, 14));
 		txpDescripcion.setText("Descripci\u00F3n ultraepica");
@@ -160,6 +167,7 @@ public class CV extends JDialog {
 		contenedor.add(lblDatosAcadmicos);
 		
 		txpDatosFormacion = new JTextPane();
+		txpDatosFormacion.setEditable(false);
 		txpDatosFormacion.setText("Detalles de la estudiasao");
 		txpDatosFormacion.setForeground(Color.BLACK);
 		txpDatosFormacion.setFont(new Font("Consolas", Font.PLAIN, 14));
@@ -205,22 +213,31 @@ public class CV extends JDialog {
 	
 	public void cargarCV(Candidato solicitante) {
 		if(solicitante instanceof Universitario) {
-			txpGrado.setText(((Universitario) solicitante).getNivelAcademico());
+			lblform.setText(((Universitario) solicitante).getNivelAcademico());
 		}
 		else if(solicitante instanceof TecnicoSuperior) {
-			txpGrado.setText("Técnico");
+			lblform.setText("Técnico");
 		}
 		else if(solicitante instanceof Obrero) {
-			txpGrado.setText("Trabajador");
+			lblform.setText("Trabajador");
 		}
 		lblNombre.setText(solicitante.getNombres() + " " + solicitante.getApellidos());
 		lblFechaNac.setText(solicitante.getFechaNacimiento().toString());
-		txpContactos.setText(solicitante.getTelefono());
+		lblUbic.setText(solicitante.getMunicipio() + "," + solicitante.getProvincia());
+		lblTelefono.setText(solicitante.getTelefono());
+		cargarIdiomas(solicitante.getIdiomas());
 		cargarSobreMi(solicitante);
 		cargarFormacion(solicitante);
 		cargarArea(solicitante.getAreaDeInteres());
 		cargarJornada(solicitante.getJornada());
 		cargarModalidad(solicitante.getModalidad());
+	}
+	
+	private void cargarIdiomas(ArrayList<String> idiomas) {
+		for(String idioma : idiomas) {
+			txpIdiomas.setText(txpIdiomas.getText().concat("\n" + idioma));
+		}
+		
 	}
 	
 	private void cargarArea(String nombreArea) {
@@ -243,15 +260,15 @@ public class CV extends JDialog {
 		lblModalidad.setIcon(new ImageIcon("recursos/" + nombreModalidad + ".png"));
 	}
 	
-	public void cargarSobreMi(Candidato solicitante) {
+	private void cargarSobreMi(Candidato solicitante) {
 		
 	}
 	
-	public void cargarFormacion(Candidato solicitante) {
+	private void cargarFormacion(Candidato solicitante) {
 		
 	}
 	
-	public Color getColor(String area) {
+	private Color getColor(String area) {
 		switch (area) {
 		case "Finanzas": return new Color(213, 69, 27);	
 		case "Recursos Humanos": return new Color(27, 60, 83);
@@ -268,6 +285,7 @@ public class CV extends JDialog {
 	
 	public void setApariencia(String area) {
 		Color fondo = getColor(area);
+		pnlResumen.setBackground(fondo);
 		for(Component cmp : pnlResumen.getComponents()) {
 			cmp.setBackground(fondo);
 		}

@@ -851,16 +851,17 @@ public class RegistroCandidato extends JDialog {
 	        
 	        boolean licenciaConducir = chkLicenciaConducir.isSelected();
 	        boolean mudarse = chkMudarse.isSelected();
+	        
 	        ArrayList<String> idiomas = new ArrayList<>();
-	        if(chckbxIngles.isSelected()) idiomas.add("Inglés");
-	        if(chckbxItaliano.isSelected()) idiomas.add("Italiano");
-	        if(chckbxEspanol.isSelected()) idiomas.add("Español");
-	        if(chckbxFrances.isSelected()) idiomas.add("Francés");
-	        if(chckbxPortugues.isSelected()) idiomas.add("Portugués");
-	        if(chckbxAleman.isSelected()) idiomas.add("Alemán");
-	        if(chckbxMandarin.isSelected()) idiomas.add("Chino");
-	        if(chckbxCoreano.isSelected()) idiomas.add("Coreano");
-	        if(chckbxJapones.isSelected()) idiomas.add("Japonés");
+	        for(Component cmp : pnlIdiomas.getComponents()) {
+	        	if(cmp instanceof JCheckBox) {
+	        		JCheckBox chk = (JCheckBox)cmp;
+	        		if(chk.isSelected()) {
+	        			idiomas.add(chk.getText());
+	        		}
+	        	}
+	        }
+	        
 	        
 	        Candidato nuevoCandidato = null;
 	        
@@ -885,21 +886,15 @@ public class RegistroCandidato extends JDialog {
 	                
 	        } else if(rdObrero.isSelected()) {
 	            ArrayList<String> habilidades = new ArrayList<>();
-	            if(chkPlomeria.isSelected()) habilidades.add("Plomería");
-	            if(chkCarpintero.isSelected()) habilidades.add("Carpintería");
-	            if(chkCajero.isSelected()) habilidades.add("Gestión Financiera");
-	            if(chkSoldadura.isSelected()) habilidades.add("Soldadura");
-	            if(chkElectrica.isSelected()) habilidades.add("Instalación Eléctrica");
-	            if(chkMecanica.isSelected()) habilidades.add("Mecánica");
-	            if(chkAlbanileria.isSelected()) habilidades.add("Albañilería");
-	            if(chkRedes.isSelected()) habilidades.add("Redes Sociales");
-	            if(chkConduccion.isSelected()) habilidades.add("Conducción");
-	            if(chkReparacion.isSelected()) habilidades.add("Reparación de Electrónicos");
-	            if(chkVentas.isSelected()) habilidades.add("Ventas");
-	            if(chkFotografia.isSelected()) habilidades.add("Fotografía");
-	            if(chkCocina.isSelected()) habilidades.add("Cocina");
-	            if(chkLimpieza.isSelected()) habilidades.add("Limpieza");
-	            if(chkPintura.isSelected()) habilidades.add("Pintura");
+	            
+		        for(Component cmp : pnlObrero.getComponents()) {
+		        	if(cmp instanceof JCheckBox) {
+		        		JCheckBox chk = (JCheckBox)cmp;
+		        		if(chk.isSelected()) {
+		        			habilidades.add(chk.getText());
+		        		}
+		        	}
+		        }
 	            
 	            nuevoCandidato = new Obrero(codigo, cedula, nombres, apellidos, 
 	                fechaNacimiento, provincia, municipio, telefono, correo, jornada, 
@@ -955,6 +950,7 @@ public class RegistroCandidato extends JDialog {
 	            "Error", JOptionPane.ERROR_MESSAGE);
 	    }
 	}
+	
 	private void cargarDatos() {
 	    if (candidatoAct != null) {
 	        txtCodigo.setText(candidatoAct.getCodigo());
@@ -1115,24 +1111,17 @@ public class RegistroCandidato extends JDialog {
 	            throw new FormatException("El área técnica es obligatoria para técnicos superiores");
 	        }
 	        
-	    } else     if(rdObrero.isSelected()) {
+	    } else if(rdObrero.isSelected()) {
 	        boolean tieneHabilidad = false;
 	        
-	        if(chkPlomeria != null && chkPlomeria.isSelected()) tieneHabilidad = true;
-	        if(chkCarpintero != null && chkCarpintero.isSelected()) tieneHabilidad = true;
-	        if(chkCajero != null && chkCajero.isSelected()) tieneHabilidad = true;
-	        if(chkSoldadura != null && chkSoldadura.isSelected()) tieneHabilidad = true;
-	        if(chkElectrica != null && chkElectrica.isSelected()) tieneHabilidad = true;
-	        if(chkMecanica != null && chkMecanica.isSelected()) tieneHabilidad = true;
-	        if(chkAlbanileria != null && chkAlbanileria.isSelected()) tieneHabilidad = true;
-	        if(chkRedes != null && chkRedes.isSelected()) tieneHabilidad = true;
-	        if(chkConduccion != null && chkConduccion.isSelected()) tieneHabilidad = true;
-	        if(chkReparacion != null && chkReparacion.isSelected()) tieneHabilidad = true;
-	        if(chkVentas != null && chkVentas.isSelected()) tieneHabilidad = true;
-	        if(chkFotografia != null && chkFotografia.isSelected()) tieneHabilidad = true;
-	        if(chkCocina != null && chkCocina.isSelected()) tieneHabilidad = true;
-	        if(chkLimpieza != null && chkLimpieza.isSelected()) tieneHabilidad = true;
-	        if(chkPintura != null && chkPintura.isSelected()) tieneHabilidad = true;
+	        for(Component cmp : pnlIdiomas.getComponents()) {
+	        	if(cmp instanceof JCheckBox) {
+	        		JCheckBox chk = (JCheckBox)cmp;
+	        		if(chk.isSelected()) {
+	        			tieneHabilidad = true;
+	        		}
+	        	}
+	        }
 	        
 	        if(!tieneHabilidad) {
 	            throw new FormatException("Debe seleccionar al menos una habilidad para obreros");
