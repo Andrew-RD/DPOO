@@ -60,6 +60,7 @@ public class CV extends JDialog {
 		contenedor.setLayout(null);
 		{
 			JButton btnCancelar = new JButton("Cerrar");
+			btnCancelar.setIcon(new ImageIcon("recursos/cerrar.png"));
 			btnCancelar.setBounds(554, 600, 140, 31);
 			contenedor.add(btnCancelar);
 			btnCancelar.setFont(new Font("Segoe UI", Font.PLAIN, 16));
@@ -141,7 +142,8 @@ public class CV extends JDialog {
 		contenedor.add(lblNombre);
 		
 		JSeparator separator = new JSeparator();
-		separator.setBounds(234, 117, 460, 2);
+		separator.setForeground(Color.BLACK);
+		separator.setBounds(234, 117, 460, 3);
 		contenedor.add(separator);
 		
 		JLabel lblNewLabel = new JLabel("SOBRE MI");
@@ -190,19 +192,16 @@ public class CV extends JDialog {
 		contenedor.add(lblPreferenciasLaborales);
 		
 		lblArea = new JLabel("");
-		lblArea.setIcon(new ImageIcon("C:\\Users\\anton\\Downloads\\BolsaLaboral2\\BolsaLaboral2\\recursos\\arte.png"));
 		lblArea.setBackground(Color.WHITE);
 		lblArea.setBounds(375, 597, 40, 40);
 		contenedor.add(lblArea);
 		
 		lblModalidad = new JLabel("");
-		lblModalidad.setIcon(new ImageIcon("C:\\Users\\anton\\Downloads\\BolsaLaboral2\\BolsaLaboral2\\recursos\\atencionalcliente.png"));
 		lblModalidad.setBackground(Color.WHITE);
 		lblModalidad.setBounds(477, 597, 40, 40);
 		contenedor.add(lblModalidad);
 		
 		lblJornada = new JLabel("");
-		lblJornada.setIcon(new ImageIcon("C:\\Users\\anton\\Downloads\\BolsaLaboral2\\BolsaLaboral2\\recursos\\comercio.png"));
 		lblJornada.setBackground(Color.WHITE);
 		lblJornada.setBounds(427, 597, 40, 40);
 		contenedor.add(lblJornada);
@@ -221,10 +220,14 @@ public class CV extends JDialog {
 		else if(solicitante instanceof Obrero) {
 			lblform.setText("Trabajador");
 		}
+		
 		lblNombre.setText(solicitante.getNombres() + " " + solicitante.getApellidos());
 		lblFechaNac.setText(solicitante.getFechaNacimiento().toString());
 		lblUbic.setText(solicitante.getMunicipio() + "," + solicitante.getProvincia());
 		lblTelefono.setText(solicitante.getTelefono());
+		lblArea.setToolTipText(solicitante.getAreaDeInteres());
+		lblJornada.setToolTipText(solicitante.getJornada());
+		lblModalidad.setToolTipText(solicitante.getModalidad());
 		cargarIdiomas(solicitante.getIdiomas());
 		cargarSobreMi(solicitante);
 		cargarFormacion(solicitante);
@@ -268,7 +271,7 @@ public class CV extends JDialog {
 		
 	}
 	
-	private Color getColor(String area) {
+	private Color getColorPrincipal(String area) {
 		switch (area) {
 		case "Finanzas": return new Color(213, 69, 27);	
 		case "Recursos Humanos": return new Color(27, 60, 83);
@@ -283,11 +286,16 @@ public class CV extends JDialog {
 		}
 	}
 	
+	
 	public void setApariencia(String area) {
-		Color fondo = getColor(area);
-		pnlResumen.setBackground(fondo);
-		for(Component cmp : pnlResumen.getComponents()) {
-			cmp.setBackground(fondo);
-		}
+		Color fondoPanel = getColorPrincipal(area);
+		pnlResumen.setBackground(fondoPanel);
+		txpIdiomas.setBackground(fondoPanel);
+		
+		Color fondoGeneral = new Color(235, 255, 216);
+		contenedor.setBackground(fondoGeneral);
+		
+		txpDescripcion.setBackground(fondoGeneral);
+		txpDatosFormacion.setBackground(fondoGeneral);
 	}
 }

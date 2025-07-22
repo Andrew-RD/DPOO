@@ -104,6 +104,7 @@ public class RegistroCandidato extends JDialog {
     private JCheckBox chkLimpieza;
     private JCheckBox chkPintura;
     private JComboBox cmbAreaTecnica;
+    private JComboBox cmbGenero;
 	/**
 	 * Create the dialog.
 	 */
@@ -117,7 +118,7 @@ public class RegistroCandidato extends JDialog {
 			setTitle("Modificar Candidato");
 			candidatoAct = cand;
 		}
-		setBounds(100, 100, 570, 650);
+		setBounds(100, 100, 570, 681);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(new Color(228, 228, 228));
@@ -189,12 +190,12 @@ public class RegistroCandidato extends JDialog {
 		
 		JLabel lblFechaDeNacimiento = new JLabel("Fecha de Nacimiento:");
 		lblFechaDeNacimiento.setFont(new Font("Segoe UI", Font.BOLD, 16));
-		lblFechaDeNacimiento.setBounds(12, 229, 173, 29);
+		lblFechaDeNacimiento.setBounds(12, 217, 173, 29);
 		pnlPersonal.add(lblFechaDeNacimiento);
 		
 		spnFechaNac = new JSpinner();
 		spnFechaNac.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-		spnFechaNac.setBounds(191, 234, 221, 22);
+		spnFechaNac.setBounds(201, 222, 210, 22);
 
 		Calendar cal = Calendar.getInstance();
 		Date fechaActual = cal.getTime();
@@ -214,7 +215,7 @@ public class RegistroCandidato extends JDialog {
 		pnlContactos.setLayout(null);
 		pnlContactos.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "Contactos y Ubicaci\u00F3n", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		pnlContactos.setBackground(new Color(228, 228, 228));
-		pnlContactos.setBounds(12, 269, 513, 229);
+		pnlContactos.setBounds(12, 311, 513, 229);
 		pnlPersonal.add(pnlContactos);
 		
 		JLabel label_1 = new JLabel("Tel\u00E9fono:");
@@ -260,6 +261,19 @@ public class RegistroCandidato extends JDialog {
 		txtMunicipio.setColumns(10);
 		txtMunicipio.setBounds(108, 182, 305, 22);
 		pnlContactos.add(txtMunicipio);
+		
+		cmbGenero = new JComboBox();
+		cmbGenero.setModel(new DefaultComboBoxModel(new String[] {"Femenino", "Masculino"}));
+		cmbGenero.setSelectedIndex(0);
+		cmbGenero.setMaximumRowCount(11);
+		cmbGenero.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		cmbGenero.setBounds(106, 269, 305, 29);
+		pnlPersonal.add(cmbGenero);
+		
+		JLabel lblGnero = new JLabel("G\u00E9nero:");
+		lblGnero.setFont(new Font("Segoe UI", Font.BOLD, 16));
+		lblGnero.setBounds(12, 269, 74, 29);
+		pnlPersonal.add(lblGnero);
 		
 		JPanel pnlEspecializacion = new JPanel();
 		contenedor.addTab("Especializaciones", null, pnlEspecializacion, null);
