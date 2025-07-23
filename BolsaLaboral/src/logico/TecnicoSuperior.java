@@ -7,13 +7,14 @@ public class TecnicoSuperior extends Candidato {
 	private String areaTecnica;
 	private int aniosExperiencia;
 	
+	
 	public TecnicoSuperior(String codigo, String identificacion, String nombres, String apellidos,
-			LocalDate fechaNacimiento, String provincia, String municipio, String telefono, String correo,
-			String jornada, String modalidad, String areaDeInteres, float aspiracionSalarial, boolean licenciaConducir,
-			boolean disposicionMudarse, ArrayList<String> idiomas, ArrayList<Solicitud> misSolicitudes,
-			String areaTecnica, int aniosExperiencia) {
-		super(codigo, identificacion, nombres, apellidos, fechaNacimiento, provincia, municipio, telefono, correo,
-				jornada, modalidad,areaDeInteres ,aspiracionSalarial, licenciaConducir, disposicionMudarse, idiomas);
+			LocalDate fechaNacimiento, String genero, String provincia, String municipio, String telefono,
+			String correo, String jornada, String modalidad, String areaDeInteres, float aspiracionSalarial,
+			boolean licenciaConducir, boolean disposicionMudarse, ArrayList<String> idiomas, String areaTecnica, int aniosExperiencia) {
+		super(codigo, identificacion, nombres, apellidos, fechaNacimiento, genero, provincia, municipio, telefono,
+				correo, jornada, modalidad, areaDeInteres, aspiracionSalarial, licenciaConducir, disposicionMudarse,
+				idiomas);
 		this.areaTecnica = areaTecnica;
 		this.aniosExperiencia = aniosExperiencia;
 	}

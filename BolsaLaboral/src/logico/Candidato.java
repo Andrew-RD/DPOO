@@ -9,6 +9,7 @@ public abstract class Candidato{
 	private String nombres;
 	private String apellidos;
 	private LocalDate fechaNacimiento;
+	private String genero;
 	private String provincia;
 	private String municipio;
 	private String telefono;
@@ -21,16 +22,18 @@ public abstract class Candidato{
 	private boolean disposicionMudarse;
 	private ArrayList<String> idiomas;
 	private ArrayList<Solicitud> misSolicitudes;
-	
+
 	public Candidato(String codigo, String identificacion, String nombres, String apellidos, LocalDate fechaNacimiento,
-			String provincia, String municipio, String telefono, String correo, String jornada, String modalidad, String areaDeInteres,
-			float aspiracionSalarial, boolean licenciaConducir, boolean disposicionMudarse, ArrayList<String> idiomas) {
+			String genero, String provincia, String municipio, String telefono, String correo, String jornada,
+			String modalidad, String areaDeInteres, float aspiracionSalarial, boolean licenciaConducir,
+			boolean disposicionMudarse, ArrayList<String> idiomas) {
 		super();
 		this.codigo = codigo;
 		this.identificacion = identificacion;
 		this.nombres = nombres;
 		this.apellidos = apellidos;
 		this.fechaNacimiento = fechaNacimiento;
+		this.genero = genero;
 		this.provincia = provincia;
 		this.municipio = municipio;
 		this.telefono = telefono;
@@ -42,7 +45,7 @@ public abstract class Candidato{
 		this.licenciaConducir = licenciaConducir;
 		this.disposicionMudarse = disposicionMudarse;
 		this.idiomas = idiomas;
-		this.misSolicitudes = new ArrayList<Solicitud> ();
+		this.misSolicitudes =  new ArrayList<Solicitud> ();
 	}
 
 	public String getCodigo() {
@@ -83,6 +86,14 @@ public abstract class Candidato{
 
 	public void setFechaNacimiento(LocalDate fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
+	}
+
+	public String getGenero() {
+		return genero;
+	}
+
+	public void setGenero(String genero) {
+		this.genero = genero;
 	}
 
 	public String getProvincia() {
