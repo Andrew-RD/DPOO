@@ -130,6 +130,7 @@ public class ConsultarCandidatos extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				btnUpdate = new JButton("Modificar");
+				btnUpdate.setBackground(Color.WHITE);
 				btnUpdate.setIcon(new ImageIcon("recursos/modificar.png"));
 				btnUpdate.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
@@ -148,6 +149,7 @@ public class ConsultarCandidatos extends JDialog {
 				});
 				{
 					btnVisualizar = new JButton("Visualizar");
+					btnVisualizar.setBackground(Color.WHITE);
 					btnVisualizar.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
 							if(seleccionado != null) {
@@ -156,12 +158,12 @@ public class ConsultarCandidatos extends JDialog {
 						}
 					});
 					btnVisualizar.setIcon(new ImageIcon("recursos/cv.png"));
-					btnVisualizar.setFont(new Font("Segoe UI", Font.PLAIN, 16));
+					btnVisualizar.setFont(new Font("Segoe UI", Font.BOLD, 16));
 					btnVisualizar.setEnabled(false);
 					btnVisualizar.setActionCommand("OK");
 					buttonPane.add(btnVisualizar);
 				}
-				btnUpdate.setFont(new Font("Segoe UI", Font.PLAIN, 16));
+				btnUpdate.setFont(new Font("Segoe UI", Font.BOLD, 16));
 				btnUpdate.setEnabled(false);
 				btnUpdate.setActionCommand("OK");
 				buttonPane.add(btnUpdate);
@@ -169,8 +171,9 @@ public class ConsultarCandidatos extends JDialog {
 			}
 			{
 				btnDelete = new JButton("Eliminar");
+				btnDelete.setBackground(Color.WHITE);
 				btnDelete.setIcon(new ImageIcon("recursos/eliminar.png"));
-				btnDelete.setFont(new Font("Segoe UI", Font.PLAIN, 16));
+				btnDelete.setFont(new Font("Segoe UI", Font.BOLD, 16));
 				btnDelete.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						if(seleccionado != null) {
@@ -196,7 +199,9 @@ public class ConsultarCandidatos extends JDialog {
 			}
 			{
 				JButton btnCancelar = new JButton("Cancelar");
-				btnCancelar.setFont(new Font("Segoe UI", Font.PLAIN, 16));
+				btnCancelar.setBackground(Color.WHITE);
+				btnCancelar.setFont(new Font("Segoe UI", Font.BOLD, 16));
+				btnCancelar.setIcon(new ImageIcon("recursos/cerrar.png"));
 				btnCancelar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						dispose();

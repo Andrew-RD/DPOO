@@ -570,6 +570,7 @@ public class RegistroOfertaLaboral extends JDialog {
 		getContentPane().add(pnlInferior, BorderLayout.SOUTH);
 		{
 			JButton okButton = new JButton("Confimar");
+			okButton.setBackground(Color.WHITE);
 			okButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					try {
@@ -660,7 +661,7 @@ public class RegistroOfertaLaboral extends JDialog {
 					}
 				}
 			});
-			okButton.setFont(new Font("Segoe UI", Font.PLAIN, 16));
+			okButton.setFont(new Font("Segoe UI", Font.BOLD, 16));
 			if(ofertaAct == null) {
 				okButton.setText("Registrar");
 				okButton.setIcon(new ImageIcon("recursos/agregarP.png"));
@@ -672,12 +673,13 @@ public class RegistroOfertaLaboral extends JDialog {
 			}
 
 			JButton btnLimpiar = new JButton("Limpiar");
+			btnLimpiar.setBackground(Color.WHITE);
 			btnLimpiar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					limpiar();
 				}
 			});
-			btnLimpiar.setFont(new Font("Segoe UI", Font.PLAIN, 16));
+			btnLimpiar.setFont(new Font("Segoe UI", Font.BOLD, 16));
 			btnLimpiar.setActionCommand("OK");
 			pnlInferior.add(btnLimpiar);
 			okButton.setActionCommand("OK");
@@ -686,12 +688,13 @@ public class RegistroOfertaLaboral extends JDialog {
 		}
 		{
 			JButton cancelButton = new JButton("Cancelar");
+			cancelButton.setBackground(Color.WHITE);
 			cancelButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					dispose();
 				}
 			});
-			cancelButton.setFont(new Font("Segoe UI", Font.PLAIN, 16));
+			cancelButton.setFont(new Font("Segoe UI", Font.BOLD, 16));
 			cancelButton.setIcon(new ImageIcon("recursos/cerrar.png"));
 			cancelButton.setActionCommand("Cancel");
 			pnlInferior.add(cancelButton);

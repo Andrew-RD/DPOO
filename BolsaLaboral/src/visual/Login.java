@@ -150,6 +150,7 @@ public class Login extends JFrame {
 		contentPane.add(lblVisible);
 		
 		JButton btnNewButton = new JButton("Iniciar Sesi\u00F3n");
+		btnNewButton.setBackground(Color.WHITE);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Principal menu = new Principal();
@@ -157,12 +158,13 @@ public class Login extends JFrame {
 				dispose();
 			}
 		});
-		btnNewButton.setFont(new Font("Segoe UI", Font.PLAIN, 18));
+		btnNewButton.setFont(new Font("Segoe UI", Font.BOLD, 18));
 		btnNewButton.setBounds(236, 325, 154, 42);
 		contentPane.add(btnNewButton);
 		
 		JButton btnCerrar = new JButton("Cerrar");
-		btnCerrar.setFont(new Font("Segoe UI", Font.PLAIN, 18));
+		btnCerrar.setBackground(Color.WHITE);
+		btnCerrar.setFont(new Font("Segoe UI", Font.BOLD, 18));
 		btnCerrar.setBounds(402, 325, 154, 42);
 		contentPane.add(btnCerrar);
 	}

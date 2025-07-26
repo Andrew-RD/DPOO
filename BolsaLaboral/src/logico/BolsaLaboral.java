@@ -152,20 +152,35 @@ public class BolsaLaboral implements Serializable{
 		return encontrado;
 	}
 	
-	public ArrayList<Candidato> obtenerCandidatosOrdenadosParaOferta(OfertaLaboral oferta) {
-	    ArrayList<Candidato> ordenados = new ArrayList<>();
+	public ArrayList<ResultadoMatcheo> obtenerCandidatosOrdenadosParaOferta(OfertaLaboral oferta) {
+	    ArrayList<ResultadoMatcheo> ordenados = new ArrayList<>();
+
 	    for (Candidato candidato : candidatos) {
 	        int puntaje = calcularPuntaje(candidato, oferta);
+	        
 	        if (puntaje >= 50) {
+	            String condicion;
+	            if (puntaje < 70) {
+	                condicion = "No recomendado";
+	            } else if (puntaje < 80) {
+	                condicion = "Aceptable";
+	            } else {
+	                condicion = "Recomendado";
+	            }
+
+	            ResultadoMatcheo resultadoMatcheo = new ResultadoMatcheo(oferta, candidato, puntaje, condicion);
+
 	            int i = 0;
-	            while (i < ordenados.size() && calcularPuntaje(ordenados.get(i), oferta) >= puntaje) {
+	            while (i < ordenados.size() && ordenados.get(i).getPorcentaje() >= puntaje) {
 	                i++;
 	            }
-	            ordenados.add(i, candidato);
+	            ordenados.add(i, resultadoMatcheo);
 	        }
 	    }
+
 	    return ordenados;
 	}
+
 	
 	private int calcularPuntaje(Candidato candidato, OfertaLaboral oferta) {
 	    int puntaje = 0;

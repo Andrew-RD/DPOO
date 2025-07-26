@@ -52,7 +52,7 @@ public class ConsultarOfertas extends JDialog {
 	private JButton btnUpdate;
 	private JButton btnDelete;
 	private JTextField txtFiltro;
-	private JButton btnVisualizar;
+	private JButton btnVincular;
 	
 	/**
 	 * Create the dialog.
@@ -89,7 +89,7 @@ public class ConsultarOfertas extends JDialog {
 								seleccionado = BolsaLaboral.getInstancia().buscarOfertaByCodigo(table.getValueAt(index, 0).toString());
 								btnDelete.setEnabled(true);
 								btnUpdate.setEnabled(true);
-								btnVisualizar.setEnabled(true);
+								btnVincular.setEnabled(true);
 							}
 						}
 					});
@@ -137,30 +137,36 @@ public class ConsultarOfertas extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				btnUpdate = new JButton("Modificar");
+				btnUpdate.setBackground(Color.WHITE);
 				btnUpdate.setIcon(new ImageIcon("recursos/modificar.png"));
 				btnUpdate.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						btnDelete.setEnabled(true);
 						btnUpdate.setEnabled(true);
-						btnVisualizar.setEnabled(true);
+						btnVincular.setEnabled(true);
 						RegistroOfertaLaboral registro = new RegistroOfertaLaboral(seleccionado);
 						registro.setVisible(true);
 					}
 				});
 				{
-					btnVisualizar = new JButton("Visualizar");
-					btnVisualizar.addActionListener(new ActionListener() {
+					btnVincular = new JButton("Vincular");
+					btnVincular.setIcon(new ImageIcon("recursos/vincular.png"));
+					btnVincular.setBackground(Color.WHITE);
+					btnVincular.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
+							ResultadosVinculacion res = new ResultadosVinculacion(seleccionado);
+							ResultadosVinculacion.cargarResultados(seleccionado);
+							res.setModal(true);
+							res.setVisible(true);
 							
 						}
 					});
-					btnVisualizar.setIcon(new ImageIcon("recursos/cv.png"));
-					btnVisualizar.setFont(new Font("Segoe UI", Font.PLAIN, 16));
-					btnVisualizar.setEnabled(false);
-					btnVisualizar.setActionCommand("OK");
-					buttonPane.add(btnVisualizar);
+					btnVincular.setFont(new Font("Segoe UI", Font.BOLD, 16));
+					btnVincular.setEnabled(false);
+					btnVincular.setActionCommand("OK");
+					buttonPane.add(btnVincular);
 				}
-				btnUpdate.setFont(new Font("Segoe UI", Font.PLAIN, 16));
+				btnUpdate.setFont(new Font("Segoe UI", Font.BOLD, 16));
 				btnUpdate.setEnabled(false);
 				btnUpdate.setActionCommand("OK");
 				buttonPane.add(btnUpdate);
@@ -168,8 +174,9 @@ public class ConsultarOfertas extends JDialog {
 			}
 			{
 				btnDelete = new JButton("Eliminar");
+				btnDelete.setBackground(Color.WHITE);
 				btnDelete.setIcon(new ImageIcon("recursos/eliminar.png"));
-				btnDelete.setFont(new Font("Segoe UI", Font.PLAIN, 16));
+				btnDelete.setFont(new Font("Segoe UI", Font.BOLD, 16));
 				btnDelete.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						if(seleccionado != null) {
@@ -195,8 +202,9 @@ public class ConsultarOfertas extends JDialog {
 			}
 			{
 				JButton btnCancelar = new JButton("Cancelar");
+				btnCancelar.setBackground(Color.WHITE);
 				btnCancelar.setIcon(new ImageIcon("recursos/cerrar.png"));
-				btnCancelar.setFont(new Font("Segoe UI", Font.PLAIN, 16));
+				btnCancelar.setFont(new Font("Segoe UI", Font.BOLD, 16));
 				btnCancelar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						dispose();
@@ -221,7 +229,7 @@ public class ConsultarOfertas extends JDialog {
 	    seleccionado = null;
 	    btnDelete.setEnabled(false);
 	    btnUpdate.setEnabled(false);
-	    btnVisualizar.setEnabled(false);
+	    btnVincular.setEnabled(false);
 	    
 	    for (OfertaLaboral aux : BolsaLaboral.getInstancia().getOfertas()) {
 	        boolean coincide = 

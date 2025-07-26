@@ -60,10 +60,11 @@ public class CV extends JDialog {
 		contenedor.setLayout(null);
 		{
 			JButton btnCancelar = new JButton("Cerrar");
+			btnCancelar.setBackground(Color.WHITE);
 			btnCancelar.setIcon(new ImageIcon("recursos/cerrar.png"));
 			btnCancelar.setBounds(554, 600, 140, 31);
 			contenedor.add(btnCancelar);
-			btnCancelar.setFont(new Font("Segoe UI", Font.PLAIN, 16));
+			btnCancelar.setFont(new Font("Segoe UI", Font.BOLD, 16));
 			btnCancelar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					dispose();
