@@ -1,8 +1,9 @@
 package logico;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class OfertaLaboral {
+public class OfertaLaboral implements Serializable{
 	private String codigo;
 	private String puesto;
 	private String descripcion;

@@ -1,8 +1,9 @@
 package logico;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class Solicitud {
+public class Solicitud implements Serializable{
 	private String codigo;
 	private LocalDate fechaSolicitud;
 	private String estado;

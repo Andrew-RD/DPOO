@@ -1,9 +1,10 @@
 package logico;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public abstract class Candidato{
+public abstract class Candidato implements Serializable{
 	private String codigo;
 	private String identificacion;
 	private String nombres;
@@ -192,7 +193,8 @@ public abstract class Candidato{
 		this.areaDeInteres = areaDeInteres;
 	}
 	
-
+	public abstract String getSobreMi();
 	
+	public abstract String getFormacion();
 	
 }

@@ -1,8 +1,9 @@
 package logico;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class VacanteCompletada {
+public class VacanteCompletada implements Serializable{
 	private String codigo;
 	private Solicitud solicitudAceptada;
 	private OfertaLaboral ofertaOcupada;

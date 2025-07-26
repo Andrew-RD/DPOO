@@ -197,7 +197,7 @@ public class RegistroOfertaLaboral extends JDialog {
 				cargarArea();
 			}
 		});
-		cmbArea.setModel(new DefaultComboBoxModel(new String[] {"No definido", "Finanzas", "Recursos Humanos", "Marketing", "Limpieza", "Seguridad", "TI", "Operaciones", "Administraci\u00F3n", "Atenci\u00F3n al Cliente"}));
+		cmbArea.setModel(new DefaultComboBoxModel(new String[] {"No definido", "Finanzas", "Recursos Humanos", "Marketing", "Limpieza", "Seguridad", "TI", "Operaciones", "Administraci\u00F3n", "Atenci\u00F3n al Cliente","Educación"}));
 		cmbArea.setMaximumRowCount(11);
 		cmbArea.setMaximumRowCount(11);
 		cmbArea.setFont(new Font("Segoe UI", Font.PLAIN, 14));

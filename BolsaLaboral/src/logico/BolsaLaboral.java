@@ -1,10 +1,11 @@
 package logico;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import exception.NotRemovableException;
 
-public class BolsaLaboral {
+public class BolsaLaboral implements Serializable{
 	
 	public static int genCodigoCandidato = 1;
 	public static int genCodigoSolicitud = 1;
