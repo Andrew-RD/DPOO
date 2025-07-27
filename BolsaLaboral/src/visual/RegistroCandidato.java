@@ -629,8 +629,8 @@ public class RegistroCandidato extends JDialog {
 				cargarArea();
 			}
 		});
-		cmbArea.setModel(new DefaultComboBoxModel(new String[] {"No definido", "Finanzas", "Recursos Humanos", "Marketing", "Limpieza", "Seguridad", "TI", "Operaciones", "Administraci\u00F3n", "Atenci\u00F3n al Cliente","Educación"}));
-		cmbArea.setMaximumRowCount(11);
+		cmbArea.setModel(new DefaultComboBoxModel(new String[] {"No definido", "Finanzas", "Recursos Humanos", "Marketing", "Limpieza", "Seguridad", "TI", "Salud", "Operaciones", "Administraci\u00F3n", "Atenci\u00F3n al Cliente", "Educaci\u00F3n"}));
+		cmbArea.setMaximumRowCount(12);
 		cmbArea.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		cmbArea.setBounds(111, 128, 305, 29);
 		pnlPreferencias.add(cmbArea);
@@ -717,7 +717,7 @@ public class RegistroCandidato extends JDialog {
 		cmbModalidad.setSelectedIndex(0);
 
 		spnSalarioEsperado = new JSpinner();
-		spnSalarioEsperado.setModel(new SpinnerNumberModel(new Float(12000), new Float(12000), null, new Float(1)));
+		spnSalarioEsperado.setModel(new SpinnerNumberModel(new Float(12000), new Float(12000), null, new Float(1000)));
 		spnSalarioEsperado.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		spnSalarioEsperado.setBounds(154, 200, 262, 22);
 		pnlPreferencias.add(spnSalarioEsperado);

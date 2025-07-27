@@ -20,12 +20,13 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JPasswordField;
 
 public class Login extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txtUsuario;
-	private JTextField txtContrasena;
+	private JPasswordField txtContrasena;
 	private boolean visible = false;
 	private StringBuilder contrasena = new StringBuilder();
 
@@ -104,21 +105,8 @@ public class Login extends JFrame {
 		lblContrasea.setBounds(236, 210, 454, 62);
 		contentPane.add(lblContrasea);
 		
-		txtContrasena = new JTextField();
-		txtContrasena.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyPressed(KeyEvent e) {
-				contrasena.append(e.getKeyChar());
-				if(visible == false) {
-					int longitud = txtContrasena.getText().length();
-					txtContrasena.setText("");
-					for(int letra = 0; letra < longitud;letra++) {
-						txtContrasena.setText(txtContrasena.getText() + "*");
-					}
-				}
-			}
-			
-		});
+		txtContrasena = new JPasswordField();
+		txtContrasena.setEchoChar('*');
 		txtContrasena.setFont(new Font("Segoe UI", Font.PLAIN, 18));
 		txtContrasena.setColumns(10);
 		txtContrasena.setBounds(236, 267, 420, 31);
@@ -128,20 +116,13 @@ public class Login extends JFrame {
 		lblVisible.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				if(visible == true) {
-					visible = false;
-					lblVisible.setIcon(new ImageIcon("recursos/novisible.png"));
-					int longitud = txtContrasena.getText().length();
-					txtContrasena.setText("");
-					for(int letra = 0; letra < longitud;letra++) {
-						txtContrasena.setText(txtContrasena.getText() + "*");
-					}
-				}
-				else {
-					visible = true;
+				visible = !visible;
+				if (visible) {
+					txtContrasena.setEchoChar((char) 0);
 					lblVisible.setIcon(new ImageIcon("recursos/visible.png"));
-					txtContrasena.setText(contrasena.toString());
-					
+				} else {
+					txtContrasena.setEchoChar('*');
+					lblVisible.setIcon(new ImageIcon("recursos/novisible.png"));
 				}
 			}
 		});
@@ -149,23 +130,25 @@ public class Login extends JFrame {
 		lblVisible.setBounds(668, 266, 32, 32);
 		contentPane.add(lblVisible);
 		
-		JButton btnNewButton = new JButton("Iniciar Sesi\u00F3n");
-		btnNewButton.setBackground(Color.WHITE);
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton btnIniciarSesion = new JButton("Iniciar Sesi\u00F3n");
+		btnIniciarSesion.setBackground(Color.WHITE);
+		btnIniciarSesion.setIcon(new ImageIcon("recursos/iniciarsesion.png"));
+		btnIniciarSesion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Principal menu = new Principal();
 				menu.setVisible(true);
 				dispose();
 			}
 		});
-		btnNewButton.setFont(new Font("Segoe UI", Font.BOLD, 18));
-		btnNewButton.setBounds(236, 325, 154, 42);
-		contentPane.add(btnNewButton);
+		btnIniciarSesion.setFont(new Font("Segoe UI", Font.BOLD, 18));
+		btnIniciarSesion.setBounds(236, 325, 193, 42);
+		contentPane.add(btnIniciarSesion);
 		
 		JButton btnCerrar = new JButton("Cerrar");
 		btnCerrar.setBackground(Color.WHITE);
+		btnCerrar.setIcon(new ImageIcon("recursos/cerrar.png"));
 		btnCerrar.setFont(new Font("Segoe UI", Font.BOLD, 18));
-		btnCerrar.setBounds(402, 325, 154, 42);
+		btnCerrar.setBounds(449, 325, 205, 42);
 		contentPane.add(btnCerrar);
 	}
 }

@@ -36,7 +36,7 @@ public class RegistroOfertaLaboral extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private OfertaLaboral ofertaAct = null;
-	private ArrayList<String> ofertadores = BolsaLaboral.getInstancia().getCentrosName();
+	private ArrayList<String> ofertadores = null;
 	private JTextField txtCodigo;
 	private JTextField txtPuesto;
 	private JRadioButton rdTecnico;
@@ -197,8 +197,8 @@ public class RegistroOfertaLaboral extends JDialog {
 				cargarArea();
 			}
 		});
-		cmbArea.setModel(new DefaultComboBoxModel(new String[] {"No definido", "Finanzas", "Recursos Humanos", "Marketing", "Limpieza", "Seguridad", "TI", "Operaciones", "Administraci\u00F3n", "Atenci\u00F3n al Cliente","Educación"}));
-		cmbArea.setMaximumRowCount(11);
+		cmbArea.setModel(new DefaultComboBoxModel(new String[] {"No definido", "Finanzas", "Recursos Humanos", "Marketing", "Limpieza", "Seguridad", "TI", "Salud", "Operaciones", "Administraci\u00F3n", "Atenci\u00F3n al Cliente", "Educaci\u00F3n"}));
+		cmbArea.setMaximumRowCount(12);
 		cmbArea.setMaximumRowCount(11);
 		cmbArea.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		cmbArea.setBounds(127, 417, 305, 29);
@@ -669,7 +669,7 @@ public class RegistroOfertaLaboral extends JDialog {
 			}
 			else {
 				okButton.setText("Modificar");
-				okButton.setIcon(new ImageIcon("recursos/editar.png"));
+				okButton.setIcon(new ImageIcon("recursos/modificar.png"));
 			}
 
 			JButton btnLimpiar = new JButton("Limpiar");

@@ -14,6 +14,8 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
+import exception.NotRemovableException;
+
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import java.awt.event.ActionListener;
@@ -25,9 +27,13 @@ import java.awt.Toolkit;
 import java.awt.Font;
 import java.awt.Color;
 import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.UIManager;
 
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
-public class ResultadosVinculacion extends JDialog {
+public class ConsultarSolicitudes extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	public static JTable table;
@@ -44,13 +50,14 @@ public class ResultadosVinculacion extends JDialog {
 	};
 	public static Object[] row;
 	private OfertaLaboral seleccionado = null;
-	private JButton btnContratar;
+	private JTextField txtFiltro;
+	private JButton btnVerInforme;
 	
 	/**
 	 * Create the dialog.
 	 */
-	public ResultadosVinculacion(OfertaLaboral ofertaVinculada) {
-		setTitle("Resultados de la Vinculación");
+	public ConsultarSolicitudes() {
+		setTitle("Listado de Ofertas Laborales con Solicitudes");
 		setIconImage(Toolkit.getDefaultToolkit().getImage("recursos/icono.png"));
 		setBounds(100, 100, 665, 606);
 		setResizable(false);
@@ -78,12 +85,12 @@ public class ResultadosVinculacion extends JDialog {
 						public void mouseClicked(MouseEvent e) {
 							int index = table.getSelectedRow();
 							if(index >= 0) {
-								/*seleccionado = BolsaLaboral.getInstancia().buscarOfertaByCodigo(table.getValueAt(index, 0).toString());*/
-								btnContratar.setEnabled(true);
+								seleccionado = BolsaLaboral.getInstancia().buscarOfertaByCodigo(table.getValueAt(index, 0).toString());
+								btnVerInforme.setEnabled(true);
 							}
 						}
 					});
-					String [] headers = {"Código", "Solicitante", "Porcentaje", "Condición"};
+					String [] headers = {"Código", "Puesto", "Ofertador", "Área", "Estado"};
 					modelo.setColumnIdentifiers(headers);
 					table.setModel(modelo);
 					scrollPane.setViewportView(table);
@@ -95,17 +102,28 @@ public class ResultadosVinculacion extends JDialog {
 			pnlFiltro.setBackground(new Color(228, 228, 228));
 			contentPanel.add(pnlFiltro, BorderLayout.NORTH);
 			{
-				JLabel lblNewLabel = new JLabel("Oferta:");
+				JLabel lblIconFiltrar = new JLabel("");
+				lblIconFiltrar.setIcon(new ImageIcon("recursos/filtrar.png"));
+				pnlFiltro.add(lblIconFiltrar);
+				
+			}
+			{
+				JLabel lblNewLabel = new JLabel("Criterio del Filtro: ");
 				lblNewLabel.setForeground(Color.BLACK);
 				lblNewLabel.setFont(new Font("Segoe UI", Font.BOLD, 16));
 				pnlFiltro.add(lblNewLabel);
 			}
 			{
-				JLabel lblNombreOferta = new JLabel("");
-				lblNombreOferta.setText(ofertaVinculada.getPuesto() + ", " + ofertaVinculada.getOfertador().getNombre());
-				lblNombreOferta.setForeground(Color.BLACK);
-				lblNombreOferta.setFont(new Font("Segoe UI", Font.PLAIN, 16));
-				pnlFiltro.add(lblNombreOferta);
+				txtFiltro = new JTextField();
+				txtFiltro.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+				txtFiltro.addKeyListener(new KeyAdapter() {
+					@Override
+					public void keyReleased(KeyEvent e) {
+						filtrar();
+					}
+				});
+				pnlFiltro.add(txtFiltro);
+				txtFiltro.setColumns(16);
 			}
 		}
 		{
@@ -115,19 +133,24 @@ public class ResultadosVinculacion extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				btnContratar = new JButton("Aceptar");
-				btnContratar.setBackground(Color.WHITE);
-				btnContratar.setIcon(new ImageIcon("recursos/eliminar.png"));
-				btnContratar.setFont(new Font("Segoe UI", Font.BOLD, 16));
-				btnContratar.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						if(seleccionado != null) {
-
+				{
+					btnVerInforme = new JButton("Ver Informe");
+					btnVerInforme.setIcon(new ImageIcon("recursos/vincular.png"));
+					btnVerInforme.setBackground(Color.WHITE);
+					btnVerInforme.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							ResultadosVinculacion res = new ResultadosVinculacion(seleccionado);
+							ResultadosVinculacion.cargarResultados(seleccionado);
+							res.setModal(true);
+							res.setVisible(true);
+							
 						}
-					}
-				});
-				btnContratar.setEnabled(false);
-				buttonPane.add(btnContratar);
+					});
+					btnVerInforme.setFont(new Font("Segoe UI", Font.BOLD, 16));
+					btnVerInforme.setEnabled(false);
+					btnVerInforme.setActionCommand("OK");
+					buttonPane.add(btnVerInforme);
+				}
 			}
 			{
 				JButton btnCancelar = new JButton("Cancelar");
@@ -144,26 +167,54 @@ public class ResultadosVinculacion extends JDialog {
 			}
 		}
 
-		cargarResultados(ofertaVinculada);
+		cargarOfertas();
 		table.setRowHeight(36);
 		table.getTableHeader().setReorderingAllowed(false);
 		table.setBackground(new Color(228, 228, 228));
 	}
 	
-	private static String getImagen(String condicion) {
-		condicion = condicion.toLowerCase();
-		condicion = condicion.replace(" ","");
-		return "recursos/" + condicion + ".png";
+	public void filtrar() {
+	    String filtro = txtFiltro.getText().toLowerCase();
+	    modelo.setRowCount(0);
+	    row = new Object[table.getColumnCount()];
+	    
+	    seleccionado = null;
+	    btnVerInforme.setEnabled(false);
+	    
+	    for (OfertaLaboral aux : BolsaLaboral.getInstancia().getOfertas()) {
+	        boolean coincide = 
+	            aux.getCodigo().toLowerCase().contains(filtro) ||
+	            aux.getOfertador().getNombre().toLowerCase().contains(filtro) ||
+	            aux.getPuesto().toLowerCase().contains(filtro) ||
+	            aux.getArea().toLowerCase().contains(filtro) ||
+	            aux.getEstado().toLowerCase().contains(filtro);
+	        
+	        if (coincide) {
+	            row[0] = aux.getCodigo();
+	            row[1] = aux.getPuesto();
+	            row[2] = aux.getOfertador().getNombre();
+	            row[3] = new ImageIcon(getImagen(aux.getArea()));
+	            row[4] = aux.getEstado();
+	            modelo.addRow(row);
+	        }
+	    }
+	}
+	
+	private static String getImagen(String area) {
+		area = area.replace("ó","o");
+		area = area.replace(" ","");
+		return "recursos/" + area + ".png";
 	}
 
-	public static void cargarResultados(OfertaLaboral oferta) {
+	public static void cargarOfertas() {
 		modelo.setRowCount(0);
 		row = new Object[table.getColumnCount()];
-		for (ResultadoMatcheo aux : BolsaLaboral.getInstancia().obtenerCandidatosOrdenadosParaOferta(oferta)) {
-            row[0] = aux.getSolicitante().getCodigo();
-            row[1] = aux.getSolicitante().getNombres() + " " + aux.getSolicitante().getApellidos();
-            row[2] = aux.getPorcentaje() + "%";
-            row[3] = new ImageIcon(getImagen(aux.getCondicion()));
+		for (OfertaLaboral aux : BolsaLaboral.getInstancia().getOfertas()) {
+            row[0] = aux.getCodigo();
+            row[1] = aux.getPuesto();
+            row[2] = aux.getOfertador().getNombre();
+            row[3] = new ImageIcon(getImagen(aux.getArea()));
+            row[4] = aux.getEstado();
 			modelo.addRow(row);
 		}
 	}

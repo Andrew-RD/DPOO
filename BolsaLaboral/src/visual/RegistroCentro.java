@@ -71,6 +71,7 @@ public class RegistroCentro extends JDialog {
 			
 			txtCodigo = new JTextField();
 			txtCodigo.setEditable(false);
+			txtCodigo.setFocusable(false);
 			txtCodigo.setText("CEN-" + BolsaLaboral.genCodigoCentro);
 			txtCodigo.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 			txtCodigo.setBounds(116, 29, 305, 22);

@@ -31,7 +31,7 @@ public class Principal extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -42,7 +42,7 @@ public class Principal extends JFrame {
 				}
 			}
 		});
-	}
+	}*/
 
 	/**
 	 * Create the frame.
@@ -151,6 +151,18 @@ public class Principal extends JFrame {
 		mntmCatRegistrar.setFont(new Font("Segoe UI", Font.PLAIN, 18));
 		mntmCatRegistrar.setIcon(new ImageIcon("recursos/registro.png"));
 		mnCatlogoDeOfertas.add(mntmCatRegistrar);
+		
+		JMenuItem mntmSolicitudes = new JMenuItem("  Solicitudes");
+		mntmSolicitudes.setIcon(new ImageIcon("recursos/solicitud.png"));
+		mntmSolicitudes.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ConsultarSolicitudes cons = new ConsultarSolicitudes();
+				cons.setModal(true);
+				cons.setVisible(true);
+			}
+		});
+		mntmSolicitudes.setFont(new Font("Segoe UI", Font.PLAIN, 18));
+		mnCatlogoDeOfertas.add(mntmSolicitudes);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(4, 13, 18));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

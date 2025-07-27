@@ -193,7 +193,7 @@ public class BolsaLaboral implements Serializable{
 	        puntaje += 15;
 	    }
 	    
-	    if (candidato.getAreaDeInteres().equalsIgnoreCase(oferta.getPuesto())) {
+	    if (candidato.getAreaDeInteres().equalsIgnoreCase(oferta.getArea())) {
 	        puntaje += 20;
 	    }
 	    
@@ -215,23 +215,22 @@ public class BolsaLaboral implements Serializable{
 	    }
 	    puntaje += Math.min(10, idiomasPuntos);
 	    
-	    if (candidato instanceof Universitario) {
-	        Universitario u = (Universitario) candidato;
-	        if (u.getNivelAcademico().equalsIgnoreCase(oferta.getNivelAcademico())) {
-	            puntaje += 20;
-	        }
-	    } else if (candidato instanceof TecnicoSuperior) {
+	    if (candidato instanceof Universitario && oferta.getNivelAcademico().equalsIgnoreCase("Estudiante Universitario")) {
+	    	puntaje += 15;
+	    } else if (candidato instanceof TecnicoSuperior && oferta.getNivelAcademico().equalsIgnoreCase("Estudiante Tecnico")) {
 	        TecnicoSuperior t = (TecnicoSuperior) candidato;
 	        if (t.getAniosExperiencia() >= oferta.getExperienciaMinima()) {
-	            puntaje += 20;
+	            puntaje += 15;
 	        }
-	    } else if (candidato instanceof Obrero) {
+	    } else if (candidato instanceof Obrero && oferta.getNivelAcademico().equalsIgnoreCase("Obrero")) {
 	        Obrero o = (Obrero) candidato;
+	        int habilidadPuntos = 0;
 	        for (String habilidad : oferta.getRequisitos()) {
 	            if (o.getHabilidades().contains(habilidad)) {
-	                puntaje += 5;
+	                habilidadPuntos += 5;
 	            }
 	        }
+	        puntaje+= Math.min(15, habilidadPuntos);
 	    }
 	    
 	    return puntaje;
@@ -300,20 +299,22 @@ public class BolsaLaboral implements Serializable{
 
 	
 	public boolean centroEliminable(CentroEmpleador centro) {
+		if(centro.getOfertasLaborales().size() != 0) {
+			return false;
+		}
 		return true;
 	}
 	
 	public boolean candidatoEliminable(Candidato candidato) {
+		if(candidato.getMisSolicitudes().size() != 0) {
+			return false;
+		}
 		return true;
 	}
 	
 	private boolean ofertaEliminable(OfertaLaboral seleccionado) {
 		return false;
 	}
-
-	public ArrayList<String> getCentrosName() {
 	
-		return null;
-	}
 
 }

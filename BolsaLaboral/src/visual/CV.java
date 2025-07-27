@@ -25,6 +25,7 @@ import javax.swing.JLabel;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 import javax.swing.JTextPane;
+import javax.swing.JTextArea;
 
 public class CV extends JDialog {
 
@@ -64,6 +65,7 @@ public class CV extends JDialog {
 			btnCancelar.setIcon(new ImageIcon("recursos/cerrar.png"));
 			btnCancelar.setBounds(554, 600, 140, 31);
 			contenedor.add(btnCancelar);
+			btnCancelar.setFocusable(false);
 			btnCancelar.setFont(new Font("Segoe UI", Font.BOLD, 16));
 			btnCancelar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -343,11 +345,15 @@ public class CV extends JDialog {
 		Color fondoPanel = getColorPrincipal(area);
 		pnlResumen.setBackground(fondoPanel);
 		txpIdiomas.setBackground(fondoPanel);
+		txpIdiomas.setFocusable(false);
 
 		Color fondoGeneral = new Color(255, 255, 255);
 		contenedor.setBackground(fondoGeneral);
 
 		txpDescripcion.setBackground(fondoGeneral);
+		txpDescripcion.setFocusable(false);
 		txpDatosFormacion.setBackground(fondoGeneral);
+		txpDatosFormacion.setFocusable(false);
+		
 	}
 }
