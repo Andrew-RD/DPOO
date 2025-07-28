@@ -197,4 +197,10 @@ public abstract class Candidato implements Serializable{
 	
 	public abstract String getFormacion();
 	
+	public void cambiarEstadoSolicitudesAEmpleado() {
+	    for (Solicitud solicitud : misSolicitudes) {
+	        solicitud.setEstado("Empleado");
+	    }
+	}
+	
 }

@@ -1,6 +1,7 @@
 package logico;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import exception.NotRemovableException;
@@ -295,6 +296,29 @@ public class BolsaLaboral implements Serializable{
 			}
 		}
 		return aux;
+	}
+	
+	public void regVacanteCompletada(Solicitud solicitudContratada) {
+	    solicitudContratada.setEstado("Empleado");
+	    OfertaLaboral oferta = solicitudContratada.getOfertaSolicitada();
+	    oferta.setVacantes(oferta.getVacantes() - 1);
+	    if (oferta.getVacantes() <= 0) {
+	        oferta.setEstado("Inactiva");
+	    }
+	  
+	    Candidato candidatoContratado = solicitudContratada.getSolicitante();
+	    candidatoContratado.cambiarEstadoSolicitudesAEmpleado();
+	    
+	    String codigoVacante = "VAC-" + genCodigoVacanteCompletada;
+	    VacanteCompletada nuevaVacante = new VacanteCompletada(
+	            codigoVacante, 
+	            solicitudContratada, 
+	            oferta,
+	            LocalDate.now()
+	    );
+	    
+	    vacantes.add(nuevaVacante);
+	    genCodigoVacanteCompletada++;
 	}
 
 	
