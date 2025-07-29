@@ -51,13 +51,13 @@ public class ConsultarSolicitudes extends JDialog {
 	public static Object[] row;
 	private OfertaLaboral seleccionado = null;
 	private JTextField txtFiltro;
-	private JButton btnVerInforme;
+	private JButton btnContratar;
 	
 	/**
 	 * Create the dialog.
 	 */
 	public ConsultarSolicitudes() {
-		setTitle("Listado de Ofertas Laborales con Solicitudes");
+		setTitle("Listado de Solicitudes a Procesar");
 		setIconImage(Toolkit.getDefaultToolkit().getImage("recursos/icono.png"));
 		setBounds(100, 100, 665, 606);
 		setResizable(false);
@@ -86,11 +86,11 @@ public class ConsultarSolicitudes extends JDialog {
 							int index = table.getSelectedRow();
 							if(index >= 0) {
 								seleccionado = BolsaLaboral.getInstancia().buscarOfertaByCodigo(table.getValueAt(index, 0).toString());
-								btnVerInforme.setEnabled(true);
+								btnContratar.setEnabled(true);
 							}
 						}
 					});
-					String [] headers = {"Código", "Puesto", "Ofertador", "Área", "Estado"};
+					String [] headers = {"Código", "Solicitante", "Puesto", "Ofertador", "Estado"};
 					modelo.setColumnIdentifiers(headers);
 					table.setModel(modelo);
 					scrollPane.setViewportView(table);
@@ -134,10 +134,10 @@ public class ConsultarSolicitudes extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				{
-					btnVerInforme = new JButton("Ver Informe");
-					btnVerInforme.setIcon(new ImageIcon("recursos/vincular.png"));
-					btnVerInforme.setBackground(Color.WHITE);
-					btnVerInforme.addActionListener(new ActionListener() {
+					btnContratar = new JButton("Contratar");
+					btnContratar.setIcon(new ImageIcon("recursos/vincular.png"));
+					btnContratar.setBackground(Color.WHITE);
+					btnContratar.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
 							ResultadosVinculacion res = new ResultadosVinculacion(seleccionado);
 							ResultadosVinculacion.cargarResultados(seleccionado);
@@ -146,10 +146,10 @@ public class ConsultarSolicitudes extends JDialog {
 							
 						}
 					});
-					btnVerInforme.setFont(new Font("Segoe UI", Font.BOLD, 16));
-					btnVerInforme.setEnabled(false);
-					btnVerInforme.setActionCommand("OK");
-					buttonPane.add(btnVerInforme);
+					btnContratar.setFont(new Font("Segoe UI", Font.BOLD, 16));
+					btnContratar.setEnabled(false);
+					btnContratar.setActionCommand("OK");
+					buttonPane.add(btnContratar);
 				}
 			}
 			{
@@ -167,7 +167,7 @@ public class ConsultarSolicitudes extends JDialog {
 			}
 		}
 
-		cargarOfertas();
+		cargarSolicitudes();
 		table.setRowHeight(36);
 		table.getTableHeader().setReorderingAllowed(false);
 		table.setBackground(new Color(228, 228, 228));
@@ -179,41 +179,36 @@ public class ConsultarSolicitudes extends JDialog {
 	    row = new Object[table.getColumnCount()];
 	    
 	    seleccionado = null;
-	    btnVerInforme.setEnabled(false);
+	    btnContratar.setEnabled(false);
 	    
-	    for (OfertaLaboral aux : BolsaLaboral.getInstancia().getOfertas()) {
+	    for (Solicitud aux : BolsaLaboral.getInstancia().getSolicitudes()) {
 	        boolean coincide = 
 	            aux.getCodigo().toLowerCase().contains(filtro) ||
-	            aux.getOfertador().getNombre().toLowerCase().contains(filtro) ||
-	            aux.getPuesto().toLowerCase().contains(filtro) ||
-	            aux.getArea().toLowerCase().contains(filtro) ||
+	            aux.getOfertaSolicitada().getPuesto().toLowerCase().contains(filtro) ||
+	            aux.getOfertaSolicitada().getOfertador().getNombre().toLowerCase().contains(filtro) ||
+	            (aux.getSolicitante().getNombres() + aux.getSolicitante().getApellidos()).toLowerCase().contains(filtro) ||
 	            aux.getEstado().toLowerCase().contains(filtro);
 	        
 	        if (coincide) {
 	            row[0] = aux.getCodigo();
-	            row[1] = aux.getPuesto();
-	            row[2] = aux.getOfertador().getNombre();
-	            row[3] = new ImageIcon(getImagen(aux.getArea()));
+	            row[1] = aux.getSolicitante().getNombres() + " " + aux.getSolicitante().getApellidos();
+	            row[2] = aux.getOfertaSolicitada().getPuesto();
+	            row[3] = aux.getOfertaSolicitada().getOfertador().getNombre();
 	            row[4] = aux.getEstado();
+	            
 	            modelo.addRow(row);
 	        }
 	    }
 	}
-	
-	private static String getImagen(String area) {
-		area = area.replace("ó","o");
-		area = area.replace(" ","");
-		return "recursos/" + area + ".png";
-	}
 
-	public static void cargarOfertas() {
+	public static void cargarSolicitudes() {
 		modelo.setRowCount(0);
 		row = new Object[table.getColumnCount()];
-		for (OfertaLaboral aux : BolsaLaboral.getInstancia().getOfertas()) {
+		for (Solicitud aux : BolsaLaboral.getInstancia().getSolicitudes()) {
             row[0] = aux.getCodigo();
-            row[1] = aux.getPuesto();
-            row[2] = aux.getOfertador().getNombre();
-            row[3] = new ImageIcon(getImagen(aux.getArea()));
+            row[1] = aux.getSolicitante().getNombres() + " " + aux.getSolicitante().getApellidos();
+            row[2] = aux.getOfertaSolicitada().getPuesto();
+            row[3] = aux.getOfertaSolicitada().getOfertador().getNombre();
             row[4] = aux.getEstado();
 			modelo.addRow(row);
 		}

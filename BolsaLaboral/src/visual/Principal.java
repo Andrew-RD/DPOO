@@ -163,6 +163,27 @@ public class Principal extends JFrame {
 		});
 		mntmSolicitudes.setFont(new Font("Segoe UI", Font.PLAIN, 18));
 		mnCatlogoDeOfertas.add(mntmSolicitudes);
+		
+		JMenu mnGestion = new JMenu("Gesti\u00F3n de Datos");
+		mnGestion.setForeground(Color.BLACK);
+		mnGestion.setFont(new Font("Segoe UI", Font.BOLD, 20));
+		mnGestion.setIcon(new ImageIcon("recursos/gestion.png"));
+		menuBar.add(mnGestion);
+		
+		JMenuItem mntmInformes = new JMenuItem("  Informes");
+		mntmInformes.setFont(new Font("Segoe UI", Font.PLAIN, 18));
+		mntmInformes.setIcon(new ImageIcon("recursos/informes.png"));
+		mnGestion.add(mntmInformes);
+		
+		JMenuItem mntmRespaldo = new JMenuItem("  Respaldo");
+		mntmRespaldo.setFont(new Font("Segoe UI", Font.PLAIN, 18));
+		mntmRespaldo.setIcon(new ImageIcon("recursos/respaldo.png"));
+		mnGestion.add(mntmRespaldo);
+		
+		JMenuItem mntmProcesamiento = new JMenuItem("  Procesamiento");
+		mntmProcesamiento.setFont(new Font("Segoe UI", Font.PLAIN, 18));
+		mntmProcesamiento.setIcon(new ImageIcon("recursos/avanzado.png"));
+		mnGestion.add(mntmProcesamiento);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(4, 13, 18));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
