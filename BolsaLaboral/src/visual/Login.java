@@ -54,7 +54,7 @@ public class Login extends JFrame {
 				ObjectInputStream bolsaRead;
 				ObjectOutputStream bolsaWrite;
 				try {
-					bolsaInput = new FileInputStream("empresa.dat");
+					bolsaInput = new FileInputStream("bolsa.dat");
 					bolsaRead = new ObjectInputStream(bolsaInput);
 					BolsaLaboral temp = (BolsaLaboral)bolsaRead.readObject();
 					BolsaLaboral.setInstancia(temp);
@@ -62,7 +62,7 @@ public class Login extends JFrame {
 					bolsaRead.close();
 				} catch (FileNotFoundException e) {
 					try {
-						bolsaOut = new FileOutputStream("empresa.dat");
+						bolsaOut = new FileOutputStream("bolsa.dat");
 						bolsaWrite = new ObjectOutputStream(bolsaOut);
 						Usuario aux = new Usuario("Administrador", "Admin", "Admin");
 						BolsaLaboral.getInstancia().regUsuario(aux);
