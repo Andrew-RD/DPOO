@@ -41,38 +41,16 @@ public class Login extends JFrame {
 	private JTextField txtUsuario;
 	private JPasswordField txtContrasena;
 	private boolean visible = false;
+	private StringBuilder contrasena = new StringBuilder();
+
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				FileInputStream bolsaInput;
-				FileOutputStream bolsaOut;
-				ObjectInputStream bolsaRead;
-				ObjectOutputStream bolsaWrite;
-				try {
-					bolsaInput = new FileInputStream("bolsa.dat");
-					bolsaRead = new ObjectInputStream(bolsaInput);
-					BolsaLaboral temp = (BolsaLaboral)bolsaRead.readObject();
-					BolsaLaboral.setInstancia(temp);
-					bolsaInput.close();
-					bolsaRead.close();
-				} catch (FileNotFoundException e) {
-					try {
-						bolsaOut = new FileOutputStream("bolsa.dat");
-						bolsaWrite = new ObjectOutputStream(bolsaOut);
-						Usuario aux = new Usuario("Administrador", "Admin", "Admin");
-						BolsaLaboral.getInstancia().regUsuario(aux);
-						bolsaWrite.writeObject(BolsaLaboral.getInstancia());
-						bolsaOut.close();
-						bolsaWrite.close();
-					} catch (IOException ex) {
-		                ex.printStackTrace();
-		            }
-				} catch (IOException | ClassNotFoundException e) {
-		            e.printStackTrace();
-		        }
+				bolsaIO();
+				codigoIO();
 				try {
 					Login frame = new Login();
 					frame.setVisible(true);
@@ -188,4 +166,71 @@ public class Login extends JFrame {
 		btnCerrar.setBounds(449, 325, 205, 42);
 		contentPane.add(btnCerrar);
 	}
+
+	private static void bolsaIO() {
+		FileInputStream bolsaInput;
+		FileOutputStream bolsaOut;
+		ObjectInputStream bolsaRead;
+		ObjectOutputStream bolsaWrite;
+		try {
+			bolsaInput = new FileInputStream("bolsa.dat");
+			bolsaRead = new ObjectInputStream(bolsaInput);
+			BolsaLaboral temp = (BolsaLaboral)bolsaRead.readObject();
+			BolsaLaboral.setInstancia(temp);
+			bolsaInput.close();
+			bolsaRead.close();
+		} catch (FileNotFoundException e) {
+			try {
+				bolsaOut = new FileOutputStream("bolsa.dat");
+				bolsaWrite = new ObjectOutputStream(bolsaOut);
+				Usuario aux = new Usuario("Administrador", "Admin", "Admin");
+				BolsaLaboral.getInstancia().regUsuario(aux);
+				bolsaWrite.writeObject(BolsaLaboral.getInstancia());
+				bolsaOut.close();
+				bolsaWrite.close();
+			} catch (IOException ex) {
+	            ex.printStackTrace();
+	        }
+		} catch (IOException | ClassNotFoundException e) {
+	        e.printStackTrace();
+	    }
+	}
+	
+	private static void codigoIO() {
+		FileInputStream codigoInput;
+		FileOutputStream codigoOut;
+		ObjectInputStream codigoRead;
+		ObjectOutputStream codigoWrite;
+		
+		try {
+			codigoInput = new FileInputStream("codigos.dat");
+			codigoRead = new ObjectInputStream(codigoInput);
+
+			BolsaLaboral.genCodigoCandidato = codigoRead.readInt();
+			BolsaLaboral.genCodigoSolicitud = codigoRead.readInt();
+			BolsaLaboral.genCodigoOferta = codigoRead.readInt();
+			BolsaLaboral.genCodigoCentro = codigoRead.readInt();
+			BolsaLaboral.genCodigoVacanteCompletada = codigoRead.readInt();
+
+			codigoInput.close();
+			codigoRead.close();
+		} catch (IOException e) {
+			try {
+				codigoOut = new FileOutputStream("codigos.dat");
+				codigoWrite = new ObjectOutputStream(codigoOut);
+
+				codigoWrite.writeInt(BolsaLaboral.genCodigoCandidato);
+				codigoWrite.writeInt(BolsaLaboral.genCodigoSolicitud);
+				codigoWrite.writeInt(BolsaLaboral.genCodigoOferta);
+				codigoWrite.writeInt(BolsaLaboral.genCodigoCentro);
+				codigoWrite.writeInt(BolsaLaboral.genCodigoVacanteCompletada);
+
+				codigoWrite.close();
+				codigoOut.close();
+			} catch (IOException ex) {
+				ex.printStackTrace();
+			}
+		}
+	}
+	
 }
