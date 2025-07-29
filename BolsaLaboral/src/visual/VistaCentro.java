@@ -188,4 +188,8 @@ public class VistaCentro extends JDialog {
 			modelo.addRow(row);
 		}
 	}
+	
+	public String nombreFormato() {
+		return null;
+	}
 }
