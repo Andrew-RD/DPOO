@@ -3,4 +3,3 @@
 /informes.png
 /respaldo.png
 /avanzado.png
-/logico/

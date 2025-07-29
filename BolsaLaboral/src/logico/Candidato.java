@@ -23,6 +23,7 @@ public abstract class Candidato implements Serializable{
 	private boolean disposicionMudarse;
 	private ArrayList<String> idiomas;
 	private ArrayList<Solicitud> misSolicitudes;
+	private static final long serialVersionUID = 1L;
 
 	public Candidato(String codigo, String identificacion, String nombres, String apellidos, LocalDate fechaNacimiento,
 			String genero, String provincia, String municipio, String telefono, String correo, String jornada,

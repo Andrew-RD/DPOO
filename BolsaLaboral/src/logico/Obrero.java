@@ -7,6 +7,7 @@ import java.util.ArrayList;
 public class Obrero extends Candidato implements Serializable{
 
 	private ArrayList <String> habilidades;
+	private static final long serialVersionUID = 1L;
 
 	public Obrero(String codigo, String identificacion, String nombres, String apellidos, LocalDate fechaNacimiento,
 			String genero, String provincia, String municipio, String telefono, String correo, String jornada,

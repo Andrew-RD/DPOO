@@ -8,7 +8,8 @@ public class VacanteCompletada implements Serializable{
 	private Solicitud solicitudAceptada;
 	private OfertaLaboral ofertaOcupada;
 	private LocalDate fechaContratacion;
-	
+	private static final long serialVersionUID = 1L;
+
 	public VacanteCompletada(String codigo, Solicitud solicitudAceptada, OfertaLaboral ofertaOcupada,
 			LocalDate fechaContratacion) {
 		super();

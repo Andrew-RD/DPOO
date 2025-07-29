@@ -8,6 +8,8 @@ import exception.NotRemovableException;
 
 public class BolsaLaboral implements Serializable{
 	
+	private static final long serialVersionUID = 1L;
+	
 	public static int genCodigoCandidato = 1;
 	public static int genCodigoSolicitud = 1;
 	public static int genCodigoOferta = 1;
@@ -18,7 +20,9 @@ public class BolsaLaboral implements Serializable{
 	private ArrayList<OfertaLaboral> ofertas;
 	private ArrayList<CentroEmpleador> centros;
 	private ArrayList<VacanteCompletada> vacantes;
+	private ArrayList<Usuario> usuarios; 
 	public static BolsaLaboral instancia;
+	private Usuario usuarioActual;
 
 	private BolsaLaboral() {
 		candidatos = new ArrayList<Candidato>();
@@ -26,6 +30,7 @@ public class BolsaLaboral implements Serializable{
 		ofertas = new ArrayList<OfertaLaboral>();
 		centros = new ArrayList<CentroEmpleador>();
 		vacantes = new ArrayList<VacanteCompletada>();
+		usuarios = new ArrayList<Usuario>();
 	}
 
 	public ArrayList<Candidato> getCandidatos() {
@@ -68,12 +73,32 @@ public class BolsaLaboral implements Serializable{
 	public void setVacantes(ArrayList<VacanteCompletada> vacantes) {
 		this.vacantes = vacantes;
 	}
+	
+	public ArrayList<Usuario> getUsuarios() {
+		return usuarios;
+	}
+
+	public void setUsuarios(ArrayList<Usuario> usuarios) {
+		this.usuarios = usuarios;
+	}
+	
+	public Usuario getUsuarioActual() {
+		return usuarioActual;
+	}
+
+	public void setUsuarioActual(Usuario usuarioActual) {
+		this.usuarioActual = usuarioActual;
+	}
 
 	public static BolsaLaboral getInstancia() {
 		if(instancia == null) {
 			instancia = new BolsaLaboral();
 		}
 		return instancia;
+	}
+	
+	public static void setInstancia(BolsaLaboral bolsa) {
+		instancia = bolsa;
 	}
 	
 	public void registrarCentroTrabajo(CentroEmpleador nuevoCentro) {
@@ -320,7 +345,20 @@ public class BolsaLaboral implements Serializable{
 	    vacantes.add(nuevaVacante);
 	    genCodigoVacanteCompletada++;
 	}
+	
+	public void regUsuario(Usuario user) {
+		usuarios.add(user);
+	}
 
+	public Usuario login(String nombre, String clave) {
+		Usuario aux = null;
+		for(Usuario user : usuarios) {
+			if(user.match(nombre, clave)) {
+				aux = user;
+			}
+		}
+		return aux;
+	}
 	
 	public boolean centroEliminable(CentroEmpleador centro) {
 		if(centro.getOfertasLaborales().size() != 0) {

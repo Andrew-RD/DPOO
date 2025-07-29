@@ -9,6 +9,7 @@ public class Solicitud implements Serializable{
 	private String estado;
 	private Candidato solicitante;
 	private OfertaLaboral ofertaSolicitada;
+	private static final long serialVersionUID = 1L;
 
 	public Solicitud(String codigo, LocalDate fechaSolicitud, String estado, Candidato solicitante,
 			OfertaLaboral ofertaSolicitada) {
