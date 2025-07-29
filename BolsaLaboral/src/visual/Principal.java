@@ -22,6 +22,14 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.border.LineBorder;
 
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+
 import logico.BolsaLaboral;
 
 public class Principal extends JFrame {
@@ -48,11 +56,29 @@ public class Principal extends JFrame {
 	 * Create the frame.
 	 */
 	public Principal() {
+		addWindowListener(new WindowAdapter() {
+		    @Override
+		    public void windowClosing(WindowEvent e) {
+		        FileOutputStream bolsaOut;
+		        ObjectOutputStream bolsaWrite;
+		        try {
+		        	bolsaOut = new FileOutputStream("bolsa.dat");
+		        	bolsaWrite = new ObjectOutputStream(bolsaOut);
+		        	bolsaWrite.writeObject(BolsaLaboral.getInstancia());
+		            bolsaOut.close();
+		            bolsaWrite.close();
+		        } catch (FileNotFoundException ex) {
+		            ex.printStackTrace();
+		        } catch (IOException ex) {
+		            ex.printStackTrace();
+		        }
+		    }
+		});
+
 		setTitle("Bolsa Laboral");
 		setIconImage(Toolkit.getDefaultToolkit().getImage("recursos/icono.png"));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 571, 417);
 		dim = super.getToolkit().getScreenSize(); 
 		super.setSize(dim.width, dim.height-45);
