@@ -4,11 +4,13 @@ import java.io.Serializable;
 import java.time.LocalDate;
 
 public class VacanteCompletada implements Serializable{
+
+	private static final long serialVersionUID = 1L;
+	
 	private String codigo;
 	private Solicitud solicitudAceptada;
 	private OfertaLaboral ofertaOcupada;
 	private LocalDate fechaContratacion;
-	private static final long serialVersionUID = 1L;
 
 	public VacanteCompletada(String codigo, Solicitud solicitudAceptada, OfertaLaboral ofertaOcupada,
 			LocalDate fechaContratacion) {

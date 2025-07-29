@@ -5,9 +5,11 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class TecnicoSuperior extends Candidato implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
+	
 	private String areaTecnica;
 	private int aniosExperiencia;
-	private static final long serialVersionUID = 1L;
 
 	public TecnicoSuperior(String codigo, String identificacion, String nombres, String apellidos,
 			LocalDate fechaNacimiento, String genero, String provincia, String municipio, String telefono,

@@ -4,12 +4,14 @@ import java.io.Serializable;
 import java.time.LocalDate;
 
 public class Solicitud implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
+	
 	private String codigo;
 	private LocalDate fechaSolicitud;
 	private String estado;
 	private Candidato solicitante;
 	private OfertaLaboral ofertaSolicitada;
-	private static final long serialVersionUID = 1L;
 
 	public Solicitud(String codigo, LocalDate fechaSolicitud, String estado, Candidato solicitante,
 			OfertaLaboral ofertaSolicitada) {

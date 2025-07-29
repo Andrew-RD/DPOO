@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class CentroEmpleador implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
+	
 	private String codigo;
 	private String rnc;
 	private String nombre;
@@ -13,7 +16,6 @@ public class CentroEmpleador implements Serializable{
 	private String telefono;
 	private String correo;
 	private ArrayList<OfertaLaboral> ofertasLaborales;
-	private static final long serialVersionUID = 1L;
 
 	public CentroEmpleador(String codigo, String nombre, String sector, String provincia, String municipio, String telefono, String correo, String rnc) {
 		super();

@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class OfertaLaboral implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
+	
 	private String codigo;
 	private String puesto;
 	private String descripcion;
@@ -20,7 +23,6 @@ public class OfertaLaboral implements Serializable{
 	private String nivelAcademico;
 	private ArrayList<String> requisitos;
 	private ArrayList<String> idiomasRequeridas;
-	private static final long serialVersionUID = 1L;
 	
 	public OfertaLaboral(String codigo, String puesto, String descripcion, String area,
 			String modalidad, String jornada, String estado, float salario, int experienciaMinima, int vacantes,
