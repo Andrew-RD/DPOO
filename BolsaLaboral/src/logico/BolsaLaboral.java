@@ -264,6 +264,7 @@ public class BolsaLaboral implements Serializable{
 
 	public void eliminarOfertaTrabajo(OfertaLaboral seleccionado) throws NotRemovableException{
 		if(ofertaEliminable(seleccionado)) {
+			seleccionado.getOfertador().getOfertasLaborales().remove(seleccionado);
 			ofertas.remove(seleccionado);
 		}
 		else {
@@ -301,6 +302,7 @@ public class BolsaLaboral implements Serializable{
 	
 	public void registrarOfertaLaboral(OfertaLaboral nuevaOferta) {
 		ofertas.add(nuevaOferta);
+		nuevaOferta.getOfertador().getOfertasLaborales().add(nuevaOferta);
 		genCodigoOferta++;
 	}
 	
@@ -377,6 +379,5 @@ public class BolsaLaboral implements Serializable{
 	private boolean ofertaEliminable(OfertaLaboral seleccionado) {
 		return false;
 	}
-	
 
 }

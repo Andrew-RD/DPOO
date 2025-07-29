@@ -143,6 +143,7 @@ public class ConsultarCentros extends JDialog {
 						btnUpdate.setEnabled(true);
 						btnVisualizar.setEnabled(true);
 						RegistroCentro registro = new RegistroCentro(seleccionado);
+						registro.setModal(true);
 						registro.setVisible(true);
 					}
 				});
@@ -151,7 +152,12 @@ public class ConsultarCentros extends JDialog {
 					btnVisualizar.setBackground(Color.WHITE);
 					btnVisualizar.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
-							
+							btnDelete.setEnabled(true);
+							btnUpdate.setEnabled(true);
+							btnVisualizar.setEnabled(true);
+							VistaCentro vist = new VistaCentro(seleccionado);
+							vist.setModal(true);
+							vist.setVisible(true);
 						}
 					});
 					btnVisualizar.setIcon(new ImageIcon("recursos/cv.png"));
