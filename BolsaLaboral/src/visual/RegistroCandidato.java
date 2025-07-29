@@ -962,6 +962,7 @@ public class RegistroCandidato extends JDialog {
 					 JOptionPane.showMessageDialog(this, "Candidato modificado exitosamente", 
 							 "Modificación Exitosa", JOptionPane.INFORMATION_MESSAGE);
 					 dispose();
+					 ConsultarCandidatos.cargarCandidatos();
 				 }
 			 }
 

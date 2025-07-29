@@ -201,6 +201,7 @@ public class RegistroCentro extends JDialog {
 									centroAct.setTelefono(txtTelefono.getText());
 									if(BolsaLaboral.getInstancia().modificarCentroTrabajo(centroAct)) {
 										JOptionPane.showMessageDialog(null,"El centro " + txtNombre.getText() + " ha sido modificado exitosamente.","Información",JOptionPane.INFORMATION_MESSAGE);
+										ConsultarCentros.cargarCentros();
 									}
 									else {
 										JOptionPane.showMessageDialog(null,"El centro " + txtNombre.getText() + " no logró ser modificado.");
@@ -212,6 +213,7 @@ public class RegistroCentro extends JDialog {
 									JOptionPane.showMessageDialog(null,"El centro de trabajo ha sido agregado correctamente.","Inforamción",JOptionPane.INFORMATION_MESSAGE);
 									txtCodigo.setText("CEN-" + BolsaLaboral.genCodigoCentro);
 									limpiar();
+									
 								}
 							}
 							else {
@@ -230,7 +232,7 @@ public class RegistroCentro extends JDialog {
 				}
 				else {
 					okButton.setText("Modificar");
-					okButton.setIcon(new ImageIcon("recursos/editar.png"));
+					okButton.setIcon(new ImageIcon("recursos/modificar.png"));
 				}
 				
 				JButton btnLimpiar = new JButton("Limpiar");

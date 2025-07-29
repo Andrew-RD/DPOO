@@ -16,6 +16,8 @@ import logico.OfertaLaboral;
 
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.Toolkit;
+
 import javax.swing.ImageIcon;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
@@ -49,12 +51,15 @@ public class VistaCentro extends JDialog {
         }
 	};
 	public static Object[] row;
+	private JPanel pnlResumen;
+	private JLabel lblDireccion;
 
 	/**
 	 * Create the dialog.
 	 */
 	public VistaCentro(CentroEmpleador centroVista) {
 		setBounds(100, 100, 685, 651);
+		setIconImage(Toolkit.getDefaultToolkit().getImage("recursos/icono.png"));
 		getContentPane().setLayout(new BorderLayout());
 		setTitle("(" + centroVista.getCodigo() + ") " + centroVista.getNombre());
 		setResizable(false);
@@ -82,7 +87,7 @@ public class VistaCentro extends JDialog {
 		JSeparator separator = new JSeparator();
 		separator.setForeground(Color.WHITE);
 		separator.setBackground(Color.WHITE);
-		separator.setBounds(19, 67, 640, 2);
+		separator.setBounds(19, 67, 630, 2);
 		pnlEnfasis.add(separator);
 		
 		lblTelefono = new JLabel("LBL");
@@ -98,7 +103,7 @@ public class VistaCentro extends JDialog {
 		lblCorreo.setHorizontalAlignment(SwingConstants.LEFT);
 		lblCorreo.setForeground(Color.WHITE);
 		lblCorreo.setFont(new Font("Consolas", Font.PLAIN, 18));
-		lblCorreo.setBounds(220, 82, 436, 34);
+		lblCorreo.setBounds(220, 82, 338, 34);
 		pnlEnfasis.add(lblCorreo);
 		
 		JButton btnCancelar = new JButton("Cerrar");
@@ -116,7 +121,7 @@ public class VistaCentro extends JDialog {
 		contentPanel.add(btnCancelar);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(12, 187, 655, 339);
+		scrollPane.setBounds(12, 187, 643, 339);
 		contentPanel.add(scrollPane, BorderLayout.CENTER);
 		{
 			table = new JTable();
@@ -134,10 +139,24 @@ public class VistaCentro extends JDialog {
 		lblNewLabel.setFont(new Font("Consolas", Font.BOLD, 18));
 		lblNewLabel.setBounds(157, 143, 352, 31);
 		contentPanel.add(lblNewLabel);
+		table.setRowHeight(36);
+		
+		pnlResumen = new JPanel();
+		pnlResumen.setBounds(0, 547, 452, 48);
+		contentPanel.add(pnlResumen);
+		pnlResumen.setLayout(null);
+		
+		lblDireccion = new JLabel("");
+		lblDireccion.setBounds(12, 13, 428, 22);
+		lblDireccion.setToolTipText((String) null);
+		lblDireccion.setIcon(new ImageIcon("recursos/ubicacion.png"));
+		lblDireccion.setHorizontalAlignment(SwingConstants.LEFT);
+		lblDireccion.setForeground(Color.WHITE);
+		lblDireccion.setFont(new Font("Consolas", Font.PLAIN, 18));
+		pnlResumen.add(lblDireccion);
+		table.getTableHeader().setReorderingAllowed(false);
 		cargarCentro(centroVista);
 		cargarOfertas(centroVista);
-		table.setRowHeight(36);
-		table.getTableHeader().setReorderingAllowed(false);
 	}
 	
 	public void cargarCentro(CentroEmpleador centr) {
@@ -146,12 +165,15 @@ public class VistaCentro extends JDialog {
 		lblTelefono.setText(" " + centr.getTelefono());
 		lblTelefono.setToolTipText(centr.getTelefono());
 		lblCorreo.setText(centr.getCorreo());
+		lblDireccion.setText(" " +centr.getMunicipio() + ", " + centr.getProvincia());
 		String nombreSector = centr.getSector().toLowerCase();
 		nombreSector = nombreSector.replace("í","i");
 		nombreSector = nombreSector.replace("ó","o");
 		nombreSector = nombreSector.replace(" ","");
 		lblIconSec.setIcon(new ImageIcon("recursos/" + nombreSector + ".png"));
-		pnlEnfasis.setBackground(getFondo(centr.getSector()));
+		Color fondo = getFondo(centr.getSector());
+		pnlEnfasis.setBackground(fondo);
+		pnlResumen.setBackground(fondo);
 	}
 	
 	public Color getFondo(String sector) {
@@ -189,7 +211,4 @@ public class VistaCentro extends JDialog {
 		}
 	}
 	
-	public String nombreFormato() {
-		return null;
-	}
 }
