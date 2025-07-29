@@ -55,23 +55,13 @@ public class Principal extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+	
 	public Principal() {
 		addWindowListener(new WindowAdapter() {
 		    @Override
 		    public void windowClosing(WindowEvent e) {
-		        FileOutputStream bolsaOut;
-		        ObjectOutputStream bolsaWrite;
-		        try {
-		        	bolsaOut = new FileOutputStream("bolsa.dat");
-		        	bolsaWrite = new ObjectOutputStream(bolsaOut);
-		        	bolsaWrite.writeObject(BolsaLaboral.getInstancia());
-		            bolsaOut.close();
-		            bolsaWrite.close();
-		        } catch (FileNotFoundException ex) {
-		            ex.printStackTrace();
-		        } catch (IOException ex) {
-		            ex.printStackTrace();
-		        }
+		    	saveBolsa();
+		    	saveCodigos();
 		    }
 		});
 
@@ -221,6 +211,40 @@ public class Principal extends JFrame {
 		lblFondo.setIcon(new ImageIcon("recursos/fondo.png"));
 		contentPane.add(lblFondo);
 		
+	}
+	
+	private static void saveBolsa() {
+		FileOutputStream bolsaOut;
+        ObjectOutputStream bolsaWrite;
+        try {
+        	bolsaOut = new FileOutputStream("bolsa.dat");
+        	bolsaWrite = new ObjectOutputStream(bolsaOut);
+        	bolsaWrite.writeObject(BolsaLaboral.getInstancia());
+            bolsaOut.close();
+            bolsaWrite.close();
+        } catch (FileNotFoundException ex) {
+            ex.printStackTrace();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+	}
+	
+	private static void saveCodigos() {
+		try {
+			FileOutputStream fileOut = new FileOutputStream("codigos.dat");
+			ObjectOutputStream out = new ObjectOutputStream(fileOut);
+
+			out.writeInt(BolsaLaboral.genCodigoCandidato);
+			out.writeInt(BolsaLaboral.genCodigoSolicitud);
+			out.writeInt(BolsaLaboral.genCodigoOferta);
+			out.writeInt(BolsaLaboral.genCodigoCentro);
+			out.writeInt(BolsaLaboral.genCodigoVacanteCompletada);
+
+			out.close();
+			fileOut.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 }
