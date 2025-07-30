@@ -212,6 +212,7 @@ public class ConsultarCandidatos extends JDialog {
 			}
 		}
 
+		table.setRowHeight(24);
 		cargarCandidatos();
 		table.getTableHeader().setReorderingAllowed(false);
 		table.setBackground(new Color(228, 228, 228));
