@@ -139,10 +139,7 @@ public class ConsultarSolicitudes extends JDialog {
 					btnContratar.setBackground(Color.WHITE);
 					btnContratar.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
-							ResultadosVinculacion res = new ResultadosVinculacion(seleccionado);
-							ResultadosVinculacion.cargarResultados(seleccionado);
-							res.setModal(true);
-							res.setVisible(true);
+							/* TODO  */
 							
 						}
 					});

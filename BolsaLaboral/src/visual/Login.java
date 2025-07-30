@@ -44,7 +44,6 @@ public class Login extends JFrame {
 	private JTextField txtUsuario;
 	private JPasswordField txtContrasena;
 	private boolean visible = false;
-	private StringBuilder contrasena = new StringBuilder();
 
 	/**
 	 * Launch the application.

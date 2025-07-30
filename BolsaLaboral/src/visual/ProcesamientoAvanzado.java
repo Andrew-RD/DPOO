@@ -154,7 +154,7 @@ public class ProcesamientoAvanzado extends JDialog {
 				btnProcesar.setFont(new Font("Segoe UI", Font.BOLD, 16));
 				btnProcesar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						
+						/* TODO */
 					}
 				});
 				btnProcesar.setEnabled(false);

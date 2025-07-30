@@ -150,7 +150,7 @@ public class ConsultarOfertas extends JDialog {
 					}
 				});
 				{
-					btnVincular = new JButton("Vincular");
+					btnVincular = new JButton("Procesar");
 					btnVincular.setIcon(new ImageIcon("recursos/vincular.png"));
 					btnVincular.setBackground(Color.WHITE);
 					btnVincular.addActionListener(new ActionListener() {

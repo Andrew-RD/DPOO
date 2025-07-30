@@ -20,6 +20,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.awt.SystemColor;
 import java.awt.Toolkit;
 import java.awt.Font;
@@ -45,6 +46,7 @@ public class ResultadosVinculacion extends JDialog {
 	public static Object[] row;
 	private OfertaLaboral seleccionado = null;
 	private JButton btnContratar;
+	private static ArrayList<ResultadoMatcheo> resultados = new ArrayList<>();
 	
 	/**
 	 * Create the dialog.
@@ -115,14 +117,14 @@ public class ResultadosVinculacion extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				btnContratar = new JButton("Aceptar");
+				btnContratar = new JButton("Vincular");
 				btnContratar.setBackground(Color.WHITE);
-				btnContratar.setIcon(new ImageIcon("recursos/eliminar.png"));
+				btnContratar.setIcon(new ImageIcon("recursos/vincular.png"));
 				btnContratar.setFont(new Font("Segoe UI", Font.BOLD, 16));
 				btnContratar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						if(seleccionado != null) {
-
+						/* TODO */
 						}
 					}
 				});
@@ -144,6 +146,7 @@ public class ResultadosVinculacion extends JDialog {
 			}
 		}
 
+		resultados = BolsaLaboral.getInstancia().obtenerCandidatosOrdenadosParaOferta(ofertaVinculada);
 		cargarResultados(ofertaVinculada);
 		table.setRowHeight(36);
 		table.getTableHeader().setReorderingAllowed(false);
@@ -159,7 +162,7 @@ public class ResultadosVinculacion extends JDialog {
 	public static void cargarResultados(OfertaLaboral oferta) {
 		modelo.setRowCount(0);
 		row = new Object[table.getColumnCount()];
-		for (ResultadoMatcheo aux : BolsaLaboral.getInstancia().obtenerCandidatosOrdenadosParaOferta(oferta)) {
+		for (ResultadoMatcheo aux : resultados) {
             row[0] = aux.getSolicitante().getCodigo();
             row[1] = aux.getSolicitante().getNombres() + " " + aux.getSolicitante().getApellidos();
             row[2] = aux.getPorcentaje() + "%";
