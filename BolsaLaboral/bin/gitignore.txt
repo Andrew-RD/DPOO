@@ -1,5 +1,0 @@
-/visual/
-/gestion.png
-/informes.png
-/respaldo.png
-/avanzado.png
