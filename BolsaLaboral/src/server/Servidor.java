@@ -32,8 +32,10 @@ public class Servidor extends Thread
         try {
 			while ((unByte = oos.read()) != -1)
 			   escritor.write(unByte);
+			escritor.flush();
 			oos.close();
 	        escritor.close();
+	        nsfd.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
