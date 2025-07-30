@@ -379,5 +379,26 @@ public class BolsaLaboral implements Serializable{
 	private boolean ofertaEliminable(OfertaLaboral seleccionado) {
 		return false;
 	}
+	
+	public ArrayList<OfertaLaboral> ofertasDisponibles(){
+		ArrayList<OfertaLaboral> ofertasDisponibles = new ArrayList<>();
+		for(OfertaLaboral ofr: ofertas) {
+			if(ofr.getVacantes() > 0) {
+				ofertasDisponibles.add(ofr);
+			}
+		}
+		return ofertasDisponibles;
+	}
+	
+	public ArrayList<ResultadoMatcheo> procesamientoAvanzando(){
+		ArrayList<ResultadoMatcheo> resultados = new ArrayList<>();
+		for(OfertaLaboral ofr : ofertas) {
+			if(ofr.getVacantes() > 0) {
+				resultados.addAll(obtenerCandidatosOrdenadosParaOferta(ofr));
+			}
+		}
+		
+		return resultados;
+	}
 
 }

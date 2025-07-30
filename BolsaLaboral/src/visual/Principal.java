@@ -197,6 +197,13 @@ public class Principal extends JFrame {
 		mnGestion.add(mntmRespaldo);
 		
 		JMenuItem mntmProcesamiento = new JMenuItem("  Procesamiento");
+		mntmProcesamiento.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ProcesamientoAvanzado pros = new ProcesamientoAvanzado();
+				pros.setModal(true);
+				pros.setVisible(true);
+			}
+		});
 		mntmProcesamiento.setFont(new Font("Segoe UI", Font.PLAIN, 18));
 		mntmProcesamiento.setIcon(new ImageIcon("recursos/avanzado.png"));
 		mnGestion.add(mntmProcesamiento);
