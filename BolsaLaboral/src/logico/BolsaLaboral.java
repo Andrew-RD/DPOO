@@ -3,6 +3,7 @@ package logico;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 import exception.NotRemovableException;
 
@@ -196,13 +197,13 @@ public class BolsaLaboral implements Serializable{
 
 	            ResultadoMatcheo resultadoMatcheo = new ResultadoMatcheo(oferta, candidato, puntaje, condicion);
 
-	            int i = 0;
-	            while (i < ordenados.size() && ordenados.get(i).getPorcentaje() >= puntaje) {
-	                i++;
-	            }
-	            ordenados.add(i, resultadoMatcheo);
+	            ordenados.add(resultadoMatcheo);
 	        }
 	    }
+	    
+	    Comparator<ResultadoMatcheo> c = (a, b) -> b.getPorcentaje() - a.getPorcentaje();
+	    
+	    ordenados.sort(c);
 
 	    return ordenados;
 	}
