@@ -7,12 +7,15 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import exception.AuthException;
+import exception.FormatException;
 import logico.BolsaLaboral;
 import logico.Usuario;
 
 import java.awt.Color;
 import java.awt.Toolkit;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import java.awt.Font;
 import javax.swing.JSeparator;
@@ -150,9 +153,20 @@ public class Login extends JFrame {
 		btnIniciarSesion.setIcon(new ImageIcon("recursos/iniciarsesion.png"));
 		btnIniciarSesion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Principal menu = new Principal();
-				menu.setVisible(true);
-				dispose();
+				
+				try {
+					
+					Usuario user = verificar();
+					BolsaLaboral.getInstancia().setUsuarioActual(user);
+					
+					Principal menu = new Principal();
+					menu.setVisible(true);
+					dispose();
+					
+				} catch (AuthException ex) {
+					JOptionPane.showMessageDialog(null,ex.getMessage(),"Advertencia",JOptionPane.WARNING_MESSAGE);
+				}
+				
 			}
 		});
 		btnIniciarSesion.setFont(new Font("Segoe UI", Font.BOLD, 18));
@@ -160,6 +174,11 @@ public class Login extends JFrame {
 		contentPane.add(btnIniciarSesion);
 
 		JButton btnCerrar = new JButton("Cerrar");
+		btnCerrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
 		btnCerrar.setBackground(Color.WHITE);
 		btnCerrar.setIcon(new ImageIcon("recursos/cerrar.png"));
 		btnCerrar.setFont(new Font("Segoe UI", Font.BOLD, 18));
@@ -183,8 +202,14 @@ public class Login extends JFrame {
 			try {
 				bolsaOut = new FileOutputStream("bolsa.dat");
 				bolsaWrite = new ObjectOutputStream(bolsaOut);
-				Usuario aux = new Usuario("Administrador", "Admin", "Admin");
-				BolsaLaboral.getInstancia().regUsuario(aux);
+				Usuario admin = new Usuario("Admin", "Admin", "Admin");
+				Usuario candidato = new Usuario("Candidato", "Candidato", "Candidato");
+				Usuario centro = new Usuario("Centro", "Centro", "Centro");
+				BolsaLaboral.getInstancia().regUsuario(admin);
+				BolsaLaboral.getInstancia().regUsuario(candidato);
+				BolsaLaboral.getInstancia().regUsuario(centro);
+				Usuario temp = new Usuario("", "", "Admin");
+				BolsaLaboral.getInstancia().regUsuario(temp);
 				bolsaWrite.writeObject(BolsaLaboral.getInstancia());
 				bolsaOut.close();
 				bolsaWrite.close();
@@ -231,6 +256,23 @@ public class Login extends JFrame {
 				ex.printStackTrace();
 			}
 		}
+	}
+	
+	private Usuario verificar() throws AuthException {
+		
+		Usuario aux = null;
+		
+		for(Usuario user : BolsaLaboral.getInstancia().getUsuarios()) {
+			if(user.match(txtUsuario.getText(), new String(txtContrasena.getPassword()))) {
+				aux = user;
+			}
+		}
+		
+		if(aux == null) {
+			throw new AuthException();
+		}
+
+		return aux;
 	}
 	
 }

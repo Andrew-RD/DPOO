@@ -14,6 +14,7 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.Color;
 
+import javax.print.attribute.UnmodifiableSetException;
 import javax.swing.ImageIcon;
 import javax.swing.JMenuItem;
 
@@ -25,17 +26,23 @@ import javax.swing.border.LineBorder;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.awt.print.Printable;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 
 import logico.BolsaLaboral;
+import logico.Usuario;
 
 public class Principal extends JFrame {
 
 	private JPanel contentPane;
 	private Dimension dim;
+	private JMenu mnGestion;
+	private JMenu mnCatlogoDeOfertas;
+	private JMenu mnCentros;
+	private JMenu mnCandidatos;
 	/**
 	 * Launch the application.
 	 */
@@ -55,14 +62,14 @@ public class Principal extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	
+
 	public Principal() {
 		addWindowListener(new WindowAdapter() {
-		    @Override
-		    public void windowClosing(WindowEvent e) {
-		    	saveBolsa();
-		    	saveCodigos();
-		    }
+			@Override
+			public void windowClosing(WindowEvent e) {
+				saveBolsa();
+				saveCodigos();
+			}
 		});
 
 		setTitle("Bolsa Laboral");
@@ -73,17 +80,17 @@ public class Principal extends JFrame {
 		dim = super.getToolkit().getScreenSize(); 
 		super.setSize(dim.width, dim.height-45);
 		setLocationRelativeTo(null);
-		
+
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.setBackground(Color.WHITE);
 		setJMenuBar(menuBar);
-		
-		JMenu mnCentros = new JMenu("Centros de Trabajo");
+
+		mnCentros = new JMenu("Centros de Trabajo");
 		mnCentros.setIcon(new ImageIcon("recursos/empresa.png"));
 		mnCentros.setForeground(Color.BLACK);
 		mnCentros.setFont(new Font("Segoe UI", Font.BOLD, 20));
 		menuBar.add(mnCentros);
-		
+
 		JMenuItem mntmCentConsultar = new JMenuItem("  Consultar");
 		mntmCentConsultar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -95,7 +102,7 @@ public class Principal extends JFrame {
 		mntmCentConsultar.setIcon(new ImageIcon("recursos/consulta.png"));
 		mntmCentConsultar.setFont(new Font("Segoe UI", Font.PLAIN, 18));
 		mnCentros.add(mntmCentConsultar);
-		
+
 		JMenuItem mntmCentRegistrar = new JMenuItem("  Registrar");
 		mntmCentRegistrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -107,13 +114,13 @@ public class Principal extends JFrame {
 		mntmCentRegistrar.setIcon(new ImageIcon("recursos/registro.png"));
 		mntmCentRegistrar.setFont(new Font("Segoe UI", Font.PLAIN, 18));
 		mnCentros.add(mntmCentRegistrar);
-		
-		JMenu mnCandidatos = new JMenu("Candidatos");
+
+		mnCandidatos = new JMenu("Candidatos");
 		mnCandidatos.setIcon(new ImageIcon("recursos/trabajador.png"));
 		mnCandidatos.setForeground(Color.BLACK);
 		mnCandidatos.setFont(new Font("Segoe UI", Font.BOLD, 20));
 		menuBar.add(mnCandidatos);
-		
+
 		JMenuItem mntmCandConsultar = new JMenuItem("  Consultar");
 		mntmCandConsultar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -125,7 +132,7 @@ public class Principal extends JFrame {
 		mntmCandConsultar.setFont(new Font("Segoe UI", Font.PLAIN, 18));
 		mntmCandConsultar.setIcon(new ImageIcon("recursos/consulta.png"));
 		mnCandidatos.add(mntmCandConsultar);
-		
+
 		JMenuItem mntmCandRegistrar = new JMenuItem("  Registrar");
 		mntmCandRegistrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -137,13 +144,13 @@ public class Principal extends JFrame {
 		mntmCandRegistrar.setFont(new Font("Segoe UI", Font.PLAIN, 18));
 		mntmCandRegistrar.setIcon(new ImageIcon("recursos/registro.png"));
 		mnCandidatos.add(mntmCandRegistrar);
-		
-		JMenu mnCatlogoDeOfertas = new JMenu("Cat\u00E1logo de Ofertas");
+
+		mnCatlogoDeOfertas = new JMenu("Cat\u00E1logo de Ofertas");
 		mnCatlogoDeOfertas.setIcon(new ImageIcon("recursos/conexion.png"));
 		mnCatlogoDeOfertas.setForeground(Color.BLACK);
 		mnCatlogoDeOfertas.setFont(new Font("Segoe UI", Font.BOLD, 20));
 		menuBar.add(mnCatlogoDeOfertas);
-		
+
 		JMenuItem mntmCatConsultar = new JMenuItem("  Consultar");
 		mntmCatConsultar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -155,7 +162,7 @@ public class Principal extends JFrame {
 		mntmCatConsultar.setFont(new Font("Segoe UI", Font.PLAIN, 18));
 		mntmCatConsultar.setIcon(new ImageIcon("recursos/consulta.png"));
 		mnCatlogoDeOfertas.add(mntmCatConsultar);
-		
+
 		JMenuItem mntmCatRegistrar = new JMenuItem("  Registrar");
 		mntmCatRegistrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -167,7 +174,7 @@ public class Principal extends JFrame {
 		mntmCatRegistrar.setFont(new Font("Segoe UI", Font.PLAIN, 18));
 		mntmCatRegistrar.setIcon(new ImageIcon("recursos/registro.png"));
 		mnCatlogoDeOfertas.add(mntmCatRegistrar);
-		
+
 		JMenuItem mntmSolicitudes = new JMenuItem("  Solicitudes");
 		mntmSolicitudes.setIcon(new ImageIcon("recursos/solicitud.png"));
 		mntmSolicitudes.addActionListener(new ActionListener() {
@@ -179,23 +186,23 @@ public class Principal extends JFrame {
 		});
 		mntmSolicitudes.setFont(new Font("Segoe UI", Font.PLAIN, 18));
 		mnCatlogoDeOfertas.add(mntmSolicitudes);
-		
-		JMenu mnGestion = new JMenu("Gesti\u00F3n de Datos");
+
+		mnGestion = new JMenu("Gesti\u00F3n de Datos");
 		mnGestion.setForeground(Color.BLACK);
 		mnGestion.setFont(new Font("Segoe UI", Font.BOLD, 20));
 		mnGestion.setIcon(new ImageIcon("recursos/gestion.png"));
 		menuBar.add(mnGestion);
-		
+
 		JMenuItem mntmInformes = new JMenuItem("  Informes");
 		mntmInformes.setFont(new Font("Segoe UI", Font.PLAIN, 18));
 		mntmInformes.setIcon(new ImageIcon("recursos/informes.png"));
 		mnGestion.add(mntmInformes);
-		
+
 		JMenuItem mntmRespaldo = new JMenuItem("  Respaldo");
 		mntmRespaldo.setFont(new Font("Segoe UI", Font.PLAIN, 18));
 		mntmRespaldo.setIcon(new ImageIcon("recursos/respaldo.png"));
 		mnGestion.add(mntmRespaldo);
-		
+
 		JMenuItem mntmProcesamiento = new JMenuItem("  Procesamiento");
 		mntmProcesamiento.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -212,30 +219,32 @@ public class Principal extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		JLabel lblFondo = new JLabel("");
 		lblFondo.setBounds(0,0, getWidth(),getHeight());
 		lblFondo.setIcon(new ImageIcon("recursos/fondo.png"));
 		contentPane.add(lblFondo);
-		
+
+		userUI();
+
 	}
-	
+
 	private static void saveBolsa() {
 		FileOutputStream bolsaOut;
-        ObjectOutputStream bolsaWrite;
-        try {
-        	bolsaOut = new FileOutputStream("bolsa.dat");
-        	bolsaWrite = new ObjectOutputStream(bolsaOut);
-        	bolsaWrite.writeObject(BolsaLaboral.getInstancia());
-            bolsaOut.close();
-            bolsaWrite.close();
-        } catch (FileNotFoundException ex) {
-            ex.printStackTrace();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
+		ObjectOutputStream bolsaWrite;
+		try {
+			bolsaOut = new FileOutputStream("bolsa.dat");
+			bolsaWrite = new ObjectOutputStream(bolsaOut);
+			bolsaWrite.writeObject(BolsaLaboral.getInstancia());
+			bolsaOut.close();
+			bolsaWrite.close();
+		} catch (FileNotFoundException ex) {
+			ex.printStackTrace();
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		}
 	}
-	
+
 	private static void saveCodigos() {
 		try {
 			FileOutputStream fileOut = new FileOutputStream("codigos.dat");
@@ -253,5 +262,22 @@ public class Principal extends JFrame {
 			e.printStackTrace();
 		}
 	}
-	
+
+	private void userUI() {
+		switch (BolsaLaboral.getInstancia().getUsuarioActual().getTipo()) {
+		case "Centro":
+			mnCandidatos.setEnabled(false);
+			mnGestion.setEnabled(false);
+			break;
+		case "Candidato":
+			mnGestion.setEnabled(false);
+			mnCatlogoDeOfertas.setEnabled(false);
+			mnCentros.setEnabled(false);
+			break;
+		}
+		if(!BolsaLaboral.getInstancia().getUsuarioActual().getTipo().equals("Admin")) {
+			mnGestion.setEnabled(false);
+		}
+	}
+
 }
