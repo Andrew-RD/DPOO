@@ -108,7 +108,7 @@ public class RegistroCandidato extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	 public RegistroCandidato(Candidato cand) {
+	public RegistroCandidato(Candidato cand) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("recursos/icono.png"));
 		setResizable(false);
 		if(cand == null) {
@@ -741,435 +741,449 @@ public class RegistroCandidato extends JDialog {
 		cambiarEspecializacion("Estudiante Universitario");
 		cargarDatos();
 
-	 }
-
-	 private void cambiarEspecializacion(String especializacion) {
-		 if(especializacion.equalsIgnoreCase("Obrero")) {
-			 pnlEstudiante.setVisible(false);
-			 pnlTecnico.setVisible(false);
-			 pnlObrero.setVisible(true);
-		 }
-		 else if(especializacion.equalsIgnoreCase("Estudiante Universitario")) {
-			 pnlObrero.setVisible(false);
-			 pnlTecnico.setVisible(false);
-			 pnlEstudiante.setVisible(true);
-		 }
-		 else if(especializacion.equalsIgnoreCase("Estudiante Tecnico")) {
-			 pnlEstudiante.setVisible(false);
-			 pnlObrero.setVisible(false);
-			 pnlTecnico.setVisible(true);
-		 }
-	 }
-
-	 private void cargarArea() {
-		 String nombreArea = cmbArea.getSelectedItem().toString().toLowerCase();
-		 nombreArea = nombreArea.replace("ó","o");
-		 nombreArea = nombreArea.replace(" ","");
-
-		 lblIcoArea.setIcon(new ImageIcon("recursos/" + nombreArea + ".png"));
-	 }
-
-	 private void cargarJornada() {
-		 String nombreJornada = cmbJornada.getSelectedItem().toString().toLowerCase();
-		 nombreJornada = nombreJornada.replace(" ","");
-		 lblIcoJornada.setIcon(new ImageIcon("recursos/" + nombreJornada + ".png"));
-	 }
-
-	 private void cargarModalidad() {
-		 String nombreModalidad = cmbModalidad.getSelectedItem().toString().toLowerCase();
-		 nombreModalidad = nombreModalidad.replace("í","i");
-		 lblIcoModalidad.setIcon(new ImageIcon("recursos/" + nombreModalidad + ".png"));
-	 }
-
-
-	 private void limpiar() {
-
-		 txtCodigo.setText("CAN-" + BolsaLaboral.genCodigoCandidato);
-		 txtNombre.setText("");
-		 txtApellido.setText("");
-		 txtCedula.setText("");
-		 txtCorreo.setText("");
-		 txtTelefono.setText("");
-		 txtProvincia.setText("");
-		 txtMunicipio.setText("");
-
-		 Calendar cal = Calendar.getInstance();
-		 cal.add(Calendar.YEAR, -25);
-		 spnFechaNac.setValue(cal.getTime());
-
-		 txtUniversidad.setText("");
-		 if(cmbCarrera != null) cmbCarrera.setSelectedIndex(0);
-		 if(cmbNivel != null) cmbNivel.setSelectedIndex(0);
-
-		 cmbAreaTecnica.setSelectedIndex(0);
-		 if(spnAniosExp != null) spnAniosExp.setValue(0);
-
-		 rdUniversitario.setSelected(true);
-		 cambiarEspecializacion("Estudiante Universitario");
-
-		 if(chkPlomeria != null) chkPlomeria.setSelected(false);
-		 if(chkCarpintero != null) chkCarpintero.setSelected(false);
-		 if(chkCajero != null) chkCajero.setSelected(false);
-		 if(chkSoldadura != null) chkSoldadura.setSelected(false);
-		 if(chkElectrica != null) chkElectrica.setSelected(false);
-		 if(chkMecanica != null) chkMecanica.setSelected(false);
-		 if(chkAlbanileria != null) chkAlbanileria.setSelected(false);
-		 if(chkRedes != null) chkRedes.setSelected(false);
-		 if(chkConduccion != null) chkConduccion.setSelected(false);
-		 if(chkReparacion != null) chkReparacion.setSelected(false);
-		 if(chkVentas != null) chkVentas.setSelected(false);
-		 if(chkFotografia != null) chkFotografia.setSelected(false);
-		 if(chkCocina != null) chkCocina.setSelected(false);
-		 if(chkLimpieza != null) chkLimpieza.setSelected(false);
-		 if(chkPintura != null) chkPintura.setSelected(false);
-
-		 if(chckbxIngles != null) chckbxIngles.setSelected(false);
-		 if(chckbxItaliano != null) chckbxItaliano.setSelected(false);
-		 if(chckbxEspanol != null) chckbxEspanol.setSelected(false);
-		 if(chckbxFrances != null) chckbxFrances.setSelected(false);
-		 if(chckbxPortugues != null) chckbxPortugues.setSelected(false);
-		 if(chckbxAleman != null) chckbxAleman.setSelected(false);
-		 if(chckbxMandarin != null) chckbxMandarin.setSelected(false);
-		 if(chckbxCoreano != null) chckbxCoreano.setSelected(false);
-		 if(chckbxJapones != null) chckbxJapones.setSelected(false);
-
-		 cmbModalidad.setSelectedIndex(0);
-		 cmbJornada.setSelectedIndex(0);
-		 cmbArea.setSelectedIndex(0);
-		 cmbGenero.setSelectedIndex(0);
-
-		 if(chkLicenciaConducir != null) chkLicenciaConducir.setSelected(false);
-		 if(chkMudarse != null) chkMudarse.setSelected(false);
-		 if(chkTrabajo != null) chkTrabajo.setSelected(false);
-
-		 if(spnSalarioEsperado != null) spnSalarioEsperado.setValue(12000.0f);
-	 }
-
-	 private void registrarCandidato() {
-		 try {
-			 String codigo = txtCodigo.getText();
-			 String nombres = txtNombre.getText().trim();
-			 String apellidos = txtApellido.getText().trim();
-			 String cedula = txtCedula.getText().trim();
-			 String correo = txtCorreo.getText().trim();
-			 String telefono = txtTelefono.getText().trim();
-			 String provincia = txtProvincia.getText().trim();
-			 String municipio = txtMunicipio.getText().trim();
-
-			 Date fechaNacSpinner = (Date) spnFechaNac.getValue();
-			 LocalDate fechaNacimiento = fechaNacSpinner.toInstant()
-					 .atZone(java.time.ZoneId.systemDefault()).toLocalDate();
-
-			 String modalidad = cmbModalidad.getSelectedItem().toString();
-			 String jornada = cmbJornada.getSelectedItem().toString();
-			 String areaInteres = cmbArea.getSelectedItem().toString();
-			 String genero = cmbGenero.getSelectedItem().toString();
-
-			 float salarioEsperado = ((Number) spnSalarioEsperado.getValue()).floatValue();
-
-			 boolean licenciaConducir = chkLicenciaConducir.isSelected();
-			 boolean mudarse = chkMudarse.isSelected();
-
-			 ArrayList<String> idiomas = new ArrayList<>();
-			 for(Component cmp : pnlIdiomas.getComponents()) {
-				 if(cmp instanceof JCheckBox) {
-					 JCheckBox chk = (JCheckBox)cmp;
-					 if(chk.isSelected()) {
-						 idiomas.add(chk.getText());
-					 }
-				 }
-			 }
-
-
-			 Candidato nuevoCandidato = null;
-
-			 if(rdUniversitario.isSelected()) {
-				 String universidad = txtUniversidad.getText().trim();
-				 String carrera = cmbCarrera.getSelectedItem().toString();
-				 String nivelAcademico = cmbNivel.getSelectedItem().toString();
-
-				 nuevoCandidato = new Universitario(codigo, cedula, nombres, apellidos, 
-						   fechaNacimiento, genero, provincia, municipio, telefono, correo, jornada, 
-						   modalidad, areaInteres, salarioEsperado, licenciaConducir, mudarse, 
-						   idiomas, universidad, carrera, nivelAcademico);
-
-
-			 } else if(rdTecnico.isSelected()) {
-				 String areaTecnica = cmbAreaTecnica.getSelectedItem().toString();
-				 int aniosExperiencia = ((Number) spnAniosExp.getValue()).intValue();
-
-				 nuevoCandidato = new TecnicoSuperior(codigo, cedula, nombres, apellidos, 
-						 fechaNacimiento, genero,provincia, municipio, telefono, correo, jornada, 
-						 modalidad, areaInteres, salarioEsperado, licenciaConducir, mudarse, 
-						 idiomas, areaTecnica, aniosExperiencia);
-
-			 } else if(rdObrero.isSelected()) {
-				 ArrayList<String> habilidades = new ArrayList<>();
-
-				 for(Component cmp : pnlObrero.getComponents()) {
-					 if(cmp instanceof JCheckBox) {
-						 JCheckBox chk = (JCheckBox)cmp;
-						 if(chk.isSelected()) {
-							 habilidades.add(chk.getText());
-						 }
-					 }
-				 }
-
-				 nuevoCandidato = new Obrero(codigo, cedula, nombres, apellidos, 
-						 fechaNacimiento, genero,provincia, municipio, telefono, correo, jornada, 
-						 modalidad, areaInteres, salarioEsperado, licenciaConducir, mudarse, 
-						 idiomas, habilidades);
-			 }
-
-			 if(nuevoCandidato != null) {
-				 if(candidatoAct == null) {
-					 BolsaLaboral.getInstancia().registrarCandidato(nuevoCandidato);
-					 JOptionPane.showMessageDialog(this, "Candidato registrado exitosamente", 
-							 "Registro Exitoso", JOptionPane.INFORMATION_MESSAGE);
-
-					 limpiar();
-					 contenedor.setSelectedIndex(0);
-
-				 } else {
-					 candidatoAct.setNombres(nuevoCandidato.getNombres());
-					 candidatoAct.setApellidos(nuevoCandidato.getApellidos());
-					 candidatoAct.setIdentificacion(nuevoCandidato.getIdentificacion());
-					 candidatoAct.setCorreo(nuevoCandidato.getCorreo());
-					 candidatoAct.setTelefono(nuevoCandidato.getTelefono());
-					 candidatoAct.setProvincia(nuevoCandidato.getProvincia());
-					 candidatoAct.setMunicipio(nuevoCandidato.getMunicipio());
-					 candidatoAct.setFechaNacimiento(nuevoCandidato.getFechaNacimiento());
-					 candidatoAct.setGenero(nuevoCandidato.getGenero());
-					 candidatoAct.setJornada(nuevoCandidato.getJornada());
-					 candidatoAct.setModalidad(nuevoCandidato.getModalidad());
-					 candidatoAct.setAreaDeInteres(nuevoCandidato.getAreaDeInteres());
-					 candidatoAct.setAspiracionSalarial(nuevoCandidato.getAspiracionSalarial());
-					 candidatoAct.setLicenciaConducir(nuevoCandidato.isLicenciaConducir());
-					 candidatoAct.setDisposicionMudarse(nuevoCandidato.isDisposicionMudarse());
-					 candidatoAct.setIdiomas(nuevoCandidato.getIdiomas());
-
-					 if (candidatoAct instanceof Universitario && nuevoCandidato instanceof Universitario) {
-						 ((Universitario)candidatoAct).setUniversidad(((Universitario)nuevoCandidato).getUniversidad());
-						 ((Universitario)candidatoAct).setCarrera(((Universitario)nuevoCandidato).getCarrera());
-						 ((Universitario)candidatoAct).setNivelAcademico(((Universitario)nuevoCandidato).getNivelAcademico());
-					 } else if (candidatoAct instanceof TecnicoSuperior && nuevoCandidato instanceof TecnicoSuperior) {
-						 ((TecnicoSuperior)candidatoAct).setAreaTecnica(((TecnicoSuperior)nuevoCandidato).getAreaTecnica());
-						 ((TecnicoSuperior)candidatoAct).setAniosExperiencia(((TecnicoSuperior)nuevoCandidato).getAniosExperiencia());
-					 } else if (candidatoAct instanceof Obrero && nuevoCandidato instanceof Obrero) {
-						 ((Obrero)candidatoAct).setHabilidades(((Obrero)nuevoCandidato).getHabilidades());
-					 }
-
-					 JOptionPane.showMessageDialog(this, "Candidato modificado exitosamente", 
-							 "Modificación Exitosa", JOptionPane.INFORMATION_MESSAGE);
-					 dispose();
-					 ConsultarCandidatos.cargarCandidatos();
-				 }
-			 }
-
-		 } catch (Exception e) {
-			 JOptionPane.showMessageDialog(this, "Error al procesar los datos: " + e.getMessage(), 
-					 "Error", JOptionPane.ERROR_MESSAGE);
-		 }
-	 }
-
-	 private void cargarDatos() {
-		 if (candidatoAct != null) {
-			 txtCodigo.setText(candidatoAct.getCodigo());
-			 txtNombre.setText(candidatoAct.getNombres());
-			 txtApellido.setText(candidatoAct.getApellidos());
-			 txtCedula.setText(candidatoAct.getIdentificacion());
-			 txtCorreo.setText(candidatoAct.getCorreo());
-			 txtTelefono.setText(candidatoAct.getTelefono());
-			 txtProvincia.setText(candidatoAct.getProvincia());
-			 txtMunicipio.setText(candidatoAct.getMunicipio());
-
-			 Date fechaNac = Date.from(candidatoAct.getFechaNacimiento()
-					 .atStartOfDay(java.time.ZoneId.systemDefault()).toInstant());
-			 spnFechaNac.setValue(fechaNac);
-
-			 cmbModalidad.setSelectedItem(candidatoAct.getModalidad());
-			 cmbJornada.setSelectedItem(candidatoAct.getJornada());
-			 cmbArea.setSelectedItem(candidatoAct.getAreaDeInteres());
-			 cmbGenero.setSelectedItem(candidatoAct.getGenero());
-			 spnSalarioEsperado.setValue(candidatoAct.getAspiracionSalarial());
-			 chkLicenciaConducir.setSelected(candidatoAct.isLicenciaConducir());
-			 chkMudarse.setSelected(candidatoAct.isDisposicionMudarse());
-
-			 for (String idioma : candidatoAct.getIdiomas()) {
-				 switch (idioma) {
-				 case "Inglés": chckbxIngles.setSelected(true); break;
-				 case "Italiano": chckbxItaliano.setSelected(true); break;
-				 case "Español": chckbxEspanol.setSelected(true); break;
-				 case "Francés": chckbxFrances.setSelected(true); break;
-				 case "Portugués": chckbxPortugues.setSelected(true); break;
-				 case "Alemán": chckbxAleman.setSelected(true); break;
-				 case "Chino": chckbxMandarin.setSelected(true); break;
-				 case "Coreano": chckbxCoreano.setSelected(true); break;
-				 case "Japonés": chckbxJapones.setSelected(true); break;
-				 }
-			 }
-
-			 if (candidatoAct instanceof Universitario) {
-				 rdUniversitario.setSelected(true);
-				 rdTecnico.setEnabled(false);
-				 rdObrero.setEnabled(false);
-
-				 cambiarEspecializacion("Estudiante Universitario");
-
-				 Universitario uni = (Universitario) candidatoAct;
-				 txtUniversidad.setText(uni.getUniversidad());
-				 cmbCarrera.setSelectedItem(uni.getCarrera());
-				 cmbNivel.setSelectedItem(uni.getNivelAcademico());
-
-			 } else if (candidatoAct instanceof TecnicoSuperior) {
-				 rdTecnico.setSelected(true);
-				 rdUniversitario.setEnabled(false);
-				 rdObrero.setEnabled(false);
-
-				 cambiarEspecializacion("Estudiante Tecnico");
-
-				 TecnicoSuperior tecnico = (TecnicoSuperior) candidatoAct;
-				 cmbAreaTecnica.setSelectedItem(tecnico.getAreaTecnica());
-				 spnAniosExp.setValue(tecnico.getAniosExperiencia());
-
-			 } else if (candidatoAct instanceof Obrero) {
-				 rdObrero.setSelected(true);
-				 rdUniversitario.setEnabled(false);
-				 rdTecnico.setEnabled(false);
-
-				 cambiarEspecializacion("Obrero");
-
-				 Obrero obrero = (Obrero) candidatoAct;
-				 for (String habilidad : obrero.getHabilidades()) {
-					 switch (habilidad) {
-					 case "Plomería": chkPlomeria.setSelected(true); break;
-					 case "Carpintería": chkCarpintero.setSelected(true); break;
-					 case "Gestión Financiera": chkCajero.setSelected(true); break;
-					 case "Soldadura": chkSoldadura.setSelected(true); break;
-					 case "Instalación Eléctrica": chkElectrica.setSelected(true); break;
-					 case "Mecánica": chkMecanica.setSelected(true); break;
-					 case "Albañilería": chkAlbanileria.setSelected(true); break;
-					 case "Redes Sociales": chkRedes.setSelected(true); break;
-					 case "Conducción": chkConduccion.setSelected(true); break;
-					 case "Reparación de Electrónicos": chkReparacion.setSelected(true); break;
-					 case "Ventas": chkVentas.setSelected(true); break;
-					 case "Fotografía": chkFotografia.setSelected(true); break;
-					 case "Cocina": chkCocina.setSelected(true); break;
-					 case "Limpieza": chkLimpieza.setSelected(true); break;
-					 case "Pintura": chkPintura.setSelected(true); break;
-					 }
-				 }
-			 }
-		 } else {
-			 rdUniversitario.setEnabled(true);
-			 rdTecnico.setEnabled(true);
-			 rdObrero.setEnabled(true);
-		 }
-	 }
-
-
-	 private boolean verificar() throws FormatException {
-		 if(txtNombre.getText().trim().isEmpty()) {
-			 throw new FormatException("El nombre es obligatorio");
-		 }
-		 if(txtApellido.getText().trim().isEmpty()) {
-			 throw new FormatException("El apellido es obligatoria");
-		 }
-		 String cedula = txtCedula.getText().trim().replaceAll("[^0-9]", "");
-		 if(cedula.length() != 11) {
-			 throw new FormatException("La cédula debe tener 11 dígitos");
-		 }
-
-		 Date fechaNacimiento = (Date) spnFechaNac.getValue();
-		 Calendar cal = Calendar.getInstance();
-		 Date fechaActual = cal.getTime();
-
-		 if(fechaNacimiento.after(fechaActual)) {
-			 throw new FormatException("La fecha de nacimiento no puede ser futura");
-		 }
-
-		 cal.add(Calendar.YEAR, -16);
-		 if(fechaNacimiento.after(cal.getTime())) {
-			 throw new FormatException("El candidato debe tener al menos 16 años");
-		 }
-
-		 cal = Calendar.getInstance();
-		 cal.add(Calendar.YEAR, -100);
-		 if(fechaNacimiento.before(cal.getTime())) {
-			 throw new FormatException("La fecha de nacimiento no puede ser anterior a " + (Calendar.getInstance().get(Calendar.YEAR) - 100));
-		 }
-
-		 if(cmbGenero == null || cmbGenero.getSelectedItem() == null || 
-				 cmbGenero.getSelectedItem().toString().trim().isEmpty()) {
-			 throw new FormatException("El género es obligatoria");
-		 }
-
-		 if(txtTelefono.getText().trim().isEmpty()) {
-			 throw new FormatException("El teléfono es obligatorio");
-		 }
-
-		 if(txtCorreo.getText().trim().isEmpty()) {
-			 throw new FormatException("El correo es obligatorio");
-		 }
-
-		 if(txtProvincia.getText().trim().isEmpty()) {
-			 throw new FormatException("La provincia es obligatoria");
-		 }
-		 if(txtMunicipio.getText().trim().isEmpty()) {
-			 throw new FormatException("El municipio es obligatorio");
-		 }
-
-		 if(!txtCorreo.getText().contains("@") || !txtCorreo.getText().contains(".")) {
-			 throw new FormatException("Formato del correo inválido. Ejemplo: usuario@dominio.com\"");
-		 }
-
-		 String telefono = txtTelefono.getText().trim().replaceAll("[^0-9]", ""); 
-		 if(telefono.length() != 10) {
-			 throw new FormatException("El teléfono debe tener 10 dígitos");
-		 }
-
-		 if(rdUniversitario.isSelected()) {
-			 if(txtUniversidad.getText().trim().isEmpty()) {
-				 throw new FormatException("La universidad es obligatoria para estudiantes universitarios");
-			 }
-
-		 } else if(rdTecnico.isSelected()) {
-			 if(cmbAreaTecnica.getSelectedIndex() < 0) {
-				 throw new FormatException("El área técnica es obligatoria para técnicos superiores");
-			 }
-
-		 } else if(rdObrero.isSelected()) {
-			 boolean tieneHabilidad = false;
-
-			 for(Component cmp : pnlIdiomas.getComponents()) {
-				 if(cmp instanceof JCheckBox) {
-					 JCheckBox chk = (JCheckBox)cmp;
-					 if(chk.isSelected()) {
-						 tieneHabilidad = true;
-					 }
-				 }
-			 }
-
-			 if(!tieneHabilidad) {
-				 throw new FormatException("Debe seleccionar al menos una habilidad para obreros");
-			 }
-		 }
-		 if(cmbModalidad == null || cmbModalidad.getSelectedItem() == null || 
-				 cmbModalidad.getSelectedItem().toString().trim().isEmpty()) {
-			 throw new FormatException("La modalidad es obligatoria");
-		 }
-
-		 if(cmbJornada == null || cmbJornada.getSelectedItem() == null || 
-				 cmbJornada.getSelectedItem().toString().trim().isEmpty()) {
-			 throw new FormatException("La jornada es obligatoria");
-		 }
-
-
-		 float salarioEsperado = ((Number) spnSalarioEsperado.getValue()).floatValue();
-		 if(salarioEsperado < 12000) {
-			 throw new FormatException("El salario esperado debe ser al menos 12,000");
-		 }
-
-		 return true;
-	 }
+	}
+
+	private void cambiarEspecializacion(String especializacion) {
+		if(especializacion.equalsIgnoreCase("Obrero")) {
+			pnlEstudiante.setVisible(false);
+			pnlTecnico.setVisible(false);
+			pnlObrero.setVisible(true);
+		}
+		else if(especializacion.equalsIgnoreCase("Estudiante Universitario")) {
+			pnlObrero.setVisible(false);
+			pnlTecnico.setVisible(false);
+			pnlEstudiante.setVisible(true);
+		}
+		else if(especializacion.equalsIgnoreCase("Estudiante Tecnico")) {
+			pnlEstudiante.setVisible(false);
+			pnlObrero.setVisible(false);
+			pnlTecnico.setVisible(true);
+		}
+	}
+
+	private void cargarArea() {
+		String nombreArea = cmbArea.getSelectedItem().toString().toLowerCase();
+		nombreArea = nombreArea.replace("ó","o");
+		nombreArea = nombreArea.replace(" ","");
+
+		lblIcoArea.setIcon(new ImageIcon("recursos/" + nombreArea + ".png"));
+	}
+
+	private void cargarJornada() {
+		String nombreJornada = cmbJornada.getSelectedItem().toString().toLowerCase();
+		nombreJornada = nombreJornada.replace(" ","");
+		lblIcoJornada.setIcon(new ImageIcon("recursos/" + nombreJornada + ".png"));
+	}
+
+	private void cargarModalidad() {
+		String nombreModalidad = cmbModalidad.getSelectedItem().toString().toLowerCase();
+		nombreModalidad = nombreModalidad.replace("í","i");
+		lblIcoModalidad.setIcon(new ImageIcon("recursos/" + nombreModalidad + ".png"));
+	}
+
+
+	private void limpiar() {
+
+		txtCodigo.setText("CAN-" + BolsaLaboral.genCodigoCandidato);
+		txtNombre.setText("");
+		txtApellido.setText("");
+		txtCedula.setText("");
+		txtCorreo.setText("");
+		txtTelefono.setText("");
+		txtProvincia.setText("");
+		txtMunicipio.setText("");
+
+		Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.YEAR, -25);
+		spnFechaNac.setValue(cal.getTime());
+
+		txtUniversidad.setText("");
+		if(cmbCarrera != null) cmbCarrera.setSelectedIndex(0);
+		if(cmbNivel != null) cmbNivel.setSelectedIndex(0);
+
+		cmbAreaTecnica.setSelectedIndex(0);
+		if(spnAniosExp != null) spnAniosExp.setValue(0);
+
+		rdUniversitario.setSelected(true);
+		cambiarEspecializacion("Estudiante Universitario");
+
+		if(chkPlomeria != null) chkPlomeria.setSelected(false);
+		if(chkCarpintero != null) chkCarpintero.setSelected(false);
+		if(chkCajero != null) chkCajero.setSelected(false);
+		if(chkSoldadura != null) chkSoldadura.setSelected(false);
+		if(chkElectrica != null) chkElectrica.setSelected(false);
+		if(chkMecanica != null) chkMecanica.setSelected(false);
+		if(chkAlbanileria != null) chkAlbanileria.setSelected(false);
+		if(chkRedes != null) chkRedes.setSelected(false);
+		if(chkConduccion != null) chkConduccion.setSelected(false);
+		if(chkReparacion != null) chkReparacion.setSelected(false);
+		if(chkVentas != null) chkVentas.setSelected(false);
+		if(chkFotografia != null) chkFotografia.setSelected(false);
+		if(chkCocina != null) chkCocina.setSelected(false);
+		if(chkLimpieza != null) chkLimpieza.setSelected(false);
+		if(chkPintura != null) chkPintura.setSelected(false);
+
+		if(chckbxIngles != null) chckbxIngles.setSelected(false);
+		if(chckbxItaliano != null) chckbxItaliano.setSelected(false);
+		if(chckbxEspanol != null) chckbxEspanol.setSelected(false);
+		if(chckbxFrances != null) chckbxFrances.setSelected(false);
+		if(chckbxPortugues != null) chckbxPortugues.setSelected(false);
+		if(chckbxAleman != null) chckbxAleman.setSelected(false);
+		if(chckbxMandarin != null) chckbxMandarin.setSelected(false);
+		if(chckbxCoreano != null) chckbxCoreano.setSelected(false);
+		if(chckbxJapones != null) chckbxJapones.setSelected(false);
+
+		cmbModalidad.setSelectedIndex(0);
+		cmbJornada.setSelectedIndex(0);
+		cmbArea.setSelectedIndex(0);
+		cmbGenero.setSelectedIndex(0);
+
+		if(chkLicenciaConducir != null) chkLicenciaConducir.setSelected(false);
+		if(chkMudarse != null) chkMudarse.setSelected(false);
+		if(chkTrabajo != null) chkTrabajo.setSelected(false);
+
+		if(spnSalarioEsperado != null) spnSalarioEsperado.setValue(12000.0f);
+	}
+
+	private void registrarCandidato() {
+		try {
+			String codigo = txtCodigo.getText();
+			String nombres = txtNombre.getText().trim();
+			String apellidos = txtApellido.getText().trim();
+			String cedula = txtCedula.getText().trim();
+			String correo = txtCorreo.getText().trim();
+			String telefono = txtTelefono.getText().trim();
+			String provincia = txtProvincia.getText().trim();
+			String municipio = txtMunicipio.getText().trim();
+
+			Date fechaNacSpinner = (Date) spnFechaNac.getValue();
+			LocalDate fechaNacimiento = fechaNacSpinner.toInstant()
+					.atZone(java.time.ZoneId.systemDefault()).toLocalDate();
+
+			String modalidad = cmbModalidad.getSelectedItem().toString();
+			String jornada = cmbJornada.getSelectedItem().toString();
+			String areaInteres = cmbArea.getSelectedItem().toString();
+			String genero = cmbGenero.getSelectedItem().toString();
+
+			float salarioEsperado = ((Number) spnSalarioEsperado.getValue()).floatValue();
+
+			boolean licenciaConducir = chkLicenciaConducir.isSelected();
+			boolean mudarse = chkMudarse.isSelected();
+
+			ArrayList<String> idiomas = new ArrayList<>();
+			for(Component cmp : pnlIdiomas.getComponents()) {
+				if(cmp instanceof JCheckBox) {
+					JCheckBox chk = (JCheckBox)cmp;
+					if(chk.isSelected()) {
+						idiomas.add(chk.getText());
+					}
+				}
+			}
+
+
+			Candidato nuevoCandidato = null;
+
+			if(rdUniversitario.isSelected()) {
+				String universidad = txtUniversidad.getText().trim();
+				String carrera = cmbCarrera.getSelectedItem().toString();
+				String nivelAcademico = cmbNivel.getSelectedItem().toString();
+
+				nuevoCandidato = new Universitario(codigo, cedula, nombres, apellidos, 
+						fechaNacimiento, genero, provincia, municipio, telefono, correo, jornada, 
+						modalidad, areaInteres, salarioEsperado, licenciaConducir, mudarse, 
+						idiomas, universidad, carrera, nivelAcademico);
+
+
+			} else if(rdTecnico.isSelected()) {
+				String areaTecnica = cmbAreaTecnica.getSelectedItem().toString();
+				int aniosExperiencia = ((Number) spnAniosExp.getValue()).intValue();
+
+				nuevoCandidato = new TecnicoSuperior(codigo, cedula, nombres, apellidos, 
+						fechaNacimiento, genero,provincia, municipio, telefono, correo, jornada, 
+						modalidad, areaInteres, salarioEsperado, licenciaConducir, mudarse, 
+						idiomas, areaTecnica, aniosExperiencia);
+
+			} else if(rdObrero.isSelected()) {
+				ArrayList<String> habilidades = new ArrayList<>();
+
+				for(Component cmp : pnlObrero.getComponents()) {
+					if(cmp instanceof JCheckBox) {
+						JCheckBox chk = (JCheckBox)cmp;
+						if(chk.isSelected()) {
+							habilidades.add(chk.getText());
+						}
+					}
+				}
+
+				nuevoCandidato = new Obrero(codigo, cedula, nombres, apellidos, 
+						fechaNacimiento, genero,provincia, municipio, telefono, correo, jornada, 
+						modalidad, areaInteres, salarioEsperado, licenciaConducir, mudarse, 
+						idiomas, habilidades);
+			}
+
+			if(nuevoCandidato != null) {
+				if(candidatoAct == null) {
+					BolsaLaboral.getInstancia().registrarCandidato(nuevoCandidato);
+					JOptionPane.showMessageDialog(this, "Candidato registrado exitosamente", 
+							"Registro Exitoso", JOptionPane.INFORMATION_MESSAGE);
+
+					limpiar();
+					contenedor.setSelectedIndex(0);
+
+				} else {
+					candidatoAct.setNombres(nuevoCandidato.getNombres());
+					candidatoAct.setApellidos(nuevoCandidato.getApellidos());
+					candidatoAct.setIdentificacion(nuevoCandidato.getIdentificacion());
+					candidatoAct.setCorreo(nuevoCandidato.getCorreo());
+					candidatoAct.setTelefono(nuevoCandidato.getTelefono());
+					candidatoAct.setProvincia(nuevoCandidato.getProvincia());
+					candidatoAct.setMunicipio(nuevoCandidato.getMunicipio());
+					candidatoAct.setFechaNacimiento(nuevoCandidato.getFechaNacimiento());
+					candidatoAct.setGenero(nuevoCandidato.getGenero());
+					candidatoAct.setJornada(nuevoCandidato.getJornada());
+					candidatoAct.setModalidad(nuevoCandidato.getModalidad());
+					candidatoAct.setAreaDeInteres(nuevoCandidato.getAreaDeInteres());
+					candidatoAct.setAspiracionSalarial(nuevoCandidato.getAspiracionSalarial());
+					candidatoAct.setLicenciaConducir(nuevoCandidato.isLicenciaConducir());
+					candidatoAct.setDisposicionMudarse(nuevoCandidato.isDisposicionMudarse());
+					candidatoAct.setIdiomas(nuevoCandidato.getIdiomas());
+
+					if (candidatoAct instanceof Universitario && nuevoCandidato instanceof Universitario) {
+						((Universitario)candidatoAct).setUniversidad(((Universitario)nuevoCandidato).getUniversidad());
+						((Universitario)candidatoAct).setCarrera(((Universitario)nuevoCandidato).getCarrera());
+						((Universitario)candidatoAct).setNivelAcademico(((Universitario)nuevoCandidato).getNivelAcademico());
+					} else if (candidatoAct instanceof TecnicoSuperior && nuevoCandidato instanceof TecnicoSuperior) {
+						((TecnicoSuperior)candidatoAct).setAreaTecnica(((TecnicoSuperior)nuevoCandidato).getAreaTecnica());
+						((TecnicoSuperior)candidatoAct).setAniosExperiencia(((TecnicoSuperior)nuevoCandidato).getAniosExperiencia());
+					} else if (candidatoAct instanceof Obrero && nuevoCandidato instanceof Obrero) {
+						((Obrero)candidatoAct).setHabilidades(((Obrero)nuevoCandidato).getHabilidades());
+					}
+
+					JOptionPane.showMessageDialog(this, "Candidato modificado exitosamente", 
+							"Modificación Exitosa", JOptionPane.INFORMATION_MESSAGE);
+					dispose();
+					ConsultarCandidatos.cargarCandidatos();
+				}
+			}
+
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(this, "Error al procesar los datos: " + e.getMessage(), 
+					"Error", JOptionPane.ERROR_MESSAGE);
+		}
+	}
+
+	private void cargarDatos() {
+		if (candidatoAct != null) {
+			txtCodigo.setText(candidatoAct.getCodigo());
+			txtNombre.setText(candidatoAct.getNombres());
+			txtApellido.setText(candidatoAct.getApellidos());
+			txtCedula.setText(candidatoAct.getIdentificacion());
+			txtCorreo.setText(candidatoAct.getCorreo());
+			txtTelefono.setText(candidatoAct.getTelefono());
+			txtProvincia.setText(candidatoAct.getProvincia());
+			txtMunicipio.setText(candidatoAct.getMunicipio());
+
+			Date fechaNac = Date.from(candidatoAct.getFechaNacimiento()
+					.atStartOfDay(java.time.ZoneId.systemDefault()).toInstant());
+			spnFechaNac.setValue(fechaNac);
+
+			cmbModalidad.setSelectedItem(candidatoAct.getModalidad());
+			cmbJornada.setSelectedItem(candidatoAct.getJornada());
+			cmbArea.setSelectedItem(candidatoAct.getAreaDeInteres());
+			cmbGenero.setSelectedItem(candidatoAct.getGenero());
+			spnSalarioEsperado.setValue(candidatoAct.getAspiracionSalarial());
+			chkLicenciaConducir.setSelected(candidatoAct.isLicenciaConducir());
+			chkMudarse.setSelected(candidatoAct.isDisposicionMudarse());
+
+			for (String idioma : candidatoAct.getIdiomas()) {
+				switch (idioma) {
+				case "Inglés": chckbxIngles.setSelected(true); break;
+				case "Italiano": chckbxItaliano.setSelected(true); break;
+				case "Español": chckbxEspanol.setSelected(true); break;
+				case "Francés": chckbxFrances.setSelected(true); break;
+				case "Portugués": chckbxPortugues.setSelected(true); break;
+				case "Alemán": chckbxAleman.setSelected(true); break;
+				case "Chino": chckbxMandarin.setSelected(true); break;
+				case "Coreano": chckbxCoreano.setSelected(true); break;
+				case "Japonés": chckbxJapones.setSelected(true); break;
+				}
+			}
+
+			if (candidatoAct instanceof Universitario) {
+				rdUniversitario.setSelected(true);
+				rdTecnico.setEnabled(false);
+				rdObrero.setEnabled(false);
+
+				cambiarEspecializacion("Estudiante Universitario");
+
+				Universitario uni = (Universitario) candidatoAct;
+				txtUniversidad.setText(uni.getUniversidad());
+				cmbCarrera.setSelectedItem(uni.getCarrera());
+				cmbNivel.setSelectedItem(uni.getNivelAcademico());
+
+			} else if (candidatoAct instanceof TecnicoSuperior) {
+				rdTecnico.setSelected(true);
+				rdUniversitario.setEnabled(false);
+				rdObrero.setEnabled(false);
+
+				cambiarEspecializacion("Estudiante Tecnico");
+
+				TecnicoSuperior tecnico = (TecnicoSuperior) candidatoAct;
+				cmbAreaTecnica.setSelectedItem(tecnico.getAreaTecnica());
+				spnAniosExp.setValue(tecnico.getAniosExperiencia());
+
+			} else if (candidatoAct instanceof Obrero) {
+				rdObrero.setSelected(true);
+				rdUniversitario.setEnabled(false);
+				rdTecnico.setEnabled(false);
+
+				cambiarEspecializacion("Obrero");
+
+				Obrero obrero = (Obrero) candidatoAct;
+				for (String habilidad : obrero.getHabilidades()) {
+					switch (habilidad) {
+					case "Plomería": chkPlomeria.setSelected(true); break;
+					case "Carpintería": chkCarpintero.setSelected(true); break;
+					case "Gestión Financiera": chkCajero.setSelected(true); break;
+					case "Soldadura": chkSoldadura.setSelected(true); break;
+					case "Instalación Eléctrica": chkElectrica.setSelected(true); break;
+					case "Mecánica": chkMecanica.setSelected(true); break;
+					case "Albañilería": chkAlbanileria.setSelected(true); break;
+					case "Redes Sociales": chkRedes.setSelected(true); break;
+					case "Conducción": chkConduccion.setSelected(true); break;
+					case "Reparación de Electrónicos": chkReparacion.setSelected(true); break;
+					case "Ventas": chkVentas.setSelected(true); break;
+					case "Fotografía": chkFotografia.setSelected(true); break;
+					case "Cocina": chkCocina.setSelected(true); break;
+					case "Limpieza": chkLimpieza.setSelected(true); break;
+					case "Pintura": chkPintura.setSelected(true); break;
+					}
+				}
+			}
+		} else {
+			rdUniversitario.setEnabled(true);
+			rdTecnico.setEnabled(true);
+			rdObrero.setEnabled(true);
+		}
+	}
+
+
+	private boolean verificar() throws FormatException {
+		if(txtNombre.getText().trim().isEmpty()) {
+			throw new FormatException("El nombre es obligatorio");
+		}
+		if(txtApellido.getText().trim().isEmpty()) {
+			throw new FormatException("El apellido es obligatoria");
+		}
+		String cedula = txtCedula.getText().trim().replaceAll("[^0-9]", "");
+		if(cedula.length() != 11) {
+			throw new FormatException("La cédula debe tener 11 dígitos");
+		}
+
+		Date fechaNacimiento = (Date) spnFechaNac.getValue();
+		Calendar cal = Calendar.getInstance();
+		Date fechaActual = cal.getTime();
+
+		if(fechaNacimiento.after(fechaActual)) {
+			throw new FormatException("La fecha de nacimiento no puede ser futura");
+		}
+
+		cal.add(Calendar.YEAR, -16);
+		if(fechaNacimiento.after(cal.getTime())) {
+			throw new FormatException("El candidato debe tener al menos 16 años");
+		}
+
+		cal = Calendar.getInstance();
+		cal.add(Calendar.YEAR, -100);
+		if(fechaNacimiento.before(cal.getTime())) {
+			throw new FormatException("La fecha de nacimiento no puede ser anterior a " + (Calendar.getInstance().get(Calendar.YEAR) - 100));
+		}
+
+		if(cmbGenero == null || cmbGenero.getSelectedItem() == null || 
+				cmbGenero.getSelectedItem().toString().trim().isEmpty()) {
+			throw new FormatException("El género es obligatoria");
+		}
+
+		if(txtTelefono.getText().trim().isEmpty()) {
+			throw new FormatException("El teléfono es obligatorio");
+		}
+
+		if(txtCorreo.getText().trim().isEmpty()) {
+			throw new FormatException("El correo es obligatorio");
+		}
+
+		if(txtProvincia.getText().trim().isEmpty()) {
+			throw new FormatException("La provincia es obligatoria");
+		}
+		if(txtMunicipio.getText().trim().isEmpty()) {
+			throw new FormatException("El municipio es obligatorio");
+		}
+
+		if(!txtCorreo.getText().contains("@") || !txtCorreo.getText().contains(".")) {
+			throw new FormatException("Formato del correo inválido. Ejemplo: usuario@dominio.com\"");
+		}
+
+		String telefono = txtTelefono.getText().trim().replaceAll("[^0-9]", ""); 
+		if(telefono.length() != 10) {
+			throw new FormatException("El teléfono debe tener 10 dígitos");
+		}
+
+		if(rdUniversitario.isSelected()) {
+			if(txtUniversidad.getText().trim().isEmpty()) {
+				throw new FormatException("La universidad es obligatoria para estudiantes universitarios");
+			}
+
+		} else if(rdTecnico.isSelected()) {
+			if(cmbAreaTecnica.getSelectedIndex() < 0) {
+				throw new FormatException("El área técnica es obligatoria para técnicos superiores");
+			}
+
+		} else if(rdObrero.isSelected()) {
+			boolean tieneHabilidad = false;
+
+			for(Component cmp : pnlIdiomas.getComponents()) {
+				if(cmp instanceof JCheckBox) {
+					JCheckBox chk = (JCheckBox)cmp;
+					if(chk.isSelected()) {
+						tieneHabilidad = true;
+					}
+				}
+			}
+
+			if(!tieneHabilidad) {
+				throw new FormatException("Debe seleccionar al menos una habilidad para obreros");
+			}
+		}
+		if(cmbModalidad == null || cmbModalidad.getSelectedItem() == null || 
+				cmbModalidad.getSelectedItem().toString().trim().isEmpty()) {
+			throw new FormatException("La modalidad es obligatoria");
+		}
+
+		if(cmbJornada == null || cmbJornada.getSelectedItem() == null || 
+				cmbJornada.getSelectedItem().toString().trim().isEmpty()) {
+			throw new FormatException("La jornada es obligatoria");
+		}
+
+		boolean tieneIdioma = false;
+		for(Component cmp : pnlIdiomas.getComponents()) {
+			if(cmp instanceof JCheckBox) {
+				JCheckBox chk = (JCheckBox)cmp;
+				if(chk.isSelected()) {
+					tieneIdioma = true;
+					break;
+				}
+			}
+		}
+		if(!tieneIdioma) {
+			throw new FormatException("Debe seleccionar al menos un idioma");
+		}
+
+
+		float salarioEsperado = ((Number) spnSalarioEsperado.getValue()).floatValue();
+		if(salarioEsperado < 12000) {
+			throw new FormatException("El salario esperado debe ser al menos 12,000");
+		}
+
+		return true;
+	}
 }
