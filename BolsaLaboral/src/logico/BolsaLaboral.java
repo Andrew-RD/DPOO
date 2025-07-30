@@ -377,7 +377,7 @@ public class BolsaLaboral implements Serializable{
 	}
 	
 	private boolean ofertaEliminable(OfertaLaboral seleccionado) {
-		return false;
+		return true;
 	}
 	
 	public ArrayList<OfertaLaboral> ofertasDisponibles(){

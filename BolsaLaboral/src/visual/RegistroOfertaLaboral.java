@@ -603,11 +603,13 @@ public class RegistroOfertaLaboral extends JDialog {
 								} else if(rdTecnico.isSelected()) {
 									ofertaAct.setNivelAcademico(rdTecnico.getText());
 									ofertaAct.setExperienciaMinima((int)spnAniosExp.getValue());
+									ofertaAct.clearRequisitos();
 									// Agregar area requerida 
 
 								} else if(rdObrero.isSelected()) {
 									ofertaAct.setNivelAcademico(rdObrero.getText());
-									ofertaAct.agregarRequisito((String)cmbHabilidad.getSelectedItem());;
+									ofertaAct.clearRequisitos();
+									ofertaAct.agregarRequisito((String)cmbHabilidad.getSelectedItem());
 								}
 
 								if(BolsaLaboral.getInstancia().modificarOfertaLaboral(ofertaAct)) {
@@ -638,6 +640,7 @@ public class RegistroOfertaLaboral extends JDialog {
 									}
 								} else if(rdObrero.isSelected()) {
 									nivelAcademico = rdObrero.getText();
+									requisitos.add((String)cmbHabilidad.getSelectedItem());
 								} else if(rdTecnico.isSelected()) {
 									nivelAcademico = rdTecnico.getText();
 								}
@@ -812,6 +815,7 @@ public class RegistroOfertaLaboral extends JDialog {
 			} else if(ofertaAct.getNivelAcademico().equals(rdObrero.getText())){
 				rdObrero.setSelected(true);
 				cambiarEspecializacion("Obrero");
+				cmbHabilidad.setSelectedItem(ofertaAct.getRequisitos().get(0));
 			} else if(ofertaAct.getNivelAcademico().equals(rdTecnico.getText())) {
 				rdTecnico.setSelected(true);
 				cambiarEspecializacion("Estudiante Tecnico");

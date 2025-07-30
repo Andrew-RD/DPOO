@@ -184,4 +184,8 @@ public class OfertaLaboral implements Serializable{
 		requisitos.add(requisito);
 	}
 	
+	public void clearRequisitos() {
+		requisitos.clear();
+	}
+	
 }
