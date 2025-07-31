@@ -2,6 +2,7 @@ package logico;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 
 public abstract class Candidato implements Serializable{
@@ -204,6 +205,16 @@ public abstract class Candidato implements Serializable{
 	    for (Solicitud solicitud : misSolicitudes) {
 	        solicitud.setEstado("Empleado");
 	    }
+	}
+	
+	public void cambiarEstadoSolicitudesADesempleado() {
+	    for (Solicitud solicitud : misSolicitudes) {
+	        solicitud.setEstado("Desempleado");
+	    }
+	}
+	
+	public int getEdad() {
+		return Period.between(fechaNacimiento, LocalDate.now()).getYears();
 	}
 	
 }

@@ -563,6 +563,17 @@ public class RegistroOfertaLaboral extends JDialog {
 		chkbxMayor.setBackground(new Color(228, 228, 228));
 		chkbxMayor.setBounds(289, 151, 39, 25);
 		pnlCondiciones.add(chkbxMayor);
+		
+		JLabel lblrequiereLicenciaDe = new JLabel("\u00BFRequiere licencia de conducir?");
+		lblrequiereLicenciaDe.setFont(new Font("Segoe UI", Font.BOLD, 16));
+		lblrequiereLicenciaDe.setBounds(12, 230, 251, 29);
+		pnlCondiciones.add(lblrequiereLicenciaDe);
+		
+		JCheckBox chkLicencia = new JCheckBox("");
+		chkLicencia.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		chkLicencia.setBackground(new Color(228, 228, 228));
+		chkLicencia.setBounds(274, 234, 39, 25);
+		pnlCondiciones.add(chkLicencia);
 
 		JPanel pnlInferior = new JPanel();
 		pnlInferior.setBackground(new Color(24, 61, 61));
@@ -650,7 +661,7 @@ public class RegistroOfertaLaboral extends JDialog {
 										cmbArea.getSelectedItem().toString(), cmbModalidad.getSelectedItem().toString(), 
 										cmbJornada.getSelectedItem().toString(), "Activa", ((Number)spnSalario.getValue()).floatValue(),
 										((Number)spnAniosExp.getValue()).intValue(), ((Number)spnVacantes.getValue()).intValue(), BolsaLaboral.getInstancia().getCentros().get(cmbOfertador.getSelectedIndex()-1),
-										chkReubicacion.isSelected(), chkbxMayor.isSelected(), nivelAcademico, requisitos, idiomas);
+										chkReubicacion.isSelected(), chkbxMayor.isSelected(), chkLicencia.isSelected(), nivelAcademico, requisitos, idiomas);
 								BolsaLaboral.getInstancia().registrarOfertaLaboral(nuevaOferta);
 								JOptionPane.showMessageDialog(null,"La oferta laboral ha sido agregado correctamente.","Inforamción",JOptionPane.INFORMATION_MESSAGE);
 								txtCodigo.setText("OFR-" + BolsaLaboral.genCodigoOferta);
@@ -876,5 +887,4 @@ public class RegistroOfertaLaboral extends JDialog {
 
 		return true;
 	}
-
 }

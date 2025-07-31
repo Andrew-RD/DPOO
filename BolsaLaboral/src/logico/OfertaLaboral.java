@@ -20,13 +20,14 @@ public class OfertaLaboral implements Serializable{
 	private CentroEmpleador ofertador;
 	private boolean ofreceReubicacion;
 	private boolean obligatorioMayorDeEdad;
+	private boolean obligatorioLicencia;
 	private String nivelAcademico;
 	private ArrayList<String> requisitos;
 	private ArrayList<String> idiomasRequeridas;
 	
 	public OfertaLaboral(String codigo, String puesto, String descripcion, String area,
 			String modalidad, String jornada, String estado, float salario, int experienciaMinima, int vacantes,
-			CentroEmpleador ofertador, boolean ofreceReubicacion, boolean mayorDeEdadObligatorio,
+			CentroEmpleador ofertador, boolean ofreceReubicacion, boolean mayorDeEdadObligatorio, boolean obligatorioLicencia,
 			String nivelAcademico, ArrayList<String> requisitos, ArrayList<String> idiomasRequeridas) {
 		super();
 		this.codigo = codigo;
@@ -42,6 +43,7 @@ public class OfertaLaboral implements Serializable{
 		this.ofertador = ofertador;
 		this.ofreceReubicacion = ofreceReubicacion;
 		this.obligatorioMayorDeEdad = mayorDeEdadObligatorio;
+		this.obligatorioLicencia = obligatorioLicencia;
 		this.nivelAcademico = nivelAcademico;
 		this.requisitos = requisitos;
 		this.idiomasRequeridas = idiomasRequeridas;
@@ -175,6 +177,14 @@ public class OfertaLaboral implements Serializable{
 	public void setObligatorioMayorDeEdad(boolean obligatorioMayorDeEdad) {
 		this.obligatorioMayorDeEdad = obligatorioMayorDeEdad;
 	}
+	
+	public boolean isobligatorioLicencia() {
+		return obligatorioLicencia;
+	}
+
+	public void setobligatorioLicencia(boolean obligatorioLicencia) {
+		this.obligatorioLicencia = obligatorioLicencia;
+	}
 
 	public void agregarIdioma(String idioma) {
 		idiomasRequeridas.add(idioma);
@@ -186,6 +196,14 @@ public class OfertaLaboral implements Serializable{
 	
 	public void clearRequisitos() {
 		requisitos.clear();
+	}
+	
+	public int getCantIdiomas() {
+		return idiomasRequeridas.size();
+	}
+	
+	public int getCantRequisitos() {
+		return requisitos.size();
 	}
 	
 }
