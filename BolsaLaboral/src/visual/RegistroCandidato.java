@@ -76,7 +76,6 @@ public class RegistroCandidato extends JDialog {
 	private JComboBox cmbNivel; 
 	private JCheckBox chkLicenciaConducir;
 	private JCheckBox chkMudarse;
-	private JCheckBox chkTrabajo;
 
 	private JCheckBox chckbxIngles;
 	private JCheckBox chckbxItaliano;
@@ -105,6 +104,7 @@ public class RegistroCandidato extends JDialog {
 	private JCheckBox chkPintura;
 	private JComboBox cmbAreaTecnica;
 	private JComboBox cmbGenero;
+	private JComboBox cmbEstadoLab;
 	/**
 	 * Create the dialog.
 	 */
@@ -728,16 +728,18 @@ public class RegistroCandidato extends JDialog {
 		chkMudarse.setBounds(359, 252, 39, 25);
 		pnlPreferencias.add(chkMudarse);
 
-		JLabel lblposeeTrabajoActualmente = new JLabel("\u00BFPosee trabajo actualmente?");
+		JLabel lblposeeTrabajoActualmente = new JLabel("Estado laboral:");
 		lblposeeTrabajoActualmente.setFont(new Font("Segoe UI", Font.BOLD, 16));
-		lblposeeTrabajoActualmente.setBounds(12, 296, 232, 29);
+		lblposeeTrabajoActualmente.setBounds(12, 296, 128, 29);
 		pnlPreferencias.add(lblposeeTrabajoActualmente);
-
-		chkTrabajo = new JCheckBox("");
-		chkTrabajo.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-		chkTrabajo.setBackground(new Color(228, 228, 228));
-		chkTrabajo.setBounds(240, 300, 39, 25);
-		pnlPreferencias.add(chkTrabajo);
+		
+		cmbEstadoLab = new JComboBox();
+		cmbEstadoLab.setModel(new DefaultComboBoxModel(new String[] {"Desempleado", "Empleado", "En Espera"}));
+		cmbEstadoLab.setSelectedIndex(0);
+		cmbEstadoLab.setMaximumRowCount(12);
+		cmbEstadoLab.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		cmbEstadoLab.setBounds(154, 297, 262, 29);
+		pnlPreferencias.add(cmbEstadoLab);
 		cambiarEspecializacion("Estudiante Universitario");
 		cargarDatos();
 
@@ -837,11 +839,10 @@ public class RegistroCandidato extends JDialog {
 		cmbJornada.setSelectedIndex(0);
 		cmbArea.setSelectedIndex(0);
 		cmbGenero.setSelectedIndex(0);
+		cmbEstadoLab.setSelectedIndex(0);
 
 		if(chkLicenciaConducir != null) chkLicenciaConducir.setSelected(false);
 		if(chkMudarse != null) chkMudarse.setSelected(false);
-		if(chkTrabajo != null) chkTrabajo.setSelected(false);
-
 		if(spnSalarioEsperado != null) spnSalarioEsperado.setValue(12000.0f);
 	}
 
@@ -864,7 +865,7 @@ public class RegistroCandidato extends JDialog {
 			String jornada = cmbJornada.getSelectedItem().toString();
 			String areaInteres = cmbArea.getSelectedItem().toString();
 			String genero = cmbGenero.getSelectedItem().toString();
-
+			String estadoLaboral = cmbEstadoLab.getSelectedItem().toString();
 			float salarioEsperado = ((Number) spnSalarioEsperado.getValue()).floatValue();
 
 			boolean licenciaConducir = chkLicenciaConducir.isSelected();
@@ -891,7 +892,7 @@ public class RegistroCandidato extends JDialog {
 				nuevoCandidato = new Universitario(codigo, cedula, nombres, apellidos, 
 						fechaNacimiento, genero, provincia, municipio, telefono, correo, jornada, 
 						modalidad, areaInteres, salarioEsperado, licenciaConducir, mudarse, 
-						idiomas, universidad, carrera, nivelAcademico);
+						idiomas, universidad, carrera, nivelAcademico,estadoLaboral);
 
 
 			} else if(rdTecnico.isSelected()) {
@@ -901,7 +902,7 @@ public class RegistroCandidato extends JDialog {
 				nuevoCandidato = new TecnicoSuperior(codigo, cedula, nombres, apellidos, 
 						fechaNacimiento, genero,provincia, municipio, telefono, correo, jornada, 
 						modalidad, areaInteres, salarioEsperado, licenciaConducir, mudarse, 
-						idiomas, areaTecnica, aniosExperiencia);
+						idiomas, areaTecnica, aniosExperiencia,estadoLaboral);
 
 			} else if(rdObrero.isSelected()) {
 				ArrayList<String> habilidades = new ArrayList<>();
@@ -918,7 +919,7 @@ public class RegistroCandidato extends JDialog {
 				nuevoCandidato = new Obrero(codigo, cedula, nombres, apellidos, 
 						fechaNacimiento, genero,provincia, municipio, telefono, correo, jornada, 
 						modalidad, areaInteres, salarioEsperado, licenciaConducir, mudarse, 
-						idiomas, habilidades);
+						idiomas, habilidades,estadoLaboral);
 			}
 
 			if(nuevoCandidato != null) {

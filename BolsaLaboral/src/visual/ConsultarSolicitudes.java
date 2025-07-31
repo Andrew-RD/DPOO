@@ -135,7 +135,7 @@ public class ConsultarSolicitudes extends JDialog {
 			{
 				{
 					btnContratar = new JButton("Contratar");
-					btnContratar.setIcon(new ImageIcon("recursos/vincular.png"));
+					btnContratar.setIcon(new ImageIcon("recursos/trabajar.png"));
 					btnContratar.setBackground(Color.WHITE);
 					btnContratar.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {

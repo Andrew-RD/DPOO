@@ -22,6 +22,7 @@ import java.awt.Toolkit;
 import java.awt.Font;
 import java.awt.Color;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import java.awt.event.KeyAdapter;
@@ -107,6 +108,16 @@ public class ProcesamientoAvanzado extends JDialog {
 			tablaMatcheo = new JTable();
 			tablaMatcheo.setForeground(Color.BLACK);
 			tablaMatcheo.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+			tablaMatcheo.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					int index = tablaMatcheo.getSelectedRow();
+					if(index >= 0) {
+						resMatchSelec = BolsaLaboral.getInstancia().buscarResultado(resultados,tablaMatcheo.getValueAt(index,0).toString(),tablaMatcheo.getValueAt(index,1).toString());
+						btnProcesar.setEnabled(true);
+					}
+				}
+			});
 			String [] headers = {"Oferta", "Código", "Nombre", "Porcentaje", "Condición"};
 			modeloMatcheo.setColumnIdentifiers(headers);
 			tablaMatcheo.setModel(modeloMatcheo);
@@ -154,7 +165,8 @@ public class ProcesamientoAvanzado extends JDialog {
 				btnProcesar.setFont(new Font("Segoe UI", Font.BOLD, 16));
 				btnProcesar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						/* TODO */
+						BolsaLaboral.getInstancia().vincularOferta(resMatchSelec);
+						JOptionPane.showMessageDialog(null,"Se ha creado la solicitud correctamente a la oferta" + resMatchSelec.getOferta().getPuesto() + ".","Información",JOptionPane.INFORMATION_MESSAGE);
 					}
 				});
 				btnProcesar.setEnabled(false);
@@ -177,12 +189,12 @@ public class ProcesamientoAvanzado extends JDialog {
 
 		resultados = BolsaLaboral.getInstancia().procesamientoAvanzando();
 		ofertas = BolsaLaboral.getInstancia().ofertasDisponibles();
-		cargarOfertas();
 		tablaOfertas.setRowHeight(36);
 		tablaOfertas.getTableHeader().setReorderingAllowed(false);
 		tablaMatcheo.setRowHeight(36);
 		tablaMatcheo.getTableHeader().setReorderingAllowed(false);
 		cargarResultados();
+		cargarOfertas();
 	}
 	
 	public void filtrar() {

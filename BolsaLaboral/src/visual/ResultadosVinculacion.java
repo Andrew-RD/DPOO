@@ -44,7 +44,7 @@ public class ResultadosVinculacion extends JDialog {
         }
 	};
 	public static Object[] row;
-	private OfertaLaboral seleccionado = null;
+	private ResultadoMatcheo seleccionado = null;
 	private JButton btnContratar;
 	private static ArrayList<ResultadoMatcheo> resultados = new ArrayList<>();
 	
@@ -80,7 +80,7 @@ public class ResultadosVinculacion extends JDialog {
 						public void mouseClicked(MouseEvent e) {
 							int index = table.getSelectedRow();
 							if(index >= 0) {
-								/*seleccionado = BolsaLaboral.getInstancia().buscarOfertaByCodigo(table.getValueAt(index, 0).toString());*/
+								seleccionado = BolsaLaboral.getInstancia().buscarResultado(resultados,table.getValueAt(index,0).toString(),table.getValueAt(index,1).toString());
 								btnContratar.setEnabled(true);
 							}
 						}
@@ -124,7 +124,8 @@ public class ResultadosVinculacion extends JDialog {
 				btnContratar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						if(seleccionado != null) {
-						/* TODO */
+							BolsaLaboral.getInstancia().vincularOferta(seleccionado);
+							JOptionPane.showMessageDialog(null,"Se ha creado la solicitud correctamente a la oferta" + seleccionado.getOferta().getPuesto() + ".","Información",JOptionPane.INFORMATION_MESSAGE);
 						}
 					}
 				});

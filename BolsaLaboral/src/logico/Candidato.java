@@ -25,13 +25,14 @@ public abstract class Candidato implements Serializable{
 	private float aspiracionSalarial;
 	private boolean licenciaConducir;
 	private boolean disposicionMudarse;
+	private String estado;
 	private ArrayList<String> idiomas;
 	private ArrayList<Solicitud> misSolicitudes;
 
 	public Candidato(String codigo, String identificacion, String nombres, String apellidos, LocalDate fechaNacimiento,
 			String genero, String provincia, String municipio, String telefono, String correo, String jornada,
 			String modalidad, String areaDeInteres, float aspiracionSalarial, boolean licenciaConducir,
-			boolean disposicionMudarse, ArrayList<String> idiomas) {
+			boolean disposicionMudarse, ArrayList<String> idiomas, String estado) {
 		super();
 		this.codigo = codigo;
 		this.identificacion = identificacion;
@@ -215,6 +216,14 @@ public abstract class Candidato implements Serializable{
 	
 	public int getEdad() {
 		return Period.between(fechaNacimiento, LocalDate.now()).getYears();
+	}
+
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
 	}
 	
 }

@@ -15,10 +15,10 @@ public class Universitario extends Candidato implements Serializable{
 	public Universitario(String codigo, String identificacion, String nombres, String apellidos,
 			LocalDate fechaNacimiento, String genero, String provincia, String municipio, String telefono,
 			String correo, String jornada, String modalidad, String areaDeInteres, float aspiracionSalarial,
-			boolean licenciaConducir, boolean disposicionMudarse, ArrayList<String> idiomas,String universidad, String carrera, String nivelAcademico) {
+			boolean licenciaConducir, boolean disposicionMudarse, ArrayList<String> idiomas,String universidad, String carrera, String nivelAcademico, String estado) {
 		super(codigo, identificacion, nombres, apellidos, fechaNacimiento, genero, provincia, municipio, telefono,
 				correo, jornada, modalidad, areaDeInteres, aspiracionSalarial, licenciaConducir, disposicionMudarse,
-				idiomas);
+				idiomas, estado);
 		this.universidad = universidad;
 		this.carrera = carrera;
 		this.nivelAcademico = nivelAcademico;

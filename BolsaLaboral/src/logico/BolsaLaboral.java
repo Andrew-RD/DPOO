@@ -192,15 +192,17 @@ public class BolsaLaboral implements Serializable{
 	    ArrayList<ResultadoMatcheo> ordenados = new ArrayList<>();
 
 	    for (Candidato candidato : candidatos) {
-	        int puntaje = calcularPuntaje(candidato, oferta);
-	        
-	        if (puntaje >= limitePuntaje) {
-	            String condicion = obtenerCondicion(puntaje);
+	    	if(candidato.getEstado().equals("Desempleado")) {
+		        int puntaje = calcularPuntaje(candidato, oferta);
+		        
+		        if (puntaje >= limitePuntaje) {
+		            String condicion = obtenerCondicion(puntaje);
 
-	            ResultadoMatcheo resultadoMatcheo = new ResultadoMatcheo(oferta, candidato, puntaje, condicion);
+		            ResultadoMatcheo resultadoMatcheo = new ResultadoMatcheo(oferta, candidato, puntaje, condicion);
 
-	            ordenados.add(resultadoMatcheo);
-	        }
+		            ordenados.add(resultadoMatcheo);
+		        }
+	    	}
 	    }
 	    
 	    Comparator<ResultadoMatcheo> c = (a, b) -> b.getPorcentaje() - a.getPorcentaje();
@@ -379,12 +381,7 @@ public class BolsaLaboral implements Serializable{
 	    candidatoContratado.cambiarEstadoSolicitudesAEmpleado();
 	    
 	    String codigoVacante = "VAC-" + genCodigoVacanteCompletada;
-	    VacanteCompletada nuevaVacante = new VacanteCompletada(
-	            codigoVacante, 
-	            solicitudContratada, 
-	            oferta,
-	            LocalDate.now()
-	    );
+	    VacanteCompletada nuevaVacante = new VacanteCompletada(codigoVacante, solicitudContratada, oferta,LocalDate.now());
 	    
 	    vacantes.add(nuevaVacante);
 	    genCodigoVacanteCompletada++;
@@ -444,9 +441,7 @@ public class BolsaLaboral implements Serializable{
 	}
 	
 	public String obtenerCondicion(int puntaje) {
-		// Puntaje máximo para ser considerado "No recomendado" (entre 50 y 65), usando 130% del límite como base
 	    double noRecomendadoMax = Math.max(Math.min(limitePuntaje * 1.3, 65), 50);
-	    // Puntaje máximo para ser considerado "Aceptable" (entre 65 y 85), usando 160% del límite como base
 	    double aceptableMax = Math.max(Math.min(limitePuntaje * 1.6, 85), 65);
 
 	    if (puntaje < noRecomendadoMax) {
@@ -455,6 +450,29 @@ public class BolsaLaboral implements Serializable{
 	        return "Aceptable";
 	    } 
 	    return "Recomendado";
+	}
+	
+	public ResultadoMatcheo buscarResultado(ArrayList<ResultadoMatcheo> resultados, String codigoOferta, String codigoCandidato) {
+		ResultadoMatcheo resultado = null;
+		
+		int indice = 0;
+		while(indice < resultados.size() && resultado == null) {
+			if(resultados.get(indice).getOferta().getCodigo().equals(codigoOferta) && resultados.get(indice).getSolicitante().getCodigo().equals(codigoCandidato)) {
+				resultado = resultados.get(indice);
+			}
+			else {
+				indice++;
+			}
+		}
+		return resultado;
+	}
+
+	public void vincularOferta(ResultadoMatcheo resMatchSelec) {
+		Solicitud sol = new Solicitud("SOL-" + genCodigoSolicitud, LocalDate.now(),"Enviada",resMatchSelec.getSolicitante(),resMatchSelec.getOferta());
+		solicitudes.add(sol);
+		resMatchSelec.getSolicitante().setEstado("En Espera");
+		genCodigoSolicitud++;
+		
 	}
 
 }

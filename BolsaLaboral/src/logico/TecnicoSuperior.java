@@ -14,10 +14,10 @@ public class TecnicoSuperior extends Candidato implements Serializable{
 	public TecnicoSuperior(String codigo, String identificacion, String nombres, String apellidos,
 			LocalDate fechaNacimiento, String genero, String provincia, String municipio, String telefono,
 			String correo, String jornada, String modalidad, String areaDeInteres, float aspiracionSalarial,
-			boolean licenciaConducir, boolean disposicionMudarse, ArrayList<String> idiomas, String areaTecnica, int aniosExperiencia) {
+			boolean licenciaConducir, boolean disposicionMudarse, ArrayList<String> idiomas, String areaTecnica, int aniosExperiencia, String estado) {
 		super(codigo, identificacion, nombres, apellidos, fechaNacimiento, genero, provincia, municipio, telefono,
 				correo, jornada, modalidad, areaDeInteres, aspiracionSalarial, licenciaConducir, disposicionMudarse,
-				idiomas);
+				idiomas,estado);
 		this.areaTecnica = areaTecnica;
 		this.aniosExperiencia = aniosExperiencia;
 	}

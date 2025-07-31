@@ -12,10 +12,10 @@ public class Obrero extends Candidato implements Serializable{
 	public Obrero(String codigo, String identificacion, String nombres, String apellidos, LocalDate fechaNacimiento,
 			String genero, String provincia, String municipio, String telefono, String correo, String jornada,
 			String modalidad, String areaDeInteres, float aspiracionSalarial, boolean licenciaConducir,
-			boolean disposicionMudarse, ArrayList<String> idiomas,ArrayList<String> habilidades) {
+			boolean disposicionMudarse, ArrayList<String> idiomas,ArrayList<String> habilidades, String estado) {
 		super(codigo, identificacion, nombres, apellidos, fechaNacimiento, genero, provincia, municipio, telefono,
 				correo, jornada, modalidad, areaDeInteres, aspiracionSalarial, licenciaConducir, disposicionMudarse,
-				idiomas);
+				idiomas,estado);
 		this.habilidades = habilidades;
 	}
 
