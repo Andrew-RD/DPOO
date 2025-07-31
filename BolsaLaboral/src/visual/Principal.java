@@ -202,7 +202,7 @@ public class Principal extends JFrame {
 		mnGestion.setIcon(new ImageIcon("recursos/gestion.png"));
 		menuBar.add(mnGestion);
 
-		JMenuItem mntmInformes = new JMenuItem("  Informes");
+		JMenuItem mntmInformes = new JMenuItem("  Configuraci\u00F3n");
 		mntmInformes.setFont(new Font("Segoe UI", Font.PLAIN, 18));
 		mntmInformes.setIcon(new ImageIcon("recursos/informes.png"));
 		mnGestion.add(mntmInformes);
