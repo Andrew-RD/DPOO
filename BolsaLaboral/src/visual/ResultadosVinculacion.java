@@ -125,7 +125,7 @@ public class ResultadosVinculacion extends JDialog {
 					public void actionPerformed(ActionEvent e) {
 						if(seleccionado != null) {
 							BolsaLaboral.getInstancia().vincularOferta(seleccionado);
-							JOptionPane.showMessageDialog(null,"Se ha creado la solicitud correctamente a la oferta" + seleccionado.getOferta().getPuesto() + ".","Información",JOptionPane.INFORMATION_MESSAGE);
+							JOptionPane.showMessageDialog(null,"Se ha creado la solicitud correctamente a la oferta " + seleccionado.getOferta().getPuesto() + ".","Información",JOptionPane.INFORMATION_MESSAGE);
 						}
 					}
 				});

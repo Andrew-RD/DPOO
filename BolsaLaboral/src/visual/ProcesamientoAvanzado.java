@@ -166,7 +166,7 @@ public class ProcesamientoAvanzado extends JDialog {
 				btnProcesar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						BolsaLaboral.getInstancia().vincularOferta(resMatchSelec);
-						JOptionPane.showMessageDialog(null,"Se ha creado la solicitud correctamente a la oferta" + resMatchSelec.getOferta().getPuesto() + ".","Información",JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.showMessageDialog(null,"Se ha creado la solicitud correctamente a la oferta " + resMatchSelec.getOferta().getPuesto() + ".","Información",JOptionPane.INFORMATION_MESSAGE);
 					}
 				});
 				btnProcesar.setEnabled(false);

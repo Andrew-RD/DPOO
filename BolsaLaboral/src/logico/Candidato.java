@@ -52,6 +52,7 @@ public abstract class Candidato implements Serializable{
 		this.disposicionMudarse = disposicionMudarse;
 		this.idiomas = idiomas;
 		this.misSolicitudes =  new ArrayList<Solicitud> ();
+		this.estado = estado;
 	}
 
 	public String getCodigo() {

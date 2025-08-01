@@ -474,5 +474,44 @@ public class BolsaLaboral implements Serializable{
 		genCodigoSolicitud++;
 		
 	}
+	
+	public void contratarCandidato(Solicitud solicitud) {
+		VacanteCompletada vacante = new VacanteCompletada("VAC-" + genCodigoVacanteCompletada,solicitud,solicitud.getOfertaSolicitada(),LocalDate.now());
+		solicitud.setEstado("Aprovada");
+		solicitud.getOfertaSolicitada().setVacantes(solicitud.getOfertaSolicitada().getVacantes() - 1);
+		solicitud.getSolicitante().setEstado("Empleado");
+		genCodigoVacanteCompletada++;
+		vacantes.add(vacante);
+	}
+	
+	public void rechazarCandidato(Solicitud solicitud) {
+		solicitud.setEstado("Rechazada");
+		solicitud.getSolicitante().setEstado("Desempleado");
+	}
+
+	public Solicitud buscarSolicitudByCodigo(String codigo) {
+		Solicitud encontrado = null;
+		int indice = 0;
+		while(encontrado == null && indice < solicitudes.size()) {
+			if(solicitudes.get(indice).getCodigo().equals(codigo)) {
+				encontrado = solicitudes.get(indice);
+			}
+			indice++;
+		}
+		return encontrado;
+	}
+
+	public boolean esProcesable(Solicitud seleccionado) {
+		if(seleccionado.getEstado().equals("Rechazada") || seleccionado.getEstado().equals("Aprovada")) {
+			return false;
+		}
+		return true;
+	}
+	
+	public ArrayList<OfertaLaboral> ofertasConVacantesCompletadas() {
+		ArrayList<OfertaLaboral> ofertas = new ArrayList<OfertaLaboral>();
+		
+		return ofertas;
+	}
 
 }

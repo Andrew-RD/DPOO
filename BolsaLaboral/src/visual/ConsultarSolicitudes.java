@@ -49,9 +49,10 @@ public class ConsultarSolicitudes extends JDialog {
         }
 	};
 	public static Object[] row;
-	private OfertaLaboral seleccionado = null;
+	private Solicitud seleccionado = null;
 	private JTextField txtFiltro;
 	private JButton btnContratar;
+	private JButton btnRechazar;
 	
 	/**
 	 * Create the dialog.
@@ -85,8 +86,9 @@ public class ConsultarSolicitudes extends JDialog {
 						public void mouseClicked(MouseEvent e) {
 							int index = table.getSelectedRow();
 							if(index >= 0) {
-								seleccionado = BolsaLaboral.getInstancia().buscarOfertaByCodigo(table.getValueAt(index, 0).toString());
+								seleccionado = BolsaLaboral.getInstancia().buscarSolicitudByCodigo(table.getValueAt(index, 0).toString());
 								btnContratar.setEnabled(true);
+								btnRechazar.setEnabled(true);
 							}
 						}
 					});
@@ -139,10 +141,37 @@ public class ConsultarSolicitudes extends JDialog {
 					btnContratar.setBackground(Color.WHITE);
 					btnContratar.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
-							/* TODO  */
-							
+							if(seleccionado != null && BolsaLaboral.getInstancia().esProcesable(seleccionado)) {
+								BolsaLaboral.getInstancia().contratarCandidato(seleccionado);
+								JOptionPane.showMessageDialog(null,"Contratación procesada satisfactoriamente.","Información",JOptionPane.INFORMATION_MESSAGE);
+								cargarSolicitudes();
+							}
+							else {
+								JOptionPane.showMessageDialog(null,"Solo se pueden aprobar y rechazar solicitudes que no han sido procesadas.","Advertencia",JOptionPane.WARNING_MESSAGE);
+							}
 						}
 					});
+					{
+						btnRechazar = new JButton("Rechazar");
+						btnRechazar.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent e) {
+								if(seleccionado != null && BolsaLaboral.getInstancia().esProcesable(seleccionado)) {
+									BolsaLaboral.getInstancia().rechazarCandidato(seleccionado);
+									JOptionPane.showMessageDialog(null,"Rechazo procesado satisfactoriamente.","Información",JOptionPane.INFORMATION_MESSAGE);
+									cargarSolicitudes();
+								}
+								else {
+									JOptionPane.showMessageDialog(null,"Solo se pueden aprobar y rechazar solicitudes que no han sido procesadas.","Advertencia",JOptionPane.WARNING_MESSAGE);
+								}
+							}
+						});
+						btnRechazar.setIcon(new ImageIcon("recursos/rechazar.png"));
+						btnRechazar.setFont(new Font("Segoe UI", Font.BOLD, 16));
+						btnRechazar.setEnabled(false);
+						btnRechazar.setBackground(Color.WHITE);
+						btnRechazar.setActionCommand("OK");
+						buttonPane.add(btnRechazar);
+					}
 					btnContratar.setFont(new Font("Segoe UI", Font.BOLD, 16));
 					btnContratar.setEnabled(false);
 					btnContratar.setActionCommand("OK");

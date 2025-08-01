@@ -54,6 +54,7 @@ public class ConsultarOfertas extends JDialog {
 	private JButton btnDelete;
 	private JTextField txtFiltro;
 	private JButton btnVincular;
+	private JButton btnVerInforme;
 	
 	/**
 	 * Create the dialog.
@@ -61,7 +62,7 @@ public class ConsultarOfertas extends JDialog {
 	public ConsultarOfertas() {
 		setTitle("Listado de Ofertas Laborales");
 		setIconImage(Toolkit.getDefaultToolkit().getImage("recursos/icono.png"));
-		setBounds(100, 100, 665, 606);
+		setBounds(100, 100, 765, 606);
 		setResizable(false);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
@@ -91,6 +92,7 @@ public class ConsultarOfertas extends JDialog {
 								btnDelete.setEnabled(true);
 								btnUpdate.setEnabled(true);
 								btnVincular.setEnabled(true);
+								btnVerInforme.setEnabled(true);
 							}
 						}
 					});
@@ -145,6 +147,7 @@ public class ConsultarOfertas extends JDialog {
 						btnDelete.setEnabled(true);
 						btnUpdate.setEnabled(true);
 						btnVincular.setEnabled(true);
+						btnVerInforme.setEnabled(true);
 						RegistroOfertaLaboral registro = new RegistroOfertaLaboral(seleccionado);
 						registro.setVisible(true);
 					}
@@ -162,6 +165,20 @@ public class ConsultarOfertas extends JDialog {
 							
 						}
 					});
+					{
+						btnVerInforme = new JButton("Ver Informe");
+						btnVerInforme.setIcon(new ImageIcon("recursos/vacantescomp.png"));
+						btnVerInforme.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent e) {
+								
+							}
+						});
+						btnVerInforme.setFont(new Font("Segoe UI", Font.BOLD, 16));
+						btnVerInforme.setEnabled(false);
+						btnVerInforme.setBackground(Color.WHITE);
+						btnVerInforme.setActionCommand("OK");
+						buttonPane.add(btnVerInforme);
+					}
 					btnVincular.setFont(new Font("Segoe UI", Font.BOLD, 16));
 					btnVincular.setEnabled(false);
 					btnVincular.setActionCommand("OK");
@@ -185,9 +202,9 @@ public class ConsultarOfertas extends JDialog {
 							if(option == JOptionPane.OK_OPTION){
 								btnDelete.setEnabled(true);
 								btnUpdate.setEnabled(true);
+								btnVincular.setEnabled(true);
+								btnVerInforme.setEnabled(true);
 								try {
-									btnDelete.setEnabled(true);
-									btnUpdate.setEnabled(true);
 									BolsaLaboral.getInstancia().eliminarOfertaTrabajo(seleccionado);
 									cargarOfertas();
 								}

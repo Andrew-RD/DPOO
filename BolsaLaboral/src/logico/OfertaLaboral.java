@@ -24,11 +24,12 @@ public class OfertaLaboral implements Serializable{
 	private String nivelAcademico;
 	private ArrayList<String> requisitos;
 	private ArrayList<String> idiomasRequeridas;
+	private int porcentajeMinimo;
 	
 	public OfertaLaboral(String codigo, String puesto, String descripcion, String area,
 			String modalidad, String jornada, String estado, float salario, int experienciaMinima, int vacantes,
 			CentroEmpleador ofertador, boolean ofreceReubicacion, boolean mayorDeEdadObligatorio, boolean obligatorioLicencia,
-			String nivelAcademico, ArrayList<String> requisitos, ArrayList<String> idiomasRequeridas) {
+			String nivelAcademico, ArrayList<String> requisitos, ArrayList<String> idiomasRequeridas, int porcentajeMinimo) {
 		super();
 		this.codigo = codigo;
 		this.puesto = puesto;
@@ -47,6 +48,7 @@ public class OfertaLaboral implements Serializable{
 		this.nivelAcademico = nivelAcademico;
 		this.requisitos = requisitos;
 		this.idiomasRequeridas = idiomasRequeridas;
+		this.porcentajeMinimo = porcentajeMinimo;
 	}
 
 	public String getCodigo() {
@@ -204,6 +206,14 @@ public class OfertaLaboral implements Serializable{
 	
 	public int getCantRequisitos() {
 		return requisitos.size();
+	}
+
+	public int getPorcentajeMinimo() {
+		return porcentajeMinimo;
+	}
+
+	public void setPorcentajeMinimo(int porcentajeMinimo) {
+		this.porcentajeMinimo = porcentajeMinimo;
 	}
 	
 }

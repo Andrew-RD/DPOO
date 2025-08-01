@@ -71,6 +71,7 @@ public class RegistroOfertaLaboral extends JDialog {
 	private JCheckBox[] checkIdiomas, checkHabilidades;
 	private JComboBox cmbAreaTecnica;
 	private JSpinner spnAniosExp;
+	private JSpinner spnPorcentaje;
 
 	/**
 	 * Create the dialog.
@@ -537,7 +538,7 @@ public class RegistroOfertaLaboral extends JDialog {
 
 		JLabel lblestaraDispuestoA = new JLabel("\u00BFOfrece reubicaci\u00F3n?");
 		lblestaraDispuestoA.setFont(new Font("Segoe UI", Font.BOLD, 16));
-		lblestaraDispuestoA.setBounds(12, 185, 175, 29);
+		lblestaraDispuestoA.setBounds(12, 227, 175, 29);
 		pnlCondiciones.add(lblestaraDispuestoA);
 		cmbJornada.setSelectedIndex(0);
 		cmbModalidad.setSelectedIndex(0);
@@ -545,35 +546,46 @@ public class RegistroOfertaLaboral extends JDialog {
 		chkReubicacion = new JCheckBox("");
 		chkReubicacion.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		chkReubicacion.setBackground(new Color(228, 228, 228));
-		chkReubicacion.setBounds(182, 189, 39, 25);
+		chkReubicacion.setBounds(182, 231, 39, 25);
 		pnlCondiciones.add(chkReubicacion);
 
 		JSeparator separator_1 = new JSeparator();
 		separator_1.setForeground(Color.BLACK);
-		separator_1.setBounds(12, 132, 503, 6);
+		separator_1.setBounds(12, 174, 503, 6);
 		pnlCondiciones.add(separator_1);
 
 		JLabel lblesObligatorioSer = new JLabel("\u00BFEs obligatorio ser mayor de edad?");
 		lblesObligatorioSer.setFont(new Font("Segoe UI", Font.BOLD, 16));
-		lblesObligatorioSer.setBounds(12, 147, 269, 29);
+		lblesObligatorioSer.setBounds(12, 189, 269, 29);
 		pnlCondiciones.add(lblesObligatorioSer);
 
 		chkbxMayor = new JCheckBox("");
 		chkbxMayor.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		chkbxMayor.setBackground(new Color(228, 228, 228));
-		chkbxMayor.setBounds(289, 151, 39, 25);
+		chkbxMayor.setBounds(289, 193, 39, 25);
 		pnlCondiciones.add(chkbxMayor);
 		
 		JLabel lblrequiereLicenciaDe = new JLabel("\u00BFRequiere licencia de conducir?");
 		lblrequiereLicenciaDe.setFont(new Font("Segoe UI", Font.BOLD, 16));
-		lblrequiereLicenciaDe.setBounds(12, 230, 251, 29);
+		lblrequiereLicenciaDe.setBounds(12, 272, 251, 29);
 		pnlCondiciones.add(lblrequiereLicenciaDe);
 		
 		JCheckBox chkLicencia = new JCheckBox("");
 		chkLicencia.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		chkLicencia.setBackground(new Color(228, 228, 228));
-		chkLicencia.setBounds(274, 234, 39, 25);
+		chkLicencia.setBounds(274, 276, 39, 25);
 		pnlCondiciones.add(chkLicencia);
+		
+		JLabel label_2 = new JLabel("Porcentaje Minimo:");
+		label_2.setFont(new Font("Segoe UI", Font.BOLD, 16));
+		label_2.setBounds(12, 126, 164, 29);
+		pnlCondiciones.add(label_2);
+		
+		spnPorcentaje = new JSpinner();
+		spnPorcentaje.setModel(new SpinnerNumberModel(0, 0, 100, 10));
+		spnPorcentaje.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		spnPorcentaje.setBounds(180, 130, 236, 22);
+		pnlCondiciones.add(spnPorcentaje);
 
 		JPanel pnlInferior = new JPanel();
 		pnlInferior.setBackground(new Color(24, 61, 61));
@@ -661,7 +673,7 @@ public class RegistroOfertaLaboral extends JDialog {
 										cmbArea.getSelectedItem().toString(), cmbModalidad.getSelectedItem().toString(), 
 										cmbJornada.getSelectedItem().toString(), "Activa", ((Number)spnSalario.getValue()).floatValue(),
 										((Number)spnAniosExp.getValue()).intValue(), ((Number)spnVacantes.getValue()).intValue(), BolsaLaboral.getInstancia().getCentros().get(cmbOfertador.getSelectedIndex()-1),
-										chkReubicacion.isSelected(), chkbxMayor.isSelected(), chkLicencia.isSelected(), nivelAcademico, requisitos, idiomas);
+										chkReubicacion.isSelected(), chkbxMayor.isSelected(), chkLicencia.isSelected(), nivelAcademico, requisitos, idiomas, ((Integer)spnPorcentaje.getValue()).intValue());
 								BolsaLaboral.getInstancia().registrarOfertaLaboral(nuevaOferta);
 								JOptionPane.showMessageDialog(null,"La oferta laboral ha sido agregado correctamente.","Inforamción",JOptionPane.INFORMATION_MESSAGE);
 								txtCodigo.setText("OFR-" + BolsaLaboral.genCodigoOferta);

@@ -948,6 +948,7 @@ public class RegistroCandidato extends JDialog {
 					candidatoAct.setLicenciaConducir(nuevoCandidato.isLicenciaConducir());
 					candidatoAct.setDisposicionMudarse(nuevoCandidato.isDisposicionMudarse());
 					candidatoAct.setIdiomas(nuevoCandidato.getIdiomas());
+					candidatoAct.setEstado(nuevoCandidato.getEstado());
 
 					if (candidatoAct instanceof Universitario && nuevoCandidato instanceof Universitario) {
 						((Universitario)candidatoAct).setUniversidad(((Universitario)nuevoCandidato).getUniversidad());
@@ -992,6 +993,7 @@ public class RegistroCandidato extends JDialog {
 			cmbJornada.setSelectedItem(candidatoAct.getJornada());
 			cmbArea.setSelectedItem(candidatoAct.getAreaDeInteres());
 			cmbGenero.setSelectedItem(candidatoAct.getGenero());
+			cmbEstadoLab.setSelectedItem(candidatoAct.getEstado());
 			spnSalarioEsperado.setValue(candidatoAct.getAspiracionSalarial());
 			chkLicenciaConducir.setSelected(candidatoAct.isLicenciaConducir());
 			chkMudarse.setSelected(candidatoAct.isDisposicionMudarse());

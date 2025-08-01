@@ -202,11 +202,6 @@ public class Principal extends JFrame {
 		mnGestion.setIcon(new ImageIcon("recursos/gestion.png"));
 		menuBar.add(mnGestion);
 
-		JMenuItem mntmInformes = new JMenuItem("  Configuraci\u00F3n");
-		mntmInformes.setFont(new Font("Segoe UI", Font.PLAIN, 18));
-		mntmInformes.setIcon(new ImageIcon("recursos/informes.png"));
-		mnGestion.add(mntmInformes);
-
 		JMenuItem mntmRespaldo = new JMenuItem("  Respaldo");
 		mntmRespaldo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -262,21 +257,30 @@ public class Principal extends JFrame {
 		        }
 			}
 		});
+		
+				JMenuItem mntmProcesamiento = new JMenuItem("  Procesamiento");
+				mntmProcesamiento.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						ProcesamientoAvanzado pros = new ProcesamientoAvanzado();
+						pros.setModal(true);
+						pros.setVisible(true);
+					}
+				});
+				mntmProcesamiento.setFont(new Font("Segoe UI", Font.PLAIN, 18));
+				mntmProcesamiento.setIcon(new ImageIcon("recursos/avanzado.png"));
+				mnGestion.add(mntmProcesamiento);
 		mntmRespaldo.setFont(new Font("Segoe UI", Font.PLAIN, 18));
 		mntmRespaldo.setIcon(new ImageIcon("recursos/respaldo.png"));
 		mnGestion.add(mntmRespaldo);
-
-		JMenuItem mntmProcesamiento = new JMenuItem("  Procesamiento");
-		mntmProcesamiento.addActionListener(new ActionListener() {
+		JMenuItem mntmInformes = new JMenuItem("  Informe");
+		mnGestion.add(mntmInformes);
+		mntmInformes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ProcesamientoAvanzado pros = new ProcesamientoAvanzado();
-				pros.setModal(true);
-				pros.setVisible(true);
+				
 			}
 		});
-		mntmProcesamiento.setFont(new Font("Segoe UI", Font.PLAIN, 18));
-		mntmProcesamiento.setIcon(new ImageIcon("recursos/avanzado.png"));
-		mnGestion.add(mntmProcesamiento);
+		mntmInformes.setFont(new Font("Segoe UI", Font.PLAIN, 18));
+		mntmInformes.setIcon(new ImageIcon("recursos/informes.png"));
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(4, 13, 18));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
