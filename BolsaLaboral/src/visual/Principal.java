@@ -42,16 +42,16 @@ import logico.BolsaLaboral;
 import logico.Usuario;
 
 public class Principal extends JFrame {
-	
+
 	private JPanel contentPane;
 	private Dimension dim;
 	private JMenu mnGestion;
 	private JMenu mnCatlogoDeOfertas;
 	private JMenu mnCentros;
 	private JMenu mnCandidatos;
-	static Socket sfd = null;
-	static DataInputStream EntradaSocket;
-	static DataOutputStream SalidaSocket;
+	private static Socket sfd = null;
+	private static DataInputStream EntradaSocket;
+	private static DataOutputStream SalidaSocket;
 	/**
 	 * Launch the application.
 	 */
@@ -205,70 +205,70 @@ public class Principal extends JFrame {
 		JMenuItem mntmRespaldo = new JMenuItem("  Respaldo");
 		mntmRespaldo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-		        
-		        try {
-		        	
-		            sfd = new Socket("127.0.0.1", 7000);
-		            
-		            File archivo = new File("bolsa.dat");
-		            if (!archivo.exists()) {
-		                JOptionPane.showMessageDialog(null, "Archivo bolsa.dat no encontrado", 
-		                    "Error", JOptionPane.ERROR_MESSAGE);
-		                return;
-		            }
-		            
-		            EntradaSocket = new DataInputStream(new FileInputStream(archivo));
-		            SalidaSocket = new DataOutputStream(sfd.getOutputStream());
-		            
-		            int unByte;
-		            
-		            while ((unByte = EntradaSocket.read()) != -1) {
-		            	SalidaSocket.write(unByte);
-		            }
-		            
-		            SalidaSocket.flush();
-		            
-		            JOptionPane.showMessageDialog(null, 
-		                "Respaldo enviado exitosamente al servidor", 
-		                "Respaldo Completado", JOptionPane.INFORMATION_MESSAGE);
-		                
-		        } catch (UnknownHostException uhe) {
-		            JOptionPane.showMessageDialog(null, 
-		                "No se puede acceder al servidor: " + uhe.getMessage(),
-		                "Error de Conexión", JOptionPane.ERROR_MESSAGE);
-		        } catch (IOException ioe) {
-		            JOptionPane.showMessageDialog(null, 
-		                "Error durante la transferencia: " + ioe.getMessage(), 
-		                "Error de Comunicación", JOptionPane.ERROR_MESSAGE);
-		        } finally {
-		            try {
-		                if (EntradaSocket != null) {
-		                	EntradaSocket.close();
-		                }
-		                if (SalidaSocket != null) {
-		                	SalidaSocket.close();
-		                }
-		                if (sfd != null) {
-		                    sfd.close();
-		                }
-		            } catch (IOException e1) {
-		                System.out.println("Error al cerrar recursos: " + e1.getMessage());
-		            }
-		        }
+
+				try {
+
+					sfd = new Socket("127.0.0.1", 7000);
+
+					File archivo = new File("bolsa.dat");
+					if (!archivo.exists()) {
+						JOptionPane.showMessageDialog(null, "Archivo bolsa.dat no encontrado", 
+								"Error", JOptionPane.ERROR_MESSAGE);
+						return;
+					}
+
+					EntradaSocket = new DataInputStream(new FileInputStream(archivo));
+					SalidaSocket = new DataOutputStream(sfd.getOutputStream());
+
+					int unByte;
+
+					while ((unByte = EntradaSocket.read()) != -1) {
+						SalidaSocket.write(unByte);
+					}
+
+					SalidaSocket.flush();
+
+					JOptionPane.showMessageDialog(null, 
+							"Respaldo enviado exitosamente al servidor", 
+							"Respaldo Completado", JOptionPane.INFORMATION_MESSAGE);
+
+				} catch (UnknownHostException uhe) {
+					JOptionPane.showMessageDialog(null, 
+							"No se puede acceder al servidor: " + uhe.getMessage(),
+							"Error de Conexión", JOptionPane.ERROR_MESSAGE);
+				} catch (IOException ioe) {
+					JOptionPane.showMessageDialog(null, 
+							"Error durante la transferencia: " + ioe.getMessage(), 
+							"Error de Comunicación", JOptionPane.ERROR_MESSAGE);
+				} finally {
+					try {
+						if (EntradaSocket != null) {
+							EntradaSocket.close();
+						}
+						if (SalidaSocket != null) {
+							SalidaSocket.close();
+						}
+						if (sfd != null) {
+							sfd.close();
+						}
+					} catch (IOException e1) {
+						System.out.println("Error al cerrar recursos: " + e1.getMessage());
+					}
+				}
 			}
 		});
-		
-				JMenuItem mntmProcesamiento = new JMenuItem("  Procesamiento");
-				mntmProcesamiento.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						ProcesamientoAvanzado pros = new ProcesamientoAvanzado();
-						pros.setModal(true);
-						pros.setVisible(true);
-					}
-				});
-				mntmProcesamiento.setFont(new Font("Segoe UI", Font.PLAIN, 18));
-				mntmProcesamiento.setIcon(new ImageIcon("recursos/avanzado.png"));
-				mnGestion.add(mntmProcesamiento);
+
+		JMenuItem mntmProcesamiento = new JMenuItem("  Procesamiento");
+		mntmProcesamiento.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ProcesamientoAvanzado pros = new ProcesamientoAvanzado();
+				pros.setModal(true);
+				pros.setVisible(true);
+			}
+		});
+		mntmProcesamiento.setFont(new Font("Segoe UI", Font.PLAIN, 18));
+		mntmProcesamiento.setIcon(new ImageIcon("recursos/avanzado.png"));
+		mnGestion.add(mntmProcesamiento);
 		mntmRespaldo.setFont(new Font("Segoe UI", Font.PLAIN, 18));
 		mntmRespaldo.setIcon(new ImageIcon("recursos/respaldo.png"));
 		mnGestion.add(mntmRespaldo);
@@ -276,7 +276,9 @@ public class Principal extends JFrame {
 		mnGestion.add(mntmInformes);
 		mntmInformes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				InformeGeneral inf = new InformeGeneral();
+				inf.setModal(true);
+				inf.setVisible(true);
 			}
 		});
 		mntmInformes.setFont(new Font("Segoe UI", Font.PLAIN, 18));

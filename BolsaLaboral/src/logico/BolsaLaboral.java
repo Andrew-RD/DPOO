@@ -523,4 +523,36 @@ public class BolsaLaboral implements Serializable{
 		return solicitudesV;
 	}
 	
+	public int calcularTasaCovertura() {
+		int cantVacantes = vacantes.size();
+		for(OfertaLaboral ofr : ofertas) {
+			cantVacantes += ofr.getVacantes();
+		}
+		
+		return (vacantes.size() / cantVacantes) * 100;
+	}
+	
+	
+	public int obtenerOfertasVacias() {
+		int cantidad = 0;
+		for(OfertaLaboral ofr: ofertas) {
+			boolean encontrado = false;
+			
+			int indice = 0;
+			while(indice < solicitudes.size() && encontrado == false) {	
+				if(solicitudes.get(indice).getOfertaSolicitada().equals(ofr)) {
+					encontrado = true;
+				}
+				else {
+					indice++;
+				}
+			}
+			
+			if(encontrado == false) {
+				cantidad++;
+			}
+		}
+		
+		return cantidad;
+	}
 }
