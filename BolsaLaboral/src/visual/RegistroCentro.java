@@ -200,8 +200,9 @@ public class RegistroCentro extends JDialog {
 									centroAct.setSector(cmbSector.getSelectedItem().toString());
 									centroAct.setTelefono(txtTelefono.getText());
 									if(BolsaLaboral.getInstancia().modificarCentroTrabajo(centroAct)) {
-										JOptionPane.showMessageDialog(null,"El centro " + txtNombre.getText() + " ha sido modificado exitosamente.","Información",JOptionPane.INFORMATION_MESSAGE);
 										ConsultarCentros.cargarCentros();
+										JOptionPane.showMessageDialog(null,"El centro " + txtNombre.getText() + " ha sido modificado exitosamente.","Información",JOptionPane.INFORMATION_MESSAGE);
+										dispose();
 									}
 									else {
 										JOptionPane.showMessageDialog(null,"El centro " + txtNombre.getText() + " no logró ser modificado.");

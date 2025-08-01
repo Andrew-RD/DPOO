@@ -195,7 +195,7 @@ public class BolsaLaboral implements Serializable{
 	    	if(candidato.getEstado().equals("Desempleado")) {
 		        int puntaje = calcularPuntaje(candidato, oferta);
 		        
-		        if (puntaje >= limitePuntaje) {
+		        if (puntaje >= oferta.getPorcentajeMinimo()) {
 		            String condicion = obtenerCondicion(puntaje);
 
 		            ResultadoMatcheo resultadoMatcheo = new ResultadoMatcheo(oferta, candidato, puntaje, condicion);
@@ -480,6 +480,10 @@ public class BolsaLaboral implements Serializable{
 		solicitud.setEstado("Aprovada");
 		solicitud.getOfertaSolicitada().setVacantes(solicitud.getOfertaSolicitada().getVacantes() - 1);
 		solicitud.getSolicitante().setEstado("Empleado");
+		
+		if(solicitud.getOfertaSolicitada().getVacantes() == 0) {
+			solicitud.getOfertaSolicitada().setEstado("Completada");
+		}
 		genCodigoVacanteCompletada++;
 		vacantes.add(vacante);
 	}
@@ -508,10 +512,15 @@ public class BolsaLaboral implements Serializable{
 		return true;
 	}
 	
-	public ArrayList<OfertaLaboral> ofertasConVacantesCompletadas() {
-		ArrayList<OfertaLaboral> ofertas = new ArrayList<OfertaLaboral>();
-		
-		return ofertas;
+	public ArrayList<Solicitud> obtenerSolicitudesVinculadas(OfertaLaboral oferta){
+		ArrayList<Solicitud> solicitudesV = new ArrayList<Solicitud>();
+		for(Solicitud sol : solicitudes) {
+			if(sol.getOfertaSolicitada().getCodigo().equals(oferta.getCodigo())) {
+				solicitudesV.add(sol);
+			}
+		}
+			
+		return solicitudesV;
 	}
-
+	
 }

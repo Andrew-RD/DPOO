@@ -170,7 +170,9 @@ public class ConsultarOfertas extends JDialog {
 						btnVerInforme.setIcon(new ImageIcon("recursos/vacantescomp.png"));
 						btnVerInforme.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent e) {
-								
+								InformeOferta inf = new InformeOferta(seleccionado);
+								inf.setModal(true);
+								inf.setVisible(true);
 							}
 						});
 						btnVerInforme.setFont(new Font("Segoe UI", Font.BOLD, 16));

@@ -609,6 +609,7 @@ public class RegistroOfertaLaboral extends JDialog {
 								ofertaAct.setJornada((String)cmbJornada.getSelectedItem());
 								ofertaAct.setObligatorioMayorDeEdad(chkbxMayor.isSelected());
 								ofertaAct.setOfreceReubicacion(chkReubicacion.isSelected());
+								ofertaAct.setPorcentajeMinimo(((Integer)spnPorcentaje.getValue()).intValue());
 
 								for(JCheckBox cbIdioma : checkIdiomas) {
 									if(cbIdioma.isSelected()) {
@@ -637,6 +638,8 @@ public class RegistroOfertaLaboral extends JDialog {
 
 								if(BolsaLaboral.getInstancia().modificarOfertaLaboral(ofertaAct)) {
 									JOptionPane.showMessageDialog(null,"La oferta: " + txtPuesto.getText() + " ha sido modificada exitosamente.","Información",JOptionPane.INFORMATION_MESSAGE);
+									ConsultarOfertas.cargarOfertas();
+									dispose();
 								}
 								else {
 									JOptionPane.showMessageDialog(null,"La oferta " + txtPuesto.getText() + " no logró ser modificada.");
@@ -814,6 +817,7 @@ public class RegistroOfertaLaboral extends JDialog {
 			spnSalario.setValue(ofertaAct.getSalario());
 			txtDescripcion.setText(ofertaAct.getDescripcion());
 			spnVacantes.setValue(ofertaAct.getVacantes());
+			spnPorcentaje.setValue(ofertaAct.getPorcentajeMinimo());
 			cmbArea.setSelectedItem(ofertaAct.getArea());
 			cmbModalidad.setSelectedItem(ofertaAct.getModalidad());
 			cmbJornada.setSelectedItem(ofertaAct.getJornada());
@@ -862,6 +866,7 @@ public class RegistroOfertaLaboral extends JDialog {
 		cmbHabilidad.setSelectedIndex(0);
 		cmbAreaTecnica.setSelectedIndex(0);
 		spnAniosExp.setValue(0);
+		spnPorcentaje.setValue(0);
 
 		for (JCheckBox cb : checkIdiomas) {
 			cb.setSelected(false);

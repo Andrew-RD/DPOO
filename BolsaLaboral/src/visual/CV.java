@@ -333,6 +333,7 @@ public class CV extends JDialog {
 		case "Limpieza": return new Color(78, 102, 136);
 		case "Seguridad": return new Color(10, 64, 12);
 		case "TI": return new Color(9, 107, 104);
+		case "Salud": return new Color(162, 18, 50);
 		case "Operaciones": return new Color(39, 63, 79);
 		case "Administración": return new Color(190, 49, 68);
 		case "Atención al Cliente": return new Color(130, 17, 49);	
