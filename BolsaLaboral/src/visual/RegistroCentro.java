@@ -63,12 +63,12 @@ public class RegistroCentro extends JDialog {
 			contenedor.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0), 1, true), "Datos del Centro Empleador", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 			contentPanel.add(contenedor, BorderLayout.CENTER);
 			contenedor.setLayout(null);
-			
+
 			JLabel lblNewLabel = new JLabel("C\u00F3digo:");
 			lblNewLabel.setFont(new Font("Segoe UI", Font.BOLD, 16));
 			lblNewLabel.setBounds(22, 29, 84, 29);
 			contenedor.add(lblNewLabel);
-			
+
 			txtCodigo = new JTextField();
 			txtCodigo.setEditable(false);
 			txtCodigo.setFocusable(false);
@@ -77,17 +77,17 @@ public class RegistroCentro extends JDialog {
 			txtCodigo.setBounds(116, 29, 305, 22);
 			contenedor.add(txtCodigo);
 			txtCodigo.setColumns(10);
-			
+
 			JSeparator separator = new JSeparator();
 			separator.setForeground(Color.BLACK);
 			separator.setBounds(12, 71, 503, 6);
 			contenedor.add(separator);
-			
+
 			JLabel lblNombre = new JLabel("Nombre:");
 			lblNombre.setFont(new Font("Segoe UI", Font.BOLD, 16));
 			lblNombre.setBounds(22, 86, 84, 29);
 			contenedor.add(lblNombre);
-			
+
 			txtNombre = new JTextField();
 			txtNombre.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 			txtNombre.setColumns(10);
@@ -98,81 +98,81 @@ public class RegistroCentro extends JDialog {
 			lblSector.setFont(new Font("Segoe UI", Font.BOLD, 16));
 			lblSector.setBounds(22, 138, 84, 29);
 			contenedor.add(lblSector);
-			
+
 			cmbSector = new JComboBox();
 			cmbSector.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					cargarSector();
 				}
 			});
-			
+
 			cmbSector.setMaximumRowCount(11);
 			cmbSector.setModel(new DefaultComboBoxModel(new String[] {"No definido", "Turismo", "Tecnolog\u00EDa", "Salud", "Comercio", "Educaci\u00F3n", "Agricultura", "Construcci\u00F3n", "Jur\u00EDdico", "Arte", "Transporte"}));
 			cmbSector.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 			cmbSector.setBounds(116, 139, 305, 29);
 			contenedor.add(cmbSector);
-			
+
 			lblIcono = new JLabel("");
 			lblIcono.setFont(new Font("Segoe UI", Font.BOLD, 16));
 			lblIcono.setBounds(433, 135, 32, 32);
 			contenedor.add(lblIcono);
-			
+
 			JPanel pnlContactos = new JPanel();
 			pnlContactos.setBackground(new Color(228, 228, 228));
 			pnlContactos.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "Contactos y Ubicaci\u00F3n", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 			pnlContactos.setBounds(12, 226, 513, 229);
 			contenedor.add(pnlContactos);
 			pnlContactos.setLayout(null);
-			
+
 			JLabel lblTelfono = new JLabel("Tel\u00E9fono:");
 			lblTelfono.setFont(new Font("Segoe UI", Font.BOLD, 16));
 			lblTelfono.setBounds(12, 28, 84, 29);
 			pnlContactos.add(lblTelfono);
-			
+
 			txtTelefono = new JTextField();
 			txtTelefono.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 			txtTelefono.setColumns(10);
 			txtTelefono.setBounds(108, 35, 305, 22);
 			pnlContactos.add(txtTelefono);
-			
+
 			JLabel lblCorreo = new JLabel("Correo:");
 			lblCorreo.setFont(new Font("Segoe UI", Font.BOLD, 16));
 			lblCorreo.setBounds(12, 78, 84, 29);
 			pnlContactos.add(lblCorreo);
-			
+
 			txtCorreo = new JTextField();
 			txtCorreo.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 			txtCorreo.setColumns(10);
 			txtCorreo.setBounds(108, 81, 305, 22);
 			pnlContactos.add(txtCorreo);
-			
+
 			txtProvincia = new JTextField();
 			txtProvincia.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 			txtProvincia.setColumns(10);
 			txtProvincia.setBounds(108, 133, 305, 22);
 			pnlContactos.add(txtProvincia);
-			
+
 			JLabel lblProvincia = new JLabel("Provincia:");
 			lblProvincia.setFont(new Font("Segoe UI", Font.BOLD, 16));
 			lblProvincia.setBounds(12, 126, 84, 29);
 			pnlContactos.add(lblProvincia);
-			
+
 			JLabel lblMunicipio = new JLabel("Municipio:");
 			lblMunicipio.setFont(new Font("Segoe UI", Font.BOLD, 16));
 			lblMunicipio.setBounds(12, 179, 84, 29);
 			pnlContactos.add(lblMunicipio);
-			
+
 			txtMunicipio = new JTextField();
 			txtMunicipio.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 			txtMunicipio.setColumns(10);
 			txtMunicipio.setBounds(108, 182, 305, 22);
 			pnlContactos.add(txtMunicipio);
-			
+
 			JLabel lblRnc = new JLabel("RNC:");
 			lblRnc.setFont(new Font("Segoe UI", Font.BOLD, 16));
 			lblRnc.setBounds(22, 191, 84, 29);
 			contenedor.add(lblRnc);
-			
+
 			txtRNC = new JTextField();
 			txtRNC.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 			txtRNC.setColumns(10);
@@ -214,7 +214,7 @@ public class RegistroCentro extends JDialog {
 									JOptionPane.showMessageDialog(null,"El centro de trabajo ha sido agregado correctamente.","Inforamción",JOptionPane.INFORMATION_MESSAGE);
 									txtCodigo.setText("CEN-" + BolsaLaboral.genCodigoCentro);
 									limpiar();
-									
+
 								}
 							}
 							else {
@@ -229,13 +229,13 @@ public class RegistroCentro extends JDialog {
 				if(centroAct == null) {
 					okButton.setText("Registrar");
 					okButton.setIcon(new ImageIcon("recursos/agregarP.png"));
-					
+
 				}
 				else {
 					okButton.setText("Modificar");
 					okButton.setIcon(new ImageIcon("recursos/modificar.png"));
 				}
-				
+
 				JButton btnLimpiar = new JButton("Limpiar");
 				btnLimpiar.setBackground(Color.WHITE);
 				btnLimpiar.addActionListener(new ActionListener() {
@@ -265,35 +265,39 @@ public class RegistroCentro extends JDialog {
 			}
 		}
 		cargarDatos();
-		
+
 	}
-	
-	private boolean verificar() throws FormatException{
+
+	private boolean verificar() throws FormatException {
 		if(txtNombre.getText().isEmpty()) {
-			throw new FormatException("El nombre no puede estar vacio.");
+			throw new FormatException("El nombre no puede estar vacío.");
 		}
 		else if(txtRNC.getText().isEmpty()) {
-			throw new FormatException("El RNC no puede estar vacio.");
+			throw new FormatException("El RNC no puede estar vacío.");
 		}
 		else if(txtCorreo.getText().isEmpty()) {
-			throw new FormatException("El correo no puede estar vacio");
+			throw new FormatException("El correo no puede estar vacío.");
 		}
-		else if(!txtCorreo.getText().contains("@")) {
-			throw new FormatException("El correo tiene que incluir un @.");
+		else if(!txtCorreo.getText().contains("@") || !txtCorreo.getText().contains(".")) {
+			throw new FormatException("Formato del correo inválido. Ejemplo: usuario@dominio.com");
 		}
 		else if(txtTelefono.getText().isEmpty()) {
-			throw new FormatException("El teléfono no puede estar vacio.");
+			throw new FormatException("El teléfono no puede estar vacío.");
+		}
+		else if(!txtTelefono.getText().matches("\\d{10}")) {
+			throw new FormatException("El teléfono debe contener exactamente 10 dígitos numéricos.");
 		}
 		else if(txtMunicipio.getText().isEmpty()) {
-			throw new FormatException("El municipio no puede estar vacio.");
+			throw new FormatException("El municipio no puede estar vacío.");
 		}
 		else if(txtProvincia.getText().isEmpty()) {
-			throw new FormatException("La provincia no puede estar vacia.");
+			throw new FormatException("La provincia no puede estar vacía.");
 		}
 
 		return true;
 	}
-	
+
+
 	private void limpiar() {
 		txtCorreo.setText("");
 		txtMunicipio.setText("");
@@ -303,7 +307,7 @@ public class RegistroCentro extends JDialog {
 		txtTelefono.setText("");
 		cmbSector.setSelectedIndex(0);
 	}
-	
+
 	private void cargarDatos() {
 		cmbSector.setSelectedIndex(0);
 		if(centroAct != null) {
@@ -317,7 +321,7 @@ public class RegistroCentro extends JDialog {
 			txtTelefono.setText(centroAct.getTelefono());
 		}
 	}
-	
+
 	private void cargarSector() {
 		String nombreSector = cmbSector.getSelectedItem().toString().toLowerCase();
 		nombreSector = nombreSector.replace("í","i");
