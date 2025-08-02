@@ -145,6 +145,7 @@ public class ConsultarSolicitudes extends JDialog {
 								BolsaLaboral.getInstancia().contratarCandidato(seleccionado);
 								JOptionPane.showMessageDialog(null,"Contratación procesada satisfactoriamente.","Información",JOptionPane.INFORMATION_MESSAGE);
 								cargarSolicitudes();
+								filtrar();
 							}
 							else {
 								JOptionPane.showMessageDialog(null,"Solo se pueden aprobar y rechazar solicitudes que no han sido procesadas.","Advertencia",JOptionPane.WARNING_MESSAGE);
@@ -159,6 +160,7 @@ public class ConsultarSolicitudes extends JDialog {
 									BolsaLaboral.getInstancia().rechazarCandidato(seleccionado);
 									JOptionPane.showMessageDialog(null,"Rechazo procesado satisfactoriamente.","Información",JOptionPane.INFORMATION_MESSAGE);
 									cargarSolicitudes();
+									filtrar();
 								}
 								else {
 									JOptionPane.showMessageDialog(null,"Solo se pueden aprobar y rechazar solicitudes que no han sido procesadas.","Advertencia",JOptionPane.WARNING_MESSAGE);

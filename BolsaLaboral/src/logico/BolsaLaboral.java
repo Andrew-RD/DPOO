@@ -408,7 +408,13 @@ public class BolsaLaboral implements Serializable{
 	}
 	
 	private boolean ofertaEliminable(OfertaLaboral seleccionado) {
-		return true;
+		boolean aux = true;
+		for(Solicitud sol : solicitudes) {
+			if(sol.getOfertaSolicitada().equals(seleccionado)) {
+				aux = false;
+			}
+		}
+		return aux;
 	}
 	
 	public ArrayList<OfertaLaboral> ofertasDisponibles(){
@@ -459,15 +465,42 @@ public class BolsaLaboral implements Serializable{
 		return resultado;
 	}
 
-	public void vincularOferta(ResultadoMatcheo resMatchSelec) {
+	public boolean vincularOferta(ResultadoMatcheo resMatchSelec) {
+		boolean aux = false;
 		if(resMatchSelec.getOferta().getVacantes() > 0) {
 			Solicitud sol = new Solicitud("SOL-" + genCodigoSolicitud, LocalDate.now(),"Enviada",resMatchSelec.getSolicitante(),resMatchSelec.getOferta());
-			solicitudes.add(sol);
-			resMatchSelec.getSolicitante().setEstado("En Espera");
-			genCodigoSolicitud++;
+			if(verificarSolicitud(sol)) {
+				solicitudes.add(sol);
+				resMatchSelec.getSolicitante().addSolicitud(sol);
+				resMatchSelec.getSolicitante().setEstado("En Espera");
+				genCodigoSolicitud++;
+				aux = true;
+			}
 		}
-
+		return aux;
+	}
+	
+	public boolean verificarSolicitud(Solicitud solicitud) {
+		boolean aux = true;
 		
+		for(Solicitud sol : solicitudes) {
+			if(matchSolicitud(sol, solicitud)) {
+				aux = false;
+			}
+		}
+		
+		return aux;
+	}
+	
+	public boolean matchSolicitud(Solicitud s1, Solicitud s2) {
+		boolean aux = true;
+		
+		aux &= s1.getFechaSolicitud().equals(s2.getFechaSolicitud());
+		aux &= s1.getEstado().equals(s2.getEstado());
+		aux &= s1.getSolicitante().equals(s2.getSolicitante());
+		aux &= s1.getOfertaSolicitada().equals(s2.getOfertaSolicitada());
+		
+		return aux;
 	}
 	
 	public void contratarCandidato(Solicitud solicitud) {
@@ -475,6 +508,7 @@ public class BolsaLaboral implements Serializable{
 		solicitud.setEstado("Aprovada");
 		solicitud.getOfertaSolicitada().setVacantes(solicitud.getOfertaSolicitada().getVacantes() - 1);
 		solicitud.getSolicitante().setEstado("Empleado");
+		solicitud.getSolicitante().cambiarEstadoSolicitudesAEmpleado();
 		
 		if(solicitud.getOfertaSolicitada().getVacantes() == 0) {
 			solicitud.getOfertaSolicitada().setEstado("Completada");
@@ -486,6 +520,7 @@ public class BolsaLaboral implements Serializable{
 	public void rechazarCandidato(Solicitud solicitud) {
 		solicitud.setEstado("Rechazada");
 		solicitud.getSolicitante().setEstado("Desempleado");
+		solicitud.getSolicitante().cambiarEstadoSolicitudesADesempleado();
 	}
 
 	public Solicitud buscarSolicitudByCodigo(String codigo) {

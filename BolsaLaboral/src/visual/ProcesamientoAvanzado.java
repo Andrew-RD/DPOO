@@ -165,8 +165,11 @@ public class ProcesamientoAvanzado extends JDialog {
 				btnProcesar.setFont(new Font("Segoe UI", Font.BOLD, 16));
 				btnProcesar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						BolsaLaboral.getInstancia().vincularOferta(resMatchSelec);
-						JOptionPane.showMessageDialog(null,"Se ha creado la solicitud correctamente a la oferta " + resMatchSelec.getOferta().getPuesto() + ".","Información",JOptionPane.INFORMATION_MESSAGE);
+						if(BolsaLaboral.getInstancia().vincularOferta(resMatchSelec)) {
+							JOptionPane.showMessageDialog(null,"Se ha creado la solicitud correctamente a la oferta " + resMatchSelec.getOferta().getPuesto() + ".","Información",JOptionPane.INFORMATION_MESSAGE);
+						} else {
+							JOptionPane.showMessageDialog(null,"Esta solicitud ya existe.","Información",JOptionPane.INFORMATION_MESSAGE);
+						}
 					}
 				});
 				btnProcesar.setEnabled(false);

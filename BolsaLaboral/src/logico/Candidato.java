@@ -205,13 +205,13 @@ public abstract class Candidato implements Serializable{
 	
 	public void cambiarEstadoSolicitudesAEmpleado() {
 	    for (Solicitud solicitud : misSolicitudes) {
-	        solicitud.setEstado("Empleado");
+	        solicitud.setEstado("Aprovada");
 	    }
 	}
 	
 	public void cambiarEstadoSolicitudesADesempleado() {
 	    for (Solicitud solicitud : misSolicitudes) {
-	        solicitud.setEstado("Desempleado");
+	        solicitud.setEstado("Rechazada");
 	    }
 	}
 	
@@ -225,6 +225,10 @@ public abstract class Candidato implements Serializable{
 
 	public void setEstado(String estado) {
 		this.estado = estado;
+	}
+	
+	public void addSolicitud(Solicitud solicitud) {
+		misSolicitudes.add(solicitud);
 	}
 	
 }
