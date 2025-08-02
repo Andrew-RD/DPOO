@@ -124,8 +124,14 @@ public class ResultadosVinculacion extends JDialog {
 				btnContratar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						if(seleccionado != null) {
-							BolsaLaboral.getInstancia().vincularOferta(seleccionado);
-							JOptionPane.showMessageDialog(null,"Se ha creado la solicitud correctamente a la oferta " + seleccionado.getOferta().getPuesto() + ".","Información",JOptionPane.INFORMATION_MESSAGE);
+							if(seleccionado.getOferta().getVacantes() > 0) {
+								BolsaLaboral.getInstancia().vincularOferta(seleccionado);
+								JOptionPane.showMessageDialog(null,"Se ha creado la solicitud correctamente a la oferta " + seleccionado.getOferta().getPuesto() + ".","Información",JOptionPane.INFORMATION_MESSAGE);
+							}
+							else {
+								JOptionPane.showMessageDialog(null,"El candidato no puede ser vinculado ya que no hay vacantes disponibles.","Advertencia",JOptionPane.WARNING_MESSAGE);
+							}
+							
 						}
 					}
 				});

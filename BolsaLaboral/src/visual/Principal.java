@@ -210,7 +210,7 @@ public class Principal extends JFrame {
 		mnGestion.setIcon(new ImageIcon("recursos/gestion.png"));
 		menuBar.add(mnGestion);
 
-		JMenuItem mntmRespaldo = new JMenuItem("  Respaldo");
+		JMenuItem mntmRespaldo = new JMenuItem("  Crear Respaldo");
 		mntmRespaldo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -228,6 +228,7 @@ public class Principal extends JFrame {
 		});
 		
 		JMenuItem mntmCargarRespaldo = new JMenuItem("  Cargar Respaldo");
+		mntmCargarRespaldo.setIcon(new ImageIcon("recursos/descargar.png"));
 		mntmCargarRespaldo.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
 		        cargarRespaldo();
@@ -249,7 +250,6 @@ public class Principal extends JFrame {
 		mntmRespaldo.setIcon(new ImageIcon("recursos/respaldo.png"));
 		mnGestion.add(mntmRespaldo);
 		mntmCargarRespaldo.setFont(new Font("Segoe UI", Font.PLAIN, 18));
-		mntmCargarRespaldo.setIcon(new ImageIcon("recursos/respaldo.png"));
 		mnGestion.add(mntmCargarRespaldo);
 		JMenuItem mntmInformes = new JMenuItem("  Informe");
 		mnGestion.add(mntmInformes);

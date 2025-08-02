@@ -5,6 +5,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
 
+import javax.swing.JOptionPane;
+
 import exception.NotRemovableException;
 
 public class BolsaLaboral implements Serializable{
@@ -458,10 +460,13 @@ public class BolsaLaboral implements Serializable{
 	}
 
 	public void vincularOferta(ResultadoMatcheo resMatchSelec) {
-		Solicitud sol = new Solicitud("SOL-" + genCodigoSolicitud, LocalDate.now(),"Enviada",resMatchSelec.getSolicitante(),resMatchSelec.getOferta());
-		solicitudes.add(sol);
-		resMatchSelec.getSolicitante().setEstado("En Espera");
-		genCodigoSolicitud++;
+		if(resMatchSelec.getOferta().getVacantes() > 0) {
+			Solicitud sol = new Solicitud("SOL-" + genCodigoSolicitud, LocalDate.now(),"Enviada",resMatchSelec.getSolicitante(),resMatchSelec.getOferta());
+			solicitudes.add(sol);
+			resMatchSelec.getSolicitante().setEstado("En Espera");
+			genCodigoSolicitud++;
+		}
+
 		
 	}
 	
@@ -514,12 +519,17 @@ public class BolsaLaboral implements Serializable{
 	}
 	
 	public int calcularTasaCovertura() {
-		int cantVacantes = vacantes.size();
+		int cantVacantes = 0;
 		for(OfertaLaboral ofr : ofertas) {
 			cantVacantes += ofr.getVacantes();
 		}
 		
-		return (vacantes.size() / Math.max(cantVacantes, 1)) * 100;
+		if(ofertas.size() > 0) {
+			return Math.round(((float)cantVacantes / (float)ofertas.size()) * 100);
+		}
+		else {
+			return 0;
+		}
 	}
 	
 	

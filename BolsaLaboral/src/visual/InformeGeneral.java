@@ -17,6 +17,8 @@ import logico.OfertaLaboral;
 import logico.Solicitud;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.awt.Toolkit;
 
@@ -238,7 +240,7 @@ public class InformeGeneral extends JDialog {
 		lblIcoCover.setBounds(22, 13, 128, 128);
 		panel_6.add(lblIcoCover);
 		
-		lblTasaCobertura = new JLabel("de Conbertura");
+		lblTasaCobertura = new JLabel("de Cobertura");
 		lblTasaCobertura.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTasaCobertura.setForeground(Color.WHITE);
 		lblTasaCobertura.setFont(new Font("Consolas", Font.PLAIN, 16));
@@ -283,8 +285,13 @@ public class InformeGeneral extends JDialog {
 		int cantVacCompletadas = BolsaLaboral.getInstancia().getVacantes().size();
 		lblContratados.setText(formatNumero(cantVacCompletadas) + (cantVacCompletadas != 1 ? " Contratados" : " Contratado"));
 		
-		lblDeExto.setText((cantVacCompletadas/Math.max(cantSolicitudes, 1))/100 + "%" + " De Éxito");
 		lblTasaCobertura.setText(BolsaLaboral.getInstancia().calcularTasaCovertura() + "% De Cobertura");
+		
+		if(cantSolicitudes > 0) {
+			lblDeExto.setText((cantVacCompletadas/Math.max(cantSolicitudes, 1))*100 + "%" + " De Éxito");
+		}else {
+			lblDeExto.setText("0% de Éxito");
+		}
 		
 		int ofVacias = BolsaLaboral.getInstancia().obtenerOfertasVacias();
 		lblOfVacias.setText(formatNumero(ofVacias) + (ofVacias != 1 ? " Ofertas Vacias" : " Oferta Vacia" ));
