@@ -202,11 +202,9 @@ public class Login extends JFrame {
 				bolsaOut = new FileOutputStream("bolsa.dat");
 				bolsaWrite = new ObjectOutputStream(bolsaOut);
 				Usuario admin = new Usuario("Admin", "Admin", "Admin");
-				Usuario candidato = new Usuario("Candidato", "Candidato", "Candidato");
-				Usuario centro = new Usuario("Centro", "Centro", "Centro");
+				Usuario empleado = new Usuario("Empleado", "Empleado", "Empleado");
 				BolsaLaboral.getInstancia().regUsuario(admin);
-				BolsaLaboral.getInstancia().regUsuario(candidato);
-				BolsaLaboral.getInstancia().regUsuario(centro);
+				BolsaLaboral.getInstancia().regUsuario(empleado);
 				Usuario temp = new Usuario("", "", "Admin");
 				BolsaLaboral.getInstancia().regUsuario(temp);
 				bolsaWrite.writeObject(BolsaLaboral.getInstancia());

@@ -312,17 +312,6 @@ public class Principal extends JFrame {
 	}
 
 	private void userUI() {
-		switch (BolsaLaboral.getInstancia().getUsuarioActual().getTipo()) {
-		case "Centro":
-			mnCandidatos.setEnabled(false);
-			mnGestion.setEnabled(false);
-			break;
-		case "Candidato":
-			mnGestion.setEnabled(false);
-			mnCatlogoDeOfertas.setEnabled(false);
-			mnCentros.setEnabled(false);
-			break;
-		}
 		if(!BolsaLaboral.getInstancia().getUsuarioActual().getTipo().equals("Admin")) {
 			mnGestion.setEnabled(false);
 		}
