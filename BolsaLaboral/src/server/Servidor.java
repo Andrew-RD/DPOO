@@ -4,47 +4,58 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 
-public class Servidor extends Thread
-{
-    
-  public static void main (String args[])
-  {
-    ServerSocket sfd = null;
-    try
-    {
-      sfd = new ServerSocket(7000);
-    }
-    catch (IOException ioe)
-    {
-      System.out.println("Comunicación rechazada."+ioe);
-      System.exit(1);
-    }
+public class Servidor extends Thread {
 
-    while (true)
-    {
-      try
-      {
-        Socket nsfd = sfd.accept();
-        System.out.println("Conexion aceptada de: "+nsfd.getInetAddress());
-        DataInputStream oos = new DataInputStream(nsfd.getInputStream());
-        DataOutputStream escritor = new DataOutputStream(new FileOutputStream(new File("bolsa_respaldo.dat")));
-        int unByte;
-        try {
-			while ((unByte = oos.read()) != -1)
-			   escritor.write(unByte);
-			escritor.flush();
-			oos.close();
-	        escritor.close();
-	        nsfd.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} 
-      } 
-      catch(IOException ioe)
-      {
-        System.out.println("Error: "+ioe);
-      }
-    }
-  }
+	private int puerto;
+
+	public Servidor(int puerto) {
+		this.puerto = puerto;
+	}
+
+	@Override
+	public void run() {
+		try (ServerSocket sfd = new ServerSocket(puerto)) {
+			System.out.println("Servidor iniciado en puerto " + puerto);
+			while (true) {
+				try {
+
+					Socket nsfd = sfd.accept();
+					DataInputStream oos = new DataInputStream(nsfd.getInputStream());
+					String nombreArchivo = oos.readUTF();
+					File archivoDestino = generarArchivoRespaldo(nombreArchivo);
+					
+					System.out.println("Conexión aceptada de: " + nsfd.getInetAddress());
+					
+					try (DataOutputStream escritor = new DataOutputStream(new FileOutputStream(archivoDestino))){
+						
+						int unByte;
+						while ((unByte = oos.read()) != -1) {
+							escritor.write(unByte);
+						}
+						escritor.flush();
+						System.out.println("Archivo respaldado: " + archivoDestino.getName());
+					}
+					
+				} catch (IOException e) {
+					System.out.println("Error al manejar cliente: " + e.getMessage());
+				}
+			}
+		} catch (IOException ioe) {
+			System.out.println("No se pudo iniciar el servidor: " + ioe.getMessage());
+		}
+	}
+
+	private File generarArchivoRespaldo(String tipo) {
+		int contador = 1;
+		File archivo;
+
+		do {
+			archivo = new File(tipo + "_respaldo_" + contador + ".dat");
+			contador++;
+		} while (archivo.exists());
+
+		return archivo;
+	}
+
+
 }

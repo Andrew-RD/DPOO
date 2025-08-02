@@ -269,25 +269,25 @@ public class InformeGeneral extends JDialog {
 	
 	private void cargarValores() {
 		int cantCand = BolsaLaboral.getInstancia().getCandidatos().size();
-		lblCandidatos.setText(formatNumero(cantCand) + (cantCand > 1 ? " Candidatos" : " Candidato"));
+		lblCandidatos.setText(formatNumero(cantCand) + (cantCand != 1 ? " Candidatos" : " Candidato"));
 		
 		int cantOfertas = BolsaLaboral.getInstancia().getOfertas().size();
-		lblOfertas.setText(formatNumero(cantOfertas) + (cantOfertas > 1 ? " Ofertas" : " Oferta"));
+		lblOfertas.setText(formatNumero(cantOfertas) + (cantOfertas != 1 ? " Ofertas" : " Oferta"));
 		
 		int cantCentros = BolsaLaboral.getInstancia().getCentros().size();
-		lblEmpresas.setText(formatNumero(cantCentros) + (cantCentros > 1 ? " Empresas" : " Empresa"));
+		lblEmpresas.setText(formatNumero(cantCentros) + (cantCentros != 1 ? " Empresas" : " Empresa"));
 		
 		int cantSolicitudes = BolsaLaboral.getInstancia().getSolicitudes().size();
-		lblSolicitudes.setText(formatNumero(cantSolicitudes) + (cantSolicitudes > 1 ? " Solicitudes" : " Solicitud"));
+		lblSolicitudes.setText(formatNumero(cantSolicitudes) + (cantSolicitudes != 1 ? " Solicitudes" : " Solicitud"));
 		
 		int cantVacCompletadas = BolsaLaboral.getInstancia().getVacantes().size();
-		lblContratados.setText(formatNumero(cantVacCompletadas) + (cantVacCompletadas > 1 ? " Contratados" : " Contratado"));
+		lblContratados.setText(formatNumero(cantVacCompletadas) + (cantVacCompletadas != 1 ? " Contratados" : " Contratado"));
 		
-		lblDeExto.setText((cantVacCompletadas/cantSolicitudes)/100 + "%" + " De Éxito");
+		lblDeExto.setText((cantVacCompletadas/Math.max(cantSolicitudes, 1))/100 + "%" + " De Éxito");
 		lblTasaCobertura.setText(BolsaLaboral.getInstancia().calcularTasaCovertura() + "% De Cobertura");
 		
 		int ofVacias = BolsaLaboral.getInstancia().obtenerOfertasVacias();
-		lblOfVacias.setText(formatNumero(ofVacias) + (ofVacias > 0 ? " Ofertas Vacias" : " Oferta Vacia" ));
+		lblOfVacias.setText(formatNumero(ofVacias) + (ofVacias != 1 ? " Ofertas Vacias" : " Oferta Vacia" ));
 	}
 	
 	

@@ -22,7 +22,6 @@ public class BolsaLaboral implements Serializable{
 	private ArrayList<CentroEmpleador> centros;
 	private ArrayList<VacanteCompletada> vacantes;
 	private ArrayList<Usuario> usuarios;
-	private int limitePuntaje;
 	public static BolsaLaboral instancia;
 	private Usuario usuarioActual;
 
@@ -33,7 +32,6 @@ public class BolsaLaboral implements Serializable{
 		centros = new ArrayList<CentroEmpleador>();
 		vacantes = new ArrayList<VacanteCompletada>();
 		usuarios = new ArrayList<Usuario>();
-		limitePuntaje = 50;
 	}
 
 	public ArrayList<Candidato> getCandidatos() {
@@ -90,14 +88,6 @@ public class BolsaLaboral implements Serializable{
 
 	public void setUsuarioActual(Usuario usuarioActual) {
 		this.usuarioActual = usuarioActual;
-	}
-	
-	public int getLimitePuntaje() {
-		return limitePuntaje;
-	}
-
-	public void setLimitePuntaje(int limitePuntaje) {
-		this.limitePuntaje = limitePuntaje;
 	}
 
 	public static BolsaLaboral getInstancia() {
@@ -196,7 +186,7 @@ public class BolsaLaboral implements Serializable{
 		        int puntaje = calcularPuntaje(candidato, oferta);
 		        
 		        if (puntaje >= oferta.getPorcentajeMinimo()) {
-		            String condicion = obtenerCondicion(puntaje);
+		            String condicion = obtenerCondicion(puntaje, oferta.getPorcentajeMinimo());
 
 		            ResultadoMatcheo resultadoMatcheo = new ResultadoMatcheo(oferta, candidato, puntaje, condicion);
 
@@ -440,7 +430,7 @@ public class BolsaLaboral implements Serializable{
 		return resultados;
 	}
 	
-	public String obtenerCondicion(int puntaje) {
+	public String obtenerCondicion(int puntaje, int limitePuntaje) {
 	    double noRecomendadoMax = Math.max(Math.min(limitePuntaje * 1.3, 65), 50);
 	    double aceptableMax = Math.max(Math.min(limitePuntaje * 1.6, 85), 65);
 
@@ -529,7 +519,7 @@ public class BolsaLaboral implements Serializable{
 			cantVacantes += ofr.getVacantes();
 		}
 		
-		return (vacantes.size() / cantVacantes) * 100;
+		return (vacantes.size() / Math.max(cantVacantes, 1)) * 100;
 	}
 	
 	

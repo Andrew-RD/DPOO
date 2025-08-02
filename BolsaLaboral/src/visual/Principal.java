@@ -16,12 +16,14 @@ import java.awt.Color;
 
 import javax.print.attribute.UnmodifiableSetException;
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.border.LineBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -34,12 +36,14 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
 import logico.BolsaLaboral;
 import logico.Usuario;
+import server.Servidor;
 
 public class Principal extends JFrame {
 
@@ -73,6 +77,10 @@ public class Principal extends JFrame {
 	 */
 
 	public Principal() {
+
+		Servidor servidor = new Servidor(7000);
+		servidor.start();
+
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
@@ -205,57 +213,25 @@ public class Principal extends JFrame {
 		JMenuItem mntmRespaldo = new JMenuItem("  Respaldo");
 		mntmRespaldo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				saveBolsa();
+				saveCodigos();
+				
+				enviarArchivo("bolsa", "bolsa.dat");
+				enviarArchivo("codigos", "codigos.dat");
 
-				try {
-
-					sfd = new Socket("127.0.0.1", 7000);
-
-					File archivo = new File("bolsa.dat");
-					if (!archivo.exists()) {
-						JOptionPane.showMessageDialog(null, "Archivo bolsa.dat no encontrado", 
-								"Error", JOptionPane.ERROR_MESSAGE);
-						return;
-					}
-
-					EntradaSocket = new DataInputStream(new FileInputStream(archivo));
-					SalidaSocket = new DataOutputStream(sfd.getOutputStream());
-
-					int unByte;
-
-					while ((unByte = EntradaSocket.read()) != -1) {
-						SalidaSocket.write(unByte);
-					}
-
-					SalidaSocket.flush();
-
-					JOptionPane.showMessageDialog(null, 
-							"Respaldo enviado exitosamente al servidor", 
-							"Respaldo Completado", JOptionPane.INFORMATION_MESSAGE);
-
-				} catch (UnknownHostException uhe) {
-					JOptionPane.showMessageDialog(null, 
-							"No se puede acceder al servidor: " + uhe.getMessage(),
-							"Error de Conexión", JOptionPane.ERROR_MESSAGE);
-				} catch (IOException ioe) {
-					JOptionPane.showMessageDialog(null, 
-							"Error durante la transferencia: " + ioe.getMessage(), 
-							"Error de Comunicación", JOptionPane.ERROR_MESSAGE);
-				} finally {
-					try {
-						if (EntradaSocket != null) {
-							EntradaSocket.close();
-						}
-						if (SalidaSocket != null) {
-							SalidaSocket.close();
-						}
-						if (sfd != null) {
-							sfd.close();
-						}
-					} catch (IOException e1) {
-						System.out.println("Error al cerrar recursos: " + e1.getMessage());
-					}
-				}
+				JOptionPane.showMessageDialog(null, 
+						"Respaldo enviado exitosamente al servidor", 
+						"Respaldo Completado", JOptionPane.INFORMATION_MESSAGE);
+				
 			}
+		});
+		
+		JMenuItem mntmCargarRespaldo = new JMenuItem("  Cargar Respaldo");
+		mntmCargarRespaldo.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        cargarRespaldo();
+		    }
 		});
 
 		JMenuItem mntmProcesamiento = new JMenuItem("  Procesamiento");
@@ -272,6 +248,9 @@ public class Principal extends JFrame {
 		mntmRespaldo.setFont(new Font("Segoe UI", Font.PLAIN, 18));
 		mntmRespaldo.setIcon(new ImageIcon("recursos/respaldo.png"));
 		mnGestion.add(mntmRespaldo);
+		mntmCargarRespaldo.setFont(new Font("Segoe UI", Font.PLAIN, 18));
+		mntmCargarRespaldo.setIcon(new ImageIcon("recursos/respaldo.png"));
+		mnGestion.add(mntmCargarRespaldo);
 		JMenuItem mntmInformes = new JMenuItem("  Informe");
 		mnGestion.add(mntmInformes);
 		mntmInformes.addActionListener(new ActionListener() {
@@ -348,5 +327,132 @@ public class Principal extends JFrame {
 			mnGestion.setEnabled(false);
 		}
 	}
+
+	private void enviarArchivo(String tipo, String nombreArchivo){
+		
+		try {
+			sfd = new Socket("127.0.0.1", 7000);
+
+			File archivo = new File(nombreArchivo);
+			if (!archivo.exists()) {
+				JOptionPane.showMessageDialog(null, "Archivo " +  nombreArchivo + " no encontrado", 
+						"Error", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+
+			EntradaSocket = new DataInputStream(new FileInputStream(archivo));
+			SalidaSocket = new DataOutputStream(sfd.getOutputStream());
+			
+			SalidaSocket.writeUTF(tipo);
+
+			int unByte;
+
+			while ((unByte = EntradaSocket.read()) != -1) {
+				SalidaSocket.write(unByte);
+			}
+
+			SalidaSocket.flush();
+		} catch (UnknownHostException uhe) {
+			JOptionPane.showMessageDialog(null, 
+					"No se puede acceder al servidor: " + uhe.getMessage(),
+					"Error de Conexión", JOptionPane.ERROR_MESSAGE);
+		} catch (IOException ioe) {
+			JOptionPane.showMessageDialog(null, 
+					"Error durante la transferencia: " + ioe.getMessage(), 
+					"Error de Comunicación", JOptionPane.ERROR_MESSAGE);
+		} finally {
+			try {
+				if (EntradaSocket != null) {
+					EntradaSocket.close();
+				}
+				if (SalidaSocket != null) {
+					SalidaSocket.close();
+				}
+				if (sfd != null) {
+					sfd.close();
+				}
+			} catch (IOException e1) {
+				System.out.println("Error al cerrar recursos: " + e1.getMessage());
+			}
+		}
+	}
+	
+	private void cargarRespaldo() {
+	    JFileChooser fileChooser = new JFileChooser(new File("."));
+	    fileChooser.setDialogTitle("Seleccionar archivo de respaldo de la bolsa");
+	    fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+	    FileNameExtensionFilter filtroDat = new FileNameExtensionFilter("Archivos de respaldo (.dat)", "dat");
+	    fileChooser.setFileFilter(filtroDat);
+	    fileChooser.setAcceptAllFileFilterUsed(false);
+
+	    int resultado = fileChooser.showOpenDialog(null);
+	    if (resultado != JFileChooser.APPROVE_OPTION) {
+	        return;
+	    }
+
+	    File archivoBolsa = fileChooser.getSelectedFile();
+	    String nombre = archivoBolsa.getName();
+
+	    if (!nombre.startsWith("bolsa_respaldo_") || !nombre.endsWith(".dat")) {
+	        JOptionPane.showMessageDialog(null, 
+	            "Archivo inválido. Debe ser un respaldo tipo 'bolsa_respaldo_#.dat'", 
+	            "Error", JOptionPane.ERROR_MESSAGE);
+	        return;
+	    }
+
+	    String numero = nombre.replace("bolsa_respaldo_", "").replace(".dat", "");
+
+	    File archivoCodigos = new File("codigos_respaldo_" + numero + ".dat");
+	    if (!archivoCodigos.exists()) {
+	        JOptionPane.showMessageDialog(null, 
+	            "No se encontró el archivo de códigos correspondiente: " + archivoCodigos.getName(), 
+	            "Error", JOptionPane.ERROR_MESSAGE);
+	        return;
+	    }
+
+	    int confirm = JOptionPane.showConfirmDialog(null,
+	        "¿Deseas restaurar la bolsa y los códigos desde el respaldo #" + numero + "?",
+	        "Confirmar Restauración",
+	        JOptionPane.YES_NO_OPTION);
+
+	    if (confirm != JOptionPane.YES_OPTION) return;
+	    
+	    File archivo = fileChooser.getSelectedFile();
+	    if (!archivo.getName().endsWith(".dat")) {
+	        JOptionPane.showMessageDialog(null, "El archivo debe tener extensión .dat", "Error", JOptionPane.ERROR_MESSAGE);
+	        return;
+	    }
+
+
+	    try (ObjectInputStream bolsaIn = new ObjectInputStream(new FileInputStream(archivoBolsa))) {
+	        BolsaLaboral instancia = (BolsaLaboral) bolsaIn.readObject();
+	        BolsaLaboral.setInstancia(instancia);
+	    } catch (IOException | ClassNotFoundException ex) {
+	        ex.printStackTrace();
+	        JOptionPane.showMessageDialog(null, 
+	            "Error al cargar archivo de bolsa: " + ex.getMessage(), 
+	            "Error", JOptionPane.ERROR_MESSAGE);
+	        return;
+	    }
+
+	    try (DataInputStream codIn = new DataInputStream(new FileInputStream(archivoCodigos))) {
+	        BolsaLaboral.genCodigoCandidato = codIn.readInt();
+	        BolsaLaboral.genCodigoSolicitud = codIn.readInt();
+	        BolsaLaboral.genCodigoOferta = codIn.readInt();
+	        BolsaLaboral.genCodigoCentro = codIn.readInt();
+	        BolsaLaboral.genCodigoVacanteCompletada = codIn.readInt();
+	    } catch (IOException ex) {
+	        ex.printStackTrace();
+	        JOptionPane.showMessageDialog(null, 
+	            "Error al cargar archivo de códigos: " + ex.getMessage(), 
+	            "Error", JOptionPane.ERROR_MESSAGE);
+	        return;
+	    }
+
+	    JOptionPane.showMessageDialog(null, 
+	        "Respaldo #" + numero + " restaurado exitosamente.",
+	        "Restauración completada", JOptionPane.INFORMATION_MESSAGE);
+	}
+
 
 }
