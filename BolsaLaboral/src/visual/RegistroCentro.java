@@ -275,24 +275,28 @@ public class RegistroCentro extends JDialog {
 		else if(txtRNC.getText().isEmpty()) {
 			throw new FormatException("El RNC no puede estar vacío.");
 		}
+		else if (txtRNC.getText().length() != 9 || !txtRNC.getText().matches("\\d+")) {
+			throw new FormatException("El RNC debe tener 9 dígitos.");
+		}
+		else if(txtTelefono.getText().isEmpty()) {
+			throw new FormatException("El teléfono no puede estar vacío.");
+		}
+		else if(!txtTelefono.getText().matches("\\d{10}")) {
+			throw new FormatException("El teléfono debe tener 10 dígitos.");
+		}
 		else if(txtCorreo.getText().isEmpty()) {
 			throw new FormatException("El correo no puede estar vacío.");
 		}
 		else if(!txtCorreo.getText().contains("@") || !txtCorreo.getText().contains(".")) {
 			throw new FormatException("Formato del correo inválido. Ejemplo: usuario@dominio.com");
 		}
-		else if(txtTelefono.getText().isEmpty()) {
-			throw new FormatException("El teléfono no puede estar vacío.");
-		}
-		else if(!txtTelefono.getText().matches("\\d{10}")) {
-			throw new FormatException("El teléfono debe contener exactamente 10 dígitos numéricos.");
+		else if(txtProvincia.getText().isEmpty()) {
+			throw new FormatException("La provincia no puede estar vacía.");
 		}
 		else if(txtMunicipio.getText().isEmpty()) {
 			throw new FormatException("El municipio no puede estar vacío.");
 		}
-		else if(txtProvincia.getText().isEmpty()) {
-			throw new FormatException("La provincia no puede estar vacía.");
-		}
+		
 
 		return true;
 	}
