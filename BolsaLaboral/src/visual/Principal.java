@@ -294,9 +294,7 @@ public class Principal extends JFrame {
 	}
 
 	private static void saveCodigos() {
-		try {
-			FileOutputStream fileOut = new FileOutputStream("codigos.dat");
-			ObjectOutputStream out = new ObjectOutputStream(fileOut);
+		try (DataOutputStream out = new DataOutputStream(new FileOutputStream("codigos.dat"))) {
 
 			out.writeInt(BolsaLaboral.genCodigoCandidato);
 			out.writeInt(BolsaLaboral.genCodigoSolicitud);
@@ -305,7 +303,6 @@ public class Principal extends JFrame {
 			out.writeInt(BolsaLaboral.genCodigoVacanteCompletada);
 
 			out.close();
-			fileOut.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
