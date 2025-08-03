@@ -23,6 +23,8 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -217,36 +219,24 @@ public class Login extends JFrame {
 	}
 	
 	private static void codigoIO() {
-		FileInputStream codigoInput;
-		FileOutputStream codigoOut;
-		ObjectInputStream codigoRead;
-		ObjectOutputStream codigoWrite;
 		
-		try {
-			codigoInput = new FileInputStream("codigos.dat");
-			codigoRead = new ObjectInputStream(codigoInput);
+		try (DataInputStream codigoRead = new DataInputStream(new FileInputStream("codigos.dat"))) {
 
 			BolsaLaboral.genCodigoCandidato = codigoRead.readInt();
 			BolsaLaboral.genCodigoSolicitud = codigoRead.readInt();
 			BolsaLaboral.genCodigoOferta = codigoRead.readInt();
 			BolsaLaboral.genCodigoCentro = codigoRead.readInt();
 			BolsaLaboral.genCodigoVacanteCompletada = codigoRead.readInt();
-
-			codigoInput.close();
-			codigoRead.close();
+			
 		} catch (IOException e) {
-			try {
-				codigoOut = new FileOutputStream("codigos.dat");
-				codigoWrite = new ObjectOutputStream(codigoOut);
+			try (DataOutputStream codigoWrite = new DataOutputStream(new FileOutputStream("codigos.dat"))) {
 
 				codigoWrite.writeInt(BolsaLaboral.genCodigoCandidato);
 				codigoWrite.writeInt(BolsaLaboral.genCodigoSolicitud);
 				codigoWrite.writeInt(BolsaLaboral.genCodigoOferta);
 				codigoWrite.writeInt(BolsaLaboral.genCodigoCentro);
 				codigoWrite.writeInt(BolsaLaboral.genCodigoVacanteCompletada);
-
-				codigoWrite.close();
-				codigoOut.close();
+				
 			} catch (IOException ex) {
 				ex.printStackTrace();
 			}
