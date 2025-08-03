@@ -298,6 +298,7 @@ public class RegistroCandidato extends JDialog {
 		pnlTecnico.add(lblAosDeExperiencia);
 
 		spnAniosExp = new JSpinner();
+		spnAniosExp.setModel(new SpinnerNumberModel(0, 0, 100, 1));
 		spnAniosExp.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		spnAniosExp.setBounds(177, 86, 258, 22);
 		pnlTecnico.add(spnAniosExp);

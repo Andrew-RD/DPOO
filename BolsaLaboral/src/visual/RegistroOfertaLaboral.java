@@ -236,6 +236,7 @@ public class RegistroOfertaLaboral extends JDialog {
 		pnlTecnico.add(lblreaRequerida);
 
 		spnAniosExp = new JSpinner();
+		spnAniosExp.setModel(new SpinnerNumberModel(0, 0, 100, 1));
 		spnAniosExp.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		spnAniosExp.setBounds(181, 89, 274, 22);
 		pnlTecnico.add(spnAniosExp);
