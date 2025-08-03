@@ -1161,6 +1161,10 @@ public class RegistroCandidato extends JDialog {
 				cmbModalidad.getSelectedItem().toString().trim().isEmpty()) {
 			throw new FormatException("La modalidad es obligatoria");
 		}
+		if(cmbArea == null || cmbArea.getSelectedItem() == null || 
+				cmbArea.getSelectedItem().toString().trim().isEmpty()) {
+			throw new FormatException("Debe seleccionar un área");
+		}
 
 		if(cmbJornada == null || cmbJornada.getSelectedItem() == null || 
 				cmbJornada.getSelectedItem().toString().trim().isEmpty()) {
