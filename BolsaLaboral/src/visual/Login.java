@@ -205,8 +205,6 @@ public class Login extends JFrame {
 				Usuario empleado = new Usuario("Empleado", "Empleado", "Empleado");
 				BolsaLaboral.getInstancia().regUsuario(admin);
 				BolsaLaboral.getInstancia().regUsuario(empleado);
-				Usuario temp = new Usuario("", "", "Admin");
-				BolsaLaboral.getInstancia().regUsuario(temp);
 				bolsaWrite.writeObject(BolsaLaboral.getInstancia());
 				bolsaOut.close();
 				bolsaWrite.close();
