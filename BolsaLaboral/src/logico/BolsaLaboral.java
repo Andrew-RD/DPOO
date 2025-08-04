@@ -505,7 +505,7 @@ public class BolsaLaboral implements Serializable{
 	
 	public void contratarCandidato(Solicitud solicitud) {
 		VacanteCompletada vacante = new VacanteCompletada("VAC-" + genCodigoVacanteCompletada,solicitud,solicitud.getOfertaSolicitada(),LocalDate.now());
-		solicitud.setEstado("Aprovada");
+		solicitud.setEstado("Aprobada");
 		solicitud.getOfertaSolicitada().setVacantes(solicitud.getOfertaSolicitada().getVacantes() - 1);
 		solicitud.getSolicitante().setEstado("Empleado");
 		solicitud.getSolicitante().cambiarEstadoSolicitudesAEmpleado();
