@@ -536,7 +536,7 @@ public class BolsaLaboral implements Serializable{
 	}
 
 	public boolean esProcesable(Solicitud seleccionado) {
-		if(seleccionado.getEstado().equals("Rechazada") || seleccionado.getEstado().equals("Aprovada")) {
+		if(seleccionado.getEstado().equals("Rechazada") || seleccionado.getEstado().equals("Aprobada")) {
 			return false;
 		}
 		return true;
